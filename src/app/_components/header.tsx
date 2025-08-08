@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useCurrentUserQuery, useLogoutUserMutation } from '@/graphql/generated';
 import { client } from '@/lib/ApolloClient';
+import { Skeleton } from '@mui/material';
 import { Zap } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -82,13 +83,18 @@ const Header = () => {
           </DropdownMenu>
         </div>
 
-        {loading ? null : data?.currentUser ? (
+        {loading ? (
+          <Skeleton className="h-4 w-[120px] rounded-md" />
+        ) : data?.currentUser ? (
           <DropdownMenu>
             <DropdownMenuTrigger className="text-sm font-medium text-foreground hover:underline">
               {data.currentUser?.firstName} {data.currentUser?.lastName}
             </DropdownMenuTrigger>
 
             <DropdownMenuContent>
+              <DropdownMenuItem>
+                <Link href={`/profile/${data.currentUser?.id}`}>Профайл</Link>
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={Logout}>Гарах</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

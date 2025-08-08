@@ -1,0 +1,104 @@
+'use client';
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { TabsContent } from '@/components/ui/tabs';
+import { mockUser, recentTasks } from '../mocks';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
+import { Star } from 'lucide-react';
+import { Users } from '@/graphql/generated';
+
+const OverviewTab = ({ user }: { user: Users }) => {
+  return (
+    <TabsContent value="overview" className="space-y-6">
+      {/* About & Quick Stats */}
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* About */}
+        <Card className="bg-background text-foreground">
+          <CardHeader>
+            <CardTitle>Тухай</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="leading-relaxed text-muted-foreground">{user.bio}</p>
+          </CardContent>
+        </Card>
+
+        {/* Quick Stats */}
+        <Card className="bg-background text-foreground">
+          <CardHeader>
+            <CardTitle>Товч статистик</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-muted-foreground">Гүйцэтгэлийн хувь</span>
+              <div className="flex items-center gap-2">
+                <Progress value={mockUser.completionRate} className="w-20" />
+                <span className="font-medium">{mockUser.completionRate}%</span>
+              </div>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-muted-foreground">Хариу өгөх хугацаа</span>
+              <span className="font-medium">{mockUser.responseTime}</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-muted-foreground">Зорчих зай</span>
+              <span className="font-medium">{mockUser.maxTravelDistance} км хүртэл</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-muted-foreground">Сонгосон ангилал</span>
+              <span className="font-medium">Тэжээвэр амьтан, Цэвэрлэгээ</span>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Recent Activity */}
+      <Card className="bg-background text-foreground">
+        <CardHeader>
+          <CardTitle>Сүүлийн үйл ажиллагаа</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {recentTasks.slice(0, 3).map((task) => (
+              <div
+                key={task.id}
+                className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 bg-muted rounded-lg"
+              >
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <h4 className="font-medium">{task.title}</h4>
+                    <Badge variant="secondary">{task.category}</Badge>
+                    <Badge
+                      variant="outline"
+                      className={
+                        task.role === 'helper'
+                          ? 'text-blue-600 border-blue-600'
+                          : 'text-purple-600 border-purple-600'
+                      }
+                    >
+                      {task.role === 'helper' ? 'Гүйцэтгэгч' : 'Захиалагч'}
+                    </Badge>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                    <span>{task.date}</span>
+                    <span>{task.duration}</span>
+                    <div className="flex items-center gap-1">
+                      {[...Array(task.rating)].map((_, i) => (
+                        <Star key={i} className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-2 md:mt-0 md:text-right">
+                  <div className="font-medium text-green-600">{task.payment}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </TabsContent>
+  );
+};
+
+export default OverviewTab;
