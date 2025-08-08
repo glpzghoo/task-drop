@@ -6,7 +6,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   credentials: 'include',
 });
-const ApolloProviderComponent = ({ children }: { children: React.ReactNode }) => {
+const ApolloProviderComponent = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
 

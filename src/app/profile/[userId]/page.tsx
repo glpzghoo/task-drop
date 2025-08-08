@@ -33,7 +33,9 @@ export default function UserProfilePage() {
 
   const user = data.getUserById.user;
   const taskApplications =
-    data.getUserById.taskApplications.filter((t): t is TaskApplications => t !== null) || [];
+    data.getUserById.taskApplications.filter(
+      (t): t is TaskApplications => t !== null
+    ) || [];
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}

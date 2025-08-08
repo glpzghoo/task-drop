@@ -1,6 +1,12 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { TabsContent } from '@/components/ui/tabs';
 import { mockUser, reviews } from '../mocks';
 import { Star, ThumbsUp } from 'lucide-react';
@@ -28,7 +34,9 @@ const ReviewTab = ({ user }: { user: Users }) => {
             <div className="text-right">
               <div className="flex items-center gap-2 mb-1">
                 <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-                <span className="text-2xl font-bold">{mockUser.helperRating}</span>
+                <span className="text-2xl font-bold">
+                  {mockUser.helperRating}
+                </span>
               </div>
               <p className="text-sm text-muted-foreground">
                 {mockUser.helperRatingCount} сэтгэгдэл
@@ -40,7 +48,10 @@ const ReviewTab = ({ user }: { user: Users }) => {
         <CardContent>
           <div className="space-y-6">
             {(showAllReviews ? reviews : reviews.slice(0, 3)).map((review) => (
-              <div key={review.id} className="border-b border-border last:border-0 pb-6 last:pb-0">
+              <div
+                key={review.id}
+                className="border-b border-border last:border-0 pb-6 last:pb-0"
+              >
                 <div className="flex flex-col md:flex-row items-start justify-between gap-4 mb-3">
                   <div className="flex items-center gap-3">
                     <Avatar className="w-10 h-10">
@@ -51,7 +62,9 @@ const ReviewTab = ({ user }: { user: Users }) => {
                         <span className="font-medium">{review.reviewer}</span>
                         <div className="flex items-center gap-1 text-muted-foreground">
                           <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-                          <span className="text-sm">{review.reviewerRating}</span>
+                          <span className="text-sm">
+                            {review.reviewerRating}
+                          </span>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -64,12 +77,17 @@ const ReviewTab = ({ user }: { user: Users }) => {
 
                   <div className="flex items-center gap-1">
                     {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                      <Star
+                        key={i}
+                        className="w-4 h-4 text-yellow-400 fill-yellow-400"
+                      />
                     ))}
                   </div>
                 </div>
 
-                <p className="text-sm text-muted-foreground mb-3">{review.comment}</p>
+                <p className="text-sm text-muted-foreground mb-3">
+                  {review.comment}
+                </p>
 
                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
                   <button className="flex items-center gap-1 hover:text-foreground transition-colors">
@@ -83,8 +101,13 @@ const ReviewTab = ({ user }: { user: Users }) => {
 
           {reviews.length > 3 && (
             <div className="text-center mt-6">
-              <Button variant="outline" onClick={() => setShowAllReviews(!showAllReviews)}>
-                {showAllReviews ? 'Цөөн үзүүлэх' : `Бүх ${reviews.length} сэтгэгдлийг үзэх`}
+              <Button
+                variant="outline"
+                onClick={() => setShowAllReviews(!showAllReviews)}
+              >
+                {showAllReviews
+                  ? 'Цөөн үзүүлэх'
+                  : `Бүх ${reviews.length} сэтгэгдлийг үзэх`}
               </Button>
             </div>
           )}

@@ -4,7 +4,9 @@ export default function Recommendations() {
   return (
     <Card className="mt-8">
       <CardHeader>
-        <CardTitle className="text-lg">Илүү үр дүнтэй нийтлэх зөвлөмж</CardTitle>
+        <CardTitle className="text-lg">
+          Илүү үр дүнтэй нийтлэх зөвлөмж
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">

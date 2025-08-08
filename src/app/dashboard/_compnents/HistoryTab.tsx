@@ -6,7 +6,9 @@ import { Star } from 'lucide-react';
 export default function HistoryTab({ tasks }: { tasks: any[] }) {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-foreground">Саяхан дууссан ажлууд</h2>
+      <h2 className="text-xl font-semibold text-foreground">
+        Саяхан дууссан ажлууд
+      </h2>
       <div className="grid gap-4">
         {tasks.map((task) => (
           <Card key={task.id}>
@@ -28,12 +30,18 @@ export default function HistoryTab({ tasks }: { tasks: any[] }) {
                         }`}
                       />
                     ))}
-                    <span className="text-sm text-muted-foreground ml-1">({task.rating}/5)</span>
+                    <span className="text-sm text-muted-foreground ml-1">
+                      ({task.rating}/5)
+                    </span>
                   </div>
-                  <p className="text-sm italic text-foreground">"{task.feedback}"</p>
+                  <p className="text-sm italic text-foreground">
+                    "{task.feedback}"
+                  </p>
                 </div>
                 <div className="text-right">
-                  <div className="text-lg font-bold text-green-600">{task.payment}</div>
+                  <div className="text-lg font-bold text-green-600">
+                    {task.payment}
+                  </div>
                 </div>
               </div>
             </CardContent>

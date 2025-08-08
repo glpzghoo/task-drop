@@ -12,7 +12,8 @@ const FeaturesSection = () => {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              Ажлуудын ихэнх нь 15-60 минут. Богинохон чөлөөт цагаа үр дүнтэй ашиглаарай.
+              Ажлуудын ихэнх нь 15-60 минут. Богинохон чөлөөт цагаа үр дүнтэй
+              ашиглаарай.
             </p>
           </CardContent>
         </Card>
@@ -34,7 +35,8 @@ const FeaturesSection = () => {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              Цаг хянах, баталгаатай төлбөрийн системтэй. Ажил дуусмагц шууд орлого олоорой.
+              Цаг хянах, баталгаатай төлбөрийн системтэй. Ажил дуусмагц шууд
+              орлого олоорой.
             </p>
           </CardContent>
         </Card>

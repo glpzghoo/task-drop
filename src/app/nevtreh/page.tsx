@@ -30,7 +30,10 @@ export default function LoginPage() {
       password: '',
     },
   });
-  const [snackbar, setSnackbar] = useState<{ message: string; success: boolean } | null>(null);
+  const [snackbar, setSnackbar] = useState<{
+    message: string;
+    success: boolean;
+  } | null>(null);
 
   const onSubmit = async (values: LoginSchemaType) => {
     try {
@@ -61,14 +64,18 @@ export default function LoginPage() {
       <div className="w-full max-w-4xl bg-card rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-2 overflow-hidden">
         {/* Left panel */}
         <div className="hidden md:flex flex-col justify-center items-center bg-muted p-8 text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-2">Тавтай морил!</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-2">
+            Тавтай морил!
+          </h2>
           <p className="text-muted-foreground">Нэвтэрч ажлуудаа шалгаарай</p>
         </div>
 
         {/* Right panel — Login Form */}
         <div className="p-6 sm:p-8">
           <CardHeader className="p-0 mb-4">
-            <CardTitle className="text-2xl text-center text-foreground">Нэвтрэх</CardTitle>
+            <CardTitle className="text-2xl text-center text-foreground">
+              Нэвтрэх
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             {snackbar && (
@@ -79,7 +86,10 @@ export default function LoginPage() {
               />
             )}
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
                 <FormField
                   control={form.control}
                   name="email"
@@ -87,7 +97,11 @@ export default function LoginPage() {
                     <FormItem>
                       <FormLabel>Майл</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="you@example.com" {...field} />
+                        <Input
+                          type="email"
+                          placeholder="you@example.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -100,7 +114,11 @@ export default function LoginPage() {
                     <FormItem>
                       <FormLabel>Нууц үг</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="••••••••" {...field} />
+                        <Input
+                          type="password"
+                          placeholder="••••••••"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

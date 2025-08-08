@@ -24,7 +24,12 @@ import { TaskApplications, Users } from '@/graphql/generated';
 import { formatDistanceToNow } from 'date-fns';
 import { mn } from 'date-fns/locale';
 
-const ProfileHeader = ({ user }: { user: Users; taskApplications: TaskApplications[] }) => {
+const ProfileHeader = ({
+  user,
+}: {
+  user: Users;
+  taskApplications: TaskApplications[];
+}) => {
   return (
     <Card className="bg-background text-foreground mb-8 shadow">
       <CardContent className="pt-6">
@@ -66,14 +71,18 @@ const ProfileHeader = ({ user }: { user: Users; taskApplications: TaskApplicatio
                 <Calendar className="w-4 h-4" />
                 <span>
                   Гишүүн болсон:{' '}
-                  {formatDistanceToNow(new Date(Number(user.createdAt)), { locale: mn })}
+                  {formatDistanceToNow(new Date(Number(user.createdAt)), {
+                    locale: mn,
+                  })}
                 </span>
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2 text-green-600 mt-1">
                 <Clock className="w-4 h-4" />
                 <span>
                   Сүүлд идэвхтэй:{' '}
-                  {formatDistanceToNow(new Date(Number(user.lastActiveAt)), { locale: mn })}
+                  {formatDistanceToNow(new Date(Number(user.lastActiveAt)), {
+                    locale: mn,
+                  })}
                 </span>
               </div>
             </div>
@@ -105,7 +114,8 @@ const ProfileHeader = ({ user }: { user: Users; taskApplications: TaskApplicatio
                       <TrendingUp className="w-5 h-5 text-blue-500" />
                       <span>
                         (
-                        {((Number(user.tasksCompleted) || 0) / (Number(user.tasksPosted) || 1)) *
+                        {((Number(user.tasksCompleted) || 0) /
+                          (Number(user.tasksPosted) || 1)) *
                           100}
                         %) гүйцэтгэлийн хувь
                       </span>
@@ -155,13 +165,19 @@ const ProfileHeader = ({ user }: { user: Users; taskApplications: TaskApplicatio
                     </Badge>
                   )}
                 {user.emailVerified && (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
                     <Mail className="w-4 h-4" />
                     Имэйл баталгаажсан
                   </Badge>
                 )}
                 {user.phoneVerified && (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
                     <Phone className="w-4 h-4" />
                     Утас баталгаажсан
                   </Badge>

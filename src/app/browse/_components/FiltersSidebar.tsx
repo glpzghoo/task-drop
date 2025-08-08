@@ -41,9 +41,15 @@ export default function FiltersSidebar({
               <Label htmlFor="available-now" className="text-sm font-medium">
                 Одоо боломжтой
               </Label>
-              <p className="text-xs text-muted-foreground">Шууд тохирох даалгавартай холбох</p>
+              <p className="text-xs text-muted-foreground">
+                Шууд тохирох даалгавартай холбох
+              </p>
             </div>
-            <Switch id="available-now" checked={availableNow} onCheckedChange={setAvailableNow} />
+            <Switch
+              id="available-now"
+              checked={availableNow}
+              onCheckedChange={setAvailableNow}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="search">Ажил хайх</Label>

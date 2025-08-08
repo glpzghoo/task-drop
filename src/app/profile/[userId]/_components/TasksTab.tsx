@@ -1,6 +1,12 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { TabsContent } from '@/components/ui/tabs';
 import { recentTasks } from '../mocks';
 import { Badge } from '@/components/ui/badge';
@@ -22,18 +28,27 @@ const TasksTab = ({ user }: { user: Users }) => {
         <CardContent>
           <div className="space-y-4">
             {recentTasks.map((task) => (
-              <div key={task.id} className="p-4 rounded-lg border border-border bg-muted/40">
+              <div
+                key={task.id}
+                className="p-4 rounded-lg border border-border bg-muted/40"
+              >
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                   <div className="flex-1 space-y-2">
                     <div className="flex flex-wrap items-center gap-2">
                       <h4 className="font-medium">{task.title}</h4>
                       <Badge variant="secondary">{task.category}</Badge>
                       {task.role === 'helper' ? (
-                        <Badge variant="outline" className="text-blue-600 border-blue-600">
+                        <Badge
+                          variant="outline"
+                          className="text-blue-600 border-blue-600"
+                        >
                           Гүйцэтгэгч
                         </Badge>
                       ) : (
-                        <Badge variant="outline" className="text-purple-600 border-purple-600">
+                        <Badge
+                          variant="outline"
+                          className="text-purple-600 border-purple-600"
+                        >
                           Захиалагч
                         </Badge>
                       )}
@@ -51,12 +66,19 @@ const TasksTab = ({ user }: { user: Users }) => {
 
                     <div className="flex items-center gap-2">
                       {[...Array(task.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                        <Star
+                          key={i}
+                          className="w-4 h-4 text-yellow-400 fill-yellow-400"
+                        />
                       ))}
-                      <span className="text-sm text-muted-foreground">({task.rating}/5)</span>
+                      <span className="text-sm text-muted-foreground">
+                        ({task.rating}/5)
+                      </span>
                     </div>
 
-                    <p className="text-sm italic text-muted-foreground">"{task.feedback}"</p>
+                    <p className="text-sm italic text-muted-foreground">
+                      "{task.feedback}"
+                    </p>
                   </div>
 
                   <div className="text-right whitespace-nowrap text-green-600 text-lg font-medium">

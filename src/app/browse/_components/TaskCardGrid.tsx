@@ -1,6 +1,12 @@
 'use client';
 
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MapPin, Clock, Star } from 'lucide-react';
@@ -29,13 +35,19 @@ export default function TaskCardGrid({ tasks }: { tasks: Task[] }) {
           <CardHeader>
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                {task.category && <Badge variant="secondary">{task.category}</Badge>}
+                {task.category && (
+                  <Badge variant="secondary">{task.category}</Badge>
+                )}
                 {task.urgent && <Badge variant="destructive">Яаралтай</Badge>}
                 {task.remote && <Badge variant="outline">Цахимаар</Badge>}
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-green-600">{task.payment}</div>
-                <div className="text-sm text-muted-foreground">{task.duration}</div>
+                <div className="text-2xl font-bold text-green-600">
+                  {task.payment}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {task.duration}
+                </div>
               </div>
             </div>
             <CardTitle>{task.title}</CardTitle>

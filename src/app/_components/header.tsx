@@ -6,7 +6,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useCurrentUserQuery, useLogoutUserMutation } from '@/graphql/generated';
+import {
+  useCurrentUserQuery,
+  useLogoutUserMutation,
+} from '@/graphql/generated';
 import { client } from '@/lib/ApolloClient';
 import { Skeleton } from '@mui/material';
 import { Zap } from 'lucide-react';

@@ -1,6 +1,12 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { TabsContent } from '@/components/ui/tabs';
 import { mockUser } from '../mocks';
 import { Badge } from '@/components/ui/badge';
@@ -23,7 +29,10 @@ const SkillsTab = ({ user }: { user: Users }) => {
         <CardContent>
           <div className="grid md:grid-cols-2 gap-4">
             {mockUser.skills.map((skill, index) => (
-              <div key={index} className="p-4 rounded-lg border border-border bg-muted/40">
+              <div
+                key={index}
+                className="p-4 rounded-lg border border-border bg-muted/40"
+              >
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-medium">{skill.name}</h4>
                   {skill.verified && (

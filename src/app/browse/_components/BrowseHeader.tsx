@@ -32,7 +32,9 @@ export default function BrowseHeader({
       <CardContent className="space-y-6">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-foreground">Боломжит ажлууд</h1>
+            <h1 className="text-2xl font-bold text-foreground">
+              Боломжит ажлууд
+            </h1>
             <p className="text-muted-foreground">{tasksCount} ажлын санал</p>
           </div>
           <div className="flex items-center gap-2">
@@ -56,7 +58,11 @@ export default function BrowseHeader({
         <div className="flex flex-col lg:flex-row items-center gap-4">
           <div className="flex items-center gap-2">
             <Label htmlFor="available-now">Одоо боломжтой</Label>
-            <Switch id="available-now" checked={availableNow} onCheckedChange={setAvailableNow} />
+            <Switch
+              id="available-now"
+              checked={availableNow}
+              onCheckedChange={setAvailableNow}
+            />
           </div>
           <div className="relative grow">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />

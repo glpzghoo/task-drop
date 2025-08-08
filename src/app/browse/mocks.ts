@@ -47,7 +47,8 @@ const tasks = [
   {
     id: 4,
     title: 'Proofread blog post (500 words)',
-    description: 'Looking for someone to proofread and edit a blog post about sustainable living.',
+    description:
+      'Looking for someone to proofread and edit a blog post about sustainable living.',
     location: 'Remote',
     distance: 'Remote',
     duration: '20 mins',
@@ -61,7 +62,8 @@ const tasks = [
   {
     id: 5,
     title: 'Assemble IKEA bookshelf',
-    description: 'Need help assembling a medium-sized bookshelf. All tools provided.',
+    description:
+      'Need help assembling a medium-sized bookshelf. All tools provided.',
     location: 'Capitol Hill',
     distance: '2.1 miles',
     duration: '60 mins',
@@ -75,7 +77,8 @@ const tasks = [
   {
     id: 6,
     title: 'Data entry from receipts',
-    description: 'Enter data from 20 receipts into a spreadsheet. Template provided.',
+    description:
+      'Enter data from 20 receipts into a spreadsheet. Template provided.',
     location: 'Remote',
     distance: 'Remote',
     duration: '25 mins',

@@ -1,6 +1,12 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { TabsContent } from '@/components/ui/tabs';
 import { mockUser } from '../mocks';
 import { Separator } from '@/components/ui/separator';
@@ -29,7 +35,9 @@ const AvailabilityTab = ({ user }: { user: Users }) => {
                 <span className="font-medium">{day.day}</span>
                 <span
                   className={
-                    day.times === 'Not Available' ? 'text-muted-foreground' : 'text-foreground'
+                    day.times === 'Not Available'
+                      ? 'text-muted-foreground'
+                      : 'text-foreground'
                   }
                 >
                   {day.times === 'Not Available' ? 'Ирэх боломжгүй' : day.times}
@@ -48,8 +56,8 @@ const AvailabilityTab = ({ user }: { user: Users }) => {
           <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
             <MapPin className="w-4 h-4" />
             <span>
-              {mockUser.location.address}-ийн орчмоор {mockUser.maxTravelDistance} миль дотор
-              ажиллана
+              {mockUser.location.address}-ийн орчмоор{' '}
+              {mockUser.maxTravelDistance} миль дотор ажиллана
             </span>
           </div>
         </CardContent>

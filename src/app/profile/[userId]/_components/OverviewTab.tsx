@@ -42,7 +42,9 @@ const OverviewTab = ({ user }: { user: Users }) => {
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-muted-foreground">Зорчих зай</span>
-              <span className="font-medium">{mockUser.maxTravelDistance} км хүртэл</span>
+              <span className="font-medium">
+                {mockUser.maxTravelDistance} км хүртэл
+              </span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-muted-foreground">Сонгосон ангилал</span>
@@ -84,13 +86,18 @@ const OverviewTab = ({ user }: { user: Users }) => {
                     <span>{task.duration}</span>
                     <div className="flex items-center gap-1">
                       {[...Array(task.rating)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                        <Star
+                          key={i}
+                          className="w-3 h-3 text-yellow-400 fill-yellow-400"
+                        />
                       ))}
                     </div>
                   </div>
                 </div>
                 <div className="mt-2 md:mt-0 md:text-right">
-                  <div className="font-medium text-green-600">{task.payment}</div>
+                  <div className="font-medium text-green-600">
+                    {task.payment}
+                  </div>
                 </div>
               </div>
             ))}

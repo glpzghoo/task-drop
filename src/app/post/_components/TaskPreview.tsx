@@ -9,7 +9,12 @@ interface Props {
   estimatedCost: number;
 }
 
-export default function TaskPreview({ category, isUrgent, isRemote, estimatedCost }: Props) {
+export default function TaskPreview({
+  category,
+  isUrgent,
+  isRemote,
+  estimatedCost,
+}: Props) {
   if (!estimatedCost) return null;
 
   return (
@@ -22,12 +27,18 @@ export default function TaskPreview({ category, isUrgent, isRemote, estimatedCos
           <div className="flex items-center gap-2">
             <Badge variant="secondary">{category}</Badge>
             {isUrgent && (
-              <Badge variant="outline" className="text-orange-600 border-orange-600">
+              <Badge
+                variant="outline"
+                className="text-orange-600 border-orange-600"
+              >
                 Яаралтай
               </Badge>
             )}
             {isRemote && (
-              <Badge variant="outline" className="text-blue-600 border-blue-600">
+              <Badge
+                variant="outline"
+                className="text-blue-600 border-blue-600"
+              >
                 Цахимаар
               </Badge>
             )}

@@ -42,11 +42,36 @@ const mockUser = {
 
   // Skills and categories
   skills: [
-    { name: 'Dog Walking', category: 'Pet Care', level: 'Expert', verified: true },
-    { name: 'Pet Sitting', category: 'Pet Care', level: 'Advanced', verified: true },
-    { name: 'House Cleaning', category: 'Cleaning', level: 'Advanced', verified: false },
-    { name: 'Grocery Shopping', category: 'Errands', level: 'Intermediate', verified: false },
-    { name: 'Organization', category: 'Cleaning', level: 'Advanced', verified: false },
+    {
+      name: 'Dog Walking',
+      category: 'Pet Care',
+      level: 'Expert',
+      verified: true,
+    },
+    {
+      name: 'Pet Sitting',
+      category: 'Pet Care',
+      level: 'Advanced',
+      verified: true,
+    },
+    {
+      name: 'House Cleaning',
+      category: 'Cleaning',
+      level: 'Advanced',
+      verified: false,
+    },
+    {
+      name: 'Grocery Shopping',
+      category: 'Errands',
+      level: 'Intermediate',
+      verified: false,
+    },
+    {
+      name: 'Organization',
+      category: 'Cleaning',
+      level: 'Advanced',
+      verified: false,
+    },
   ],
 
   // Availability
