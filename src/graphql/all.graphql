@@ -1,0 +1,77 @@
+query GetUsers {
+  getUsers {
+    id
+    lastName
+    email
+    firstName
+    emailVerified
+  }
+}
+
+query CurrentUser {
+  currentUser {
+    id
+    accountStatus
+    address
+    availableNow
+    backgroundCheckStatus
+    bio
+    email
+    firstName
+    lastName
+    phone
+    profileImageUrl
+    dateOfBirth
+    city
+    state
+    country
+    zipCode
+    latitude
+    longitude
+    isHelper
+    isTaskPoster
+    maxTravelDistance
+    preferredCategories
+    helperRating
+    helperRatingCount
+    posterRating
+    posterRatingCount
+    tasksCompleted
+    tasksPosted
+    totalEarned
+    totalSpent
+    emailVerified
+    phoneVerified
+    createdAt
+    updatedAt
+    lastActiveAt
+  }
+}
+
+mutation CreateUser(
+  $email: String!
+  $firstName: String!
+  $lastName: String!
+  $password: String!
+  $phone: String!
+) {
+  createUser(
+    email: $email
+    firstName: $firstName
+    lastName: $lastName
+    password: $password
+    phone: $phone
+  ) {
+    id
+  }
+}
+
+mutation loginUser($email: String!, $password: String!) {
+  loginUser(email: $email, password: $password) {
+    id
+  }
+}
+
+mutation logoutUser {
+  logoutUser
+}

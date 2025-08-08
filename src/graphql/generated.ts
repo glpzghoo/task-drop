@@ -1,0 +1,621 @@
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+const defaultOptions = {} as const;
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+};
+
+export enum AccountStatus {
+  Active = 'active',
+  Banned = 'banned',
+  Suspended = 'suspended'
+}
+
+export enum BackgroundCheckStatus {
+  Approved = 'approved',
+  Pending = 'pending',
+  Rejected = 'rejected'
+}
+
+export enum DataType {
+  Boolean = 'boolean',
+  Decimal = 'decimal',
+  Integer = 'integer',
+  Json = 'json',
+  String = 'string'
+}
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createUser: Users;
+  loginUser: Users;
+  logoutUser: Scalars['Boolean']['output'];
+};
+
+
+export type MutationCreateUserArgs = {
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  phone: Scalars['String']['input'];
+};
+
+
+export type MutationLoginUserArgs = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
+export enum ProficiencyLevel {
+  Advanced = 'advanced',
+  Beginner = 'beginner',
+  Expert = 'expert',
+  Intermediate = 'intermediate'
+}
+
+export type Query = {
+  __typename?: 'Query';
+  currentUser?: Maybe<Users>;
+  getTasks: Array<Maybe<Task>>;
+  getUserById?: Maybe<Users>;
+  getUsers: Array<Maybe<Users>>;
+};
+
+
+export type QueryGetUserByIdArgs = {
+  id: Scalars['ID']['input'];
+};
+
+export enum ReportReason {
+  Fraud = 'fraud',
+  InappropriateBehavior = 'inappropriate_behavior',
+  NoShow = 'no_show',
+  Other = 'other',
+  PoorQuality = 'poor_quality',
+  SafetyConcern = 'safety_concern'
+}
+
+export enum ReportStatus {
+  Dismissed = 'dismissed',
+  Investigating = 'investigating',
+  Pending = 'pending',
+  Resolved = 'resolved'
+}
+
+export type Task = {
+  __typename?: 'Task';
+  address?: Maybe<Scalars['String']['output']>;
+  assignedTo?: Maybe<Scalars['Int']['output']>;
+  autoAssign?: Maybe<Scalars['Boolean']['output']>;
+  categoryId: Scalars['Int']['output'];
+  city?: Maybe<Scalars['String']['output']>;
+  completedAt?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  dueDate?: Maybe<Scalars['String']['output']>;
+  estimatedDuration?: Maybe<Scalars['Int']['output']>;
+  helperFeedback?: Maybe<Scalars['String']['output']>;
+  helperRating?: Maybe<Scalars['Float']['output']>;
+  id: Scalars['Int']['output'];
+  isRemote?: Maybe<Scalars['Boolean']['output']>;
+  isUrgent?: Maybe<Scalars['Boolean']['output']>;
+  latitude?: Maybe<Scalars['Float']['output']>;
+  longitude?: Maybe<Scalars['Float']['output']>;
+  maxApplications?: Maybe<Scalars['Int']['output']>;
+  paymentAmount?: Maybe<Scalars['Float']['output']>;
+  poster: Users;
+  posterFeedback?: Maybe<Scalars['String']['output']>;
+  posterId: Scalars['Int']['output'];
+  posterRating?: Maybe<Scalars['Float']['output']>;
+  requirements?: Maybe<Scalars['String']['output']>;
+  startedAt?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Scalars['String']['output']>;
+  status: TaskStatus;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['String']['output']>;
+  urgencyFee?: Maybe<Scalars['Float']['output']>;
+  zipCode?: Maybe<Scalars['String']['output']>;
+};
+
+export enum TaskStatus {
+  Archived = 'archived',
+  Cancelled = 'cancelled',
+  Completed = 'completed',
+  InProgress = 'in_progress',
+  Open = 'open'
+}
+
+export type UserReports = {
+  __typename?: 'UserReports';
+  adminNotes?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  evidenceUrls?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  id: Scalars['Int']['output'];
+  reason: ReportReason;
+  reportedUser: Users;
+  reportedUserId: Scalars['Int']['output'];
+  reporter: Users;
+  reporterId: Scalars['Int']['output'];
+  resolvedAt?: Maybe<Scalars['String']['output']>;
+  status: ReportStatus;
+  task?: Maybe<Task>;
+  taskId?: Maybe<Scalars['Int']['output']>;
+};
+
+export type UserSkills = {
+  __typename?: 'UserSkills';
+  category: Scalars['String']['output'];
+  categoryId: Scalars['Int']['output'];
+  createdAt?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  isVerified?: Maybe<Scalars['Boolean']['output']>;
+  proficiencyLevel: ProficiencyLevel;
+  skillName: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['String']['output']>;
+  user: Users;
+  userId: Scalars['Int']['output'];
+  yearsExperience?: Maybe<Scalars['Int']['output']>;
+};
+
+export type Users = {
+  __typename?: 'Users';
+  accountStatus?: Maybe<AccountStatus>;
+  address?: Maybe<Scalars['String']['output']>;
+  availableNow?: Maybe<Scalars['Boolean']['output']>;
+  backgroundCheckStatus?: Maybe<BackgroundCheckStatus>;
+  bio?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['String']['output']>;
+  dateOfBirth?: Maybe<Scalars['String']['output']>;
+  email: Scalars['String']['output'];
+  emailVerified?: Maybe<Scalars['Boolean']['output']>;
+  firstName: Scalars['String']['output'];
+  helperRating?: Maybe<Scalars['Float']['output']>;
+  helperRatingCount?: Maybe<Scalars['Int']['output']>;
+  id: Scalars['String']['output'];
+  isHelper?: Maybe<Scalars['Boolean']['output']>;
+  isTaskPoster?: Maybe<Scalars['Boolean']['output']>;
+  lastActiveAt?: Maybe<Scalars['String']['output']>;
+  lastName: Scalars['String']['output'];
+  latitude?: Maybe<Scalars['Float']['output']>;
+  longitude?: Maybe<Scalars['Float']['output']>;
+  maxTravelDistance?: Maybe<Scalars['Int']['output']>;
+  passwordHash: Scalars['String']['output'];
+  phone: Scalars['String']['output'];
+  phoneVerified?: Maybe<Scalars['Boolean']['output']>;
+  posterRating?: Maybe<Scalars['Float']['output']>;
+  posterRatingCount?: Maybe<Scalars['Int']['output']>;
+  preferredCategories?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  profileImageUrl?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Scalars['String']['output']>;
+  tasksCompleted?: Maybe<Scalars['Int']['output']>;
+  tasksPosted?: Maybe<Scalars['Int']['output']>;
+  totalEarned?: Maybe<Scalars['Float']['output']>;
+  totalSpent?: Maybe<Scalars['Float']['output']>;
+  updatedAt?: Maybe<Scalars['String']['output']>;
+  zipCode?: Maybe<Scalars['String']['output']>;
+};
+
+export enum ApplicationStatusEnum {
+  Accepted = 'accepted',
+  Pending = 'pending',
+  Rejected = 'rejected',
+  Withdrawn = 'withdrawn'
+}
+
+export type AvailabilitySchedules = {
+  __typename?: 'availabilitySchedules';
+  createdAt?: Maybe<Scalars['String']['output']>;
+  dayOfWeek: Scalars['Int']['output'];
+  endTime: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
+  isActive: Scalars['Boolean']['output'];
+  startTime: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['String']['output']>;
+  user: Users;
+  userId: Scalars['Int']['output'];
+};
+
+export type Categories = {
+  __typename?: 'categories';
+  createdAt?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  isActive: Scalars['Boolean']['output'];
+  name: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  sortOrder?: Maybe<Scalars['Int']['output']>;
+  updatedAt?: Maybe<Scalars['String']['output']>;
+};
+
+export enum MessageTypeEnum {
+  File = 'file',
+  Image = 'image',
+  System = 'system',
+  Text = 'text'
+}
+
+export type Messages = {
+  __typename?: 'messages';
+  attachmentUrl?: Maybe<Scalars['String']['output']>;
+  content: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
+  isRead: Scalars['Boolean']['output'];
+  messageType: MessageTypeEnum;
+  readAt?: Maybe<Scalars['String']['output']>;
+  recipient: Users;
+  recipientId: Scalars['Int']['output'];
+  sender: Users;
+  senderId: Scalars['Int']['output'];
+  sentAt?: Maybe<Scalars['String']['output']>;
+  task?: Maybe<Task>;
+  taskId?: Maybe<Scalars['Int']['output']>;
+};
+
+export type Notifications = {
+  __typename?: 'notifications';
+  createdAt?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  isEmailed: Scalars['Boolean']['output'];
+  isPushed: Scalars['Boolean']['output'];
+  isRead: Scalars['Boolean']['output'];
+  message: Scalars['String']['output'];
+  readAt?: Maybe<Scalars['String']['output']>;
+  relatedUser?: Maybe<Users>;
+  relatedUserId?: Maybe<Scalars['Int']['output']>;
+  task?: Maybe<Task>;
+  taskId?: Maybe<Scalars['Int']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  user: Users;
+  userId: Scalars['Int']['output'];
+};
+
+export enum PaymentStatusEnum {
+  Completed = 'completed',
+  Failed = 'failed',
+  Pending = 'pending',
+  Processing = 'processing',
+  Refunded = 'refunded'
+}
+
+export type Payments = {
+  __typename?: 'payments';
+  amount: Scalars['Float']['output'];
+  createdAt?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  netAmount?: Maybe<Scalars['Float']['output']>;
+  payee: Users;
+  payeeId: Scalars['Int']['output'];
+  payer: Users;
+  payerId: Scalars['Int']['output'];
+  paymentMethod?: Maybe<Scalars['String']['output']>;
+  platformFee?: Maybe<Scalars['Float']['output']>;
+  processedAt?: Maybe<Scalars['String']['output']>;
+  status: PaymentStatusEnum;
+  stripeChargeId?: Maybe<Scalars['String']['output']>;
+  stripePaymentIntentId?: Maybe<Scalars['String']['output']>;
+  task: Task;
+  taskId: Scalars['Int']['output'];
+  updatedAt?: Maybe<Scalars['String']['output']>;
+  urgencyFee?: Maybe<Scalars['Float']['output']>;
+};
+
+export type SystemSettings = {
+  __typename?: 'systemSettings';
+  createdAt?: Maybe<Scalars['String']['output']>;
+  dataType: DataType;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  key: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['String']['output']>;
+  value: Scalars['String']['output'];
+};
+
+export type TaskApplications = {
+  __typename?: 'taskApplications';
+  appliedAt?: Maybe<Scalars['String']['output']>;
+  estimatedCompletionTime?: Maybe<Scalars['String']['output']>;
+  helper: Users;
+  helperId: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  message?: Maybe<Scalars['String']['output']>;
+  proposedStartTime?: Maybe<Scalars['String']['output']>;
+  respondedAt?: Maybe<Scalars['String']['output']>;
+  status: ApplicationStatusEnum;
+  task: Task;
+  taskId: Scalars['Int']['output'];
+};
+
+export type TimeSessions = {
+  __typename?: 'timeSessions';
+  createdAt?: Maybe<Scalars['String']['output']>;
+  durationMinutes?: Maybe<Scalars['Int']['output']>;
+  endLatitude?: Maybe<Scalars['Float']['output']>;
+  endLongitude?: Maybe<Scalars['Float']['output']>;
+  endedAt?: Maybe<Scalars['String']['output']>;
+  helper: Users;
+  helperId: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  startLatitude?: Maybe<Scalars['Float']['output']>;
+  startLongitude?: Maybe<Scalars['Float']['output']>;
+  startedAt: Scalars['String']['output'];
+  status?: Maybe<TaskStatus>;
+  task: Task;
+  taskId: Scalars['Int']['output'];
+};
+
+export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUsersQuery = { __typename?: 'Query', getUsers: Array<{ __typename?: 'Users', id: string, lastName: string, email: string, firstName: string, emailVerified?: boolean | null } | null> };
+
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentUserQuery = { __typename?: 'Query', currentUser?: { __typename?: 'Users', id: string, accountStatus?: AccountStatus | null, address?: string | null, availableNow?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, bio?: string | null, email: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, dateOfBirth?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, createdAt?: string | null, updatedAt?: string | null, lastActiveAt?: string | null } | null };
+
+export type CreateUserMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  phone: Scalars['String']['input'];
+}>;
+
+
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'Users', id: string } };
+
+export type LoginUserMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+}>;
+
+
+export type LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'Users', id: string } };
+
+export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutUserMutation = { __typename?: 'Mutation', logoutUser: boolean };
+
+
+export const GetUsersDocument = gql`
+    query GetUsers {
+  getUsers {
+    id
+    lastName
+    email
+    firstName
+    emailVerified
+  }
+}
+    `;
+
+/**
+ * __useGetUsersQuery__
+ *
+ * To run a query within a React component, call `useGetUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options);
+      }
+export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options);
+        }
+export function useGetUsersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options);
+        }
+export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
+export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
+export type GetUsersSuspenseQueryHookResult = ReturnType<typeof useGetUsersSuspenseQuery>;
+export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
+export const CurrentUserDocument = gql`
+    query CurrentUser {
+  currentUser {
+    id
+    accountStatus
+    address
+    availableNow
+    backgroundCheckStatus
+    bio
+    email
+    firstName
+    lastName
+    phone
+    profileImageUrl
+    dateOfBirth
+    city
+    state
+    country
+    zipCode
+    latitude
+    longitude
+    isHelper
+    isTaskPoster
+    maxTravelDistance
+    preferredCategories
+    helperRating
+    helperRatingCount
+    posterRating
+    posterRatingCount
+    tasksCompleted
+    tasksPosted
+    totalEarned
+    totalSpent
+    emailVerified
+    phoneVerified
+    createdAt
+    updatedAt
+    lastActiveAt
+  }
+}
+    `;
+
+/**
+ * __useCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentUserQuery(baseOptions?: Apollo.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, options);
+      }
+export function useCurrentUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, options);
+        }
+export function useCurrentUserSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, options);
+        }
+export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
+export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
+export type CurrentUserSuspenseQueryHookResult = ReturnType<typeof useCurrentUserSuspenseQuery>;
+export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
+export const CreateUserDocument = gql`
+    mutation CreateUser($email: String!, $firstName: String!, $lastName: String!, $password: String!, $phone: String!) {
+  createUser(
+    email: $email
+    firstName: $firstName
+    lastName: $lastName
+    password: $password
+    phone: $phone
+  ) {
+    id
+  }
+}
+    `;
+export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+
+/**
+ * __useCreateUserMutation__
+ *
+ * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      firstName: // value for 'firstName'
+ *      lastName: // value for 'lastName'
+ *      password: // value for 'password'
+ *      phone: // value for 'phone'
+ *   },
+ * });
+ */
+export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+      }
+export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
+export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const LoginUserDocument = gql`
+    mutation loginUser($email: String!, $password: String!) {
+  loginUser(email: $email, password: $password) {
+    id
+  }
+}
+    `;
+export type LoginUserMutationFn = Apollo.MutationFunction<LoginUserMutation, LoginUserMutationVariables>;
+
+/**
+ * __useLoginUserMutation__
+ *
+ * To run a mutation, you first call `useLoginUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginUserMutation, { data, loading, error }] = useLoginUserMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginUserMutation(baseOptions?: Apollo.MutationHookOptions<LoginUserMutation, LoginUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginUserMutation, LoginUserMutationVariables>(LoginUserDocument, options);
+      }
+export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>;
+export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>;
+export type LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
+export const LogoutUserDocument = gql`
+    mutation logoutUser {
+  logoutUser
+}
+    `;
+export type LogoutUserMutationFn = Apollo.MutationFunction<LogoutUserMutation, LogoutUserMutationVariables>;
+
+/**
+ * __useLogoutUserMutation__
+ *
+ * To run a mutation, you first call `useLogoutUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLogoutUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [logoutUserMutation, { data, loading, error }] = useLogoutUserMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLogoutUserMutation(baseOptions?: Apollo.MutationHookOptions<LogoutUserMutation, LogoutUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LogoutUserMutation, LogoutUserMutationVariables>(LogoutUserDocument, options);
+      }
+export type LogoutUserMutationHookResult = ReturnType<typeof useLogoutUserMutation>;
+export type LogoutUserMutationResult = Apollo.MutationResult<LogoutUserMutation>;
+export type LogoutUserMutationOptions = Apollo.BaseMutationOptions<LogoutUserMutation, LogoutUserMutationVariables>;
