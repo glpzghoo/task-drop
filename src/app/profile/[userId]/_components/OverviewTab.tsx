@@ -35,7 +35,9 @@ const OverviewTab = ({
             <CardTitle>Тухай</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="leading-relaxed text-muted-foreground">{user.bio}</p>
+            <p className="leading-relaxed text-muted-foreground">
+              {user.bio ?? 'Био алга.'}
+            </p>
           </CardContent>
         </Card>
 
@@ -82,48 +84,54 @@ const OverviewTab = ({
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {recentTasks.map((task) => (
-              <div
-                key={task.id}
-                className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 bg-muted rounded-lg"
-              >
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <h4 className="font-medium">{task.title}</h4>
-                    {task.category && (
-                      <Badge variant="secondary">{task.category}</Badge>
-                    )}
-                    <Badge
-                      variant="outline"
-                      className={
-                        task.role === 'helper'
-                          ? 'text-blue-600 border-blue-600'
-                          : 'text-purple-600 border-purple-600'
-                      }
-                    >
-                      {task.role === 'helper' ? 'Гүйцэтгэгч' : 'Захиалагч'}
-                    </Badge>
+            {recentTasks.length > 0 ? (
+              recentTasks.map((task) => (
+                <div
+                  key={task.id}
+                  className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 bg-muted rounded-lg"
+                >
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <h4 className="font-medium">{task.title}</h4>
+                      {task.category && (
+                        <Badge variant="secondary">{task.category}</Badge>
+                      )}
+                      <Badge
+                        variant="outline"
+                        className={
+                          task.role === 'helper'
+                            ? 'text-blue-600 border-blue-600'
+                            : 'text-purple-600 border-purple-600'
+                        }
+                      >
+                        {task.role === 'helper' ? 'Гүйцэтгэгч' : 'Захиалагч'}
+                      </Badge>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                      <span>{task.date}</span>
+                      {task.duration && <span>{task.duration}</span>}
+                      <div className="flex items-center gap-1">
+                        {[...Array(task.rating)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className="w-3 h-3 text-yellow-400 fill-yellow-400"
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                    <span>{task.date}</span>
-                    {task.duration && <span>{task.duration}</span>}
-                    <div className="flex items-center gap-1">
-                      {[...Array(task.rating)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="w-3 h-3 text-yellow-400 fill-yellow-400"
-                        />
-                      ))}
+                  <div className="mt-2 md:mt-0 md:text-right">
+                    <div className="font-medium text-green-600">
+                      {task.payment}
                     </div>
                   </div>
                 </div>
-                <div className="mt-2 md:mt-0 md:text-right">
-                  <div className="font-medium text-green-600">
-                    {task.payment}
-                  </div>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-muted-foreground text-sm">
+                Сүүлийн үйл ажиллагаа алга.
+              </p>
+            )}
           </div>
         </CardContent>
       </Card>

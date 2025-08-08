@@ -52,50 +52,54 @@ const ReviewTab = ({
 
         <CardContent>
           <div className="space-y-6">
-            {(showAllReviews ? reviews : reviews.slice(0, 3)).map((review) => (
-              <div
-                key={review.id}
-                className="border-b border-border last:border-0 pb-6 last:pb-0"
-              >
-                <div className="flex flex-col md:flex-row items-start justify-between gap-4 mb-3">
-                  <div className="flex items-center gap-3">
-                    <Avatar className="w-10 h-10">
-                      <AvatarFallback>{review.reviewer[0]}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium">{review.reviewer}</span>
+            {reviews.length > 0 ? (
+              (showAllReviews ? reviews : reviews.slice(0, 3)).map((review) => (
+                <div
+                  key={review.id}
+                  className="border-b border-border last:border-0 pb-6 last:pb-0"
+                >
+                  <div className="flex flex-col md:flex-row items-start justify-between gap-4 mb-3">
+                    <div className="flex items-center gap-3">
+                      <Avatar className="w-10 h-10">
+                        <AvatarFallback>{review.reviewer[0]}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium">{review.reviewer}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <span>{review.date}</span>
+                          <span>•</span>
+                          <span>{review.task}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <span>{review.date}</span>
-                        <span>•</span>
-                        <span>{review.task}</span>
-                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-4 h-4 text-yellow-400 fill-yellow-400"
+                        />
+                      ))}
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-4 h-4 text-yellow-400 fill-yellow-400"
-                      />
-                    ))}
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {review.comment}
+                  </p>
+
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <button className="flex items-center gap-1 hover:text-foreground transition-colors">
+                      <ThumbsUp className="w-3 h-3" />
+                      Ашигтай ({review.helpful || 0})
+                    </button>
                   </div>
                 </div>
-
-                <p className="text-sm text-muted-foreground mb-3">
-                  {review.comment}
-                </p>
-
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                  <button className="flex items-center gap-1 hover:text-foreground transition-colors">
-                    <ThumbsUp className="w-3 h-3" />
-                    Ашигтай ({review.helpful || 0})
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-muted-foreground text-sm">Сэтгэгдэл алга.</p>
+            )}
           </div>
 
           {reviews.length > 3 && (

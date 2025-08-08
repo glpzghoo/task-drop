@@ -8,8 +8,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { TabsContent } from '@/components/ui/tabs';
-import { Separator } from '@/components/ui/separator';
-import { Clock, MapPin } from 'lucide-react';
 import { Users } from '@/graphql/generated';
 
 const AvailabilityTab = ({ user }: { user: Users }) => {
@@ -28,21 +26,21 @@ const AvailabilityTab = ({ user }: { user: Users }) => {
             Хуваарийн мэдээлэл алга
           </p>
 
-          <Separator className="my-6" />
+          {/* <Separator className="my-6" /> */}
 
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          {/* <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Clock className="w-4 h-4" />
             <span>Цагийн бүс: Pacific Time (PT)</span>
-          </div>
+          </div> */}
 
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
+          {/* <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
             <MapPin className="w-4 h-4" />
             <span>
               {user.address || user.city}
               {user.maxTravelDistance &&
                 `-ийн орчмоор ${user.maxTravelDistance} миль дотор ажиллана`}
             </span>
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </TabsContent>
