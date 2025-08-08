@@ -2,13 +2,29 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TabsContent } from '@/components/ui/tabs';
-import { mockUser, recentTasks } from '../mocks';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
-import { Users } from '@/graphql/generated';
+import { TaskApplications, Users } from '@/graphql/generated';
+import {
+  calculateCompletionRate,
+  calculateResponseTime,
+  mapApplicationsToRecentTasks,
+} from '@/lib/profile';
 
-const OverviewTab = ({ user }: { user: Users }) => {
+const OverviewTab = ({
+  user,
+  taskApplications,
+}: {
+  user: Users;
+  taskApplications: TaskApplications[];
+}) => {
+  const completionRate = calculateCompletionRate(user);
+  const responseTime = calculateResponseTime(taskApplications);
+  const recentTasks = mapApplicationsToRecentTasks(
+    taskApplications,
+    user
+  ).slice(0, 3);
   return (
     <TabsContent value="overview" className="space-y-6">
       {/* About & Quick Stats */}
@@ -32,23 +48,28 @@ const OverviewTab = ({ user }: { user: Users }) => {
             <div className="flex justify-between items-center text-sm">
               <span className="text-muted-foreground">Гүйцэтгэлийн хувь</span>
               <div className="flex items-center gap-2">
-                <Progress value={mockUser.completionRate} className="w-20" />
-                <span className="font-medium">{mockUser.completionRate}%</span>
+                <Progress value={completionRate} className="w-20" />
+                <span className="font-medium">{completionRate}%</span>
               </div>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-muted-foreground">Хариу өгөх хугацаа</span>
-              <span className="font-medium">{mockUser.responseTime}</span>
+              <span className="font-medium">
+                {responseTime ? responseTime : 'Мэдээлэл алга'}
+              </span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-muted-foreground">Зорчих зай</span>
               <span className="font-medium">
-                {mockUser.maxTravelDistance} км хүртэл
+                {user.maxTravelDistance ?? 0} км хүртэл
               </span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-muted-foreground">Сонгосон ангилал</span>
-              <span className="font-medium">Тэжээвэр амьтан, Цэвэрлэгээ</span>
+              <span className="font-medium">
+                {user.preferredCategories?.filter(Boolean).join(', ') ||
+                  'Ангилал алга'}
+              </span>
             </div>
           </CardContent>
         </Card>
@@ -61,7 +82,7 @@ const OverviewTab = ({ user }: { user: Users }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {recentTasks.slice(0, 3).map((task) => (
+            {recentTasks.map((task) => (
               <div
                 key={task.id}
                 className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 bg-muted rounded-lg"
@@ -69,7 +90,9 @@ const OverviewTab = ({ user }: { user: Users }) => {
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2 mb-1">
                     <h4 className="font-medium">{task.title}</h4>
-                    <Badge variant="secondary">{task.category}</Badge>
+                    {task.category && (
+                      <Badge variant="secondary">{task.category}</Badge>
+                    )}
                     <Badge
                       variant="outline"
                       className={
@@ -83,7 +106,7 @@ const OverviewTab = ({ user }: { user: Users }) => {
                   </div>
                   <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                     <span>{task.date}</span>
-                    <span>{task.duration}</span>
+                    {task.duration && <span>{task.duration}</span>}
                     <div className="flex items-center gap-1">
                       {[...Array(task.rating)].map((_, i) => (
                         <Star

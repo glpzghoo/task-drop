@@ -11,6 +11,7 @@ import { TaskApplications, Users } from '@/graphql/generated';
 
 const ProfileTabs = ({
   user,
+  taskApplications,
 }: {
   user: Users;
   taskApplications: TaskApplications[];
@@ -31,9 +32,15 @@ const ProfileTabs = ({
         <TabsTrigger value="availability">Ирц</TabsTrigger>
       </TabsList>
 
-      {activeTab === 'overview' && <OverviewTab user={user} />}
-      {activeTab === 'reviews' && <ReviewTab user={user} />}
-      {activeTab === 'tasks' && <TasksTab user={user} />}
+      {activeTab === 'overview' && (
+        <OverviewTab user={user} taskApplications={taskApplications} />
+      )}
+      {activeTab === 'reviews' && (
+        <ReviewTab user={user} taskApplications={taskApplications} />
+      )}
+      {activeTab === 'tasks' && (
+        <TasksTab user={user} taskApplications={taskApplications} />
+      )}
       {activeTab === 'skills' && <SkillsTab user={user} />}
       {activeTab === 'availability' && <AvailabilityTab user={user} />}
     </Tabs>

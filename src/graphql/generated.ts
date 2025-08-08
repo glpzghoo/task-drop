@@ -382,7 +382,7 @@ export type GetUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', getUserById?: { __typename?: 'GetUserByIdResponse', user: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt?: string | null, updatedAt?: string | null, lastActiveAt?: string | null }, taskApplications: Array<{ __typename?: 'taskApplications', id: number, taskId: number, helperId: number, message?: string | null, proposedStartTime?: string | null, estimatedCompletionTime?: string | null, status: ApplicationStatusEnum, appliedAt?: string | null, respondedAt?: string | null }> } | null };
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById?: { __typename?: 'GetUserByIdResponse', user: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt?: string | null, updatedAt?: string | null, lastActiveAt?: string | null }, taskApplications: Array<{ __typename?: 'taskApplications', id: number, taskId: number, helperId: number, message?: string | null, proposedStartTime?: string | null, estimatedCompletionTime?: string | null, status: ApplicationStatusEnum, appliedAt?: string | null, respondedAt?: string | null, helper: { __typename?: 'Users', id: string, firstName: string, lastName: string }, task: { __typename?: 'Task', id: number, title: string, categoryId: number, paymentAmount?: number | null, estimatedDuration?: number | null, status: TaskStatus, createdAt?: string | null, posterId: number, helperRating?: number | null, helperFeedback?: string | null, posterRating?: number | null, posterFeedback?: string | null, poster: { __typename?: 'Users', id: string, firstName: string, lastName: string } } }> } | null };
 
 export type CreateUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -576,6 +576,30 @@ export const GetUserByIdDocument = gql`
       status
       appliedAt
       respondedAt
+      helper {
+        id
+        firstName
+        lastName
+      }
+      task {
+        id
+        title
+        categoryId
+        paymentAmount
+        estimatedDuration
+        status
+        createdAt
+        posterId
+        poster {
+          id
+          firstName
+          lastName
+        }
+        helperRating
+        helperFeedback
+        posterRating
+        posterFeedback
+      }
     }
   }
 }
