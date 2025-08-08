@@ -22,10 +22,7 @@ import {
 import { TaskApplications, Users } from '@/graphql/generated';
 import { formatDistanceToNow } from 'date-fns';
 import { mn } from 'date-fns/locale';
-import {
-  calculateCompletionRate,
-  calculateResponseTime,
-} from '@/lib/profile';
+import { calculateCompletionRate, calculateResponseTime } from '@/lib/profile';
 
 const ProfileHeader = ({
   user,

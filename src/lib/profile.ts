@@ -50,7 +50,8 @@ export function mapApplicationsToRecentTasks(
       t.paymentAmount !== undefined && t.paymentAmount !== null
         ? `$${t.paymentAmount}`
         : '';
-    const rating = role === 'helper' ? t.posterRating ?? 0 : t.helperRating ?? 0;
+    const rating =
+      role === 'helper' ? (t.posterRating ?? 0) : (t.helperRating ?? 0);
     const feedback =
       role === 'helper' ? t.posterFeedback || '' : t.helperFeedback || '';
     const client =
@@ -62,7 +63,10 @@ export function mapApplicationsToRecentTasks(
         ? `${app.helper.firstName} ${app.helper.lastName}`
         : undefined;
     const date = t.createdAt
-      ? formatDistanceToNow(new Date(t.createdAt), { locale: mn, addSuffix: true })
+      ? formatDistanceToNow(new Date(t.createdAt), {
+          locale: mn,
+          addSuffix: true,
+        })
       : '';
     return {
       id: t.id,
@@ -74,9 +78,7 @@ export function mapApplicationsToRecentTasks(
       client,
       helper,
       feedback,
-      duration: t.estimatedDuration
-        ? `${t.estimatedDuration} мин`
-        : undefined,
+      duration: t.estimatedDuration ? `${t.estimatedDuration} мин` : undefined,
       category: t.categoryId ? String(t.categoryId) : undefined,
     };
   });
@@ -107,7 +109,10 @@ export function mapApplicationsToReviews(
         ? `${t.poster.firstName} ${t.poster.lastName}`
         : `${app.helper.firstName} ${app.helper.lastName}`;
       const date = t.createdAt
-        ? formatDistanceToNow(new Date(t.createdAt), { locale: mn, addSuffix: true })
+        ? formatDistanceToNow(new Date(t.createdAt), {
+            locale: mn,
+            addSuffix: true,
+          })
         : '';
       return {
         id: app.id,
@@ -117,7 +122,7 @@ export function mapApplicationsToReviews(
         task: t.title,
         comment: comment || '',
         helpful: 0,
-      };
+      } as Review;
     })
     .filter((r): r is Review => r !== null);
 }

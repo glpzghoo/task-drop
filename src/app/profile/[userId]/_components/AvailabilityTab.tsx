@@ -39,7 +39,8 @@ const AvailabilityTab = ({ user }: { user: Users }) => {
             <MapPin className="w-4 h-4" />
             <span>
               {user.address || user.city}
-              {user.maxTravelDistance && `-ийн орчмоор ${user.maxTravelDistance} миль дотор ажиллана`}
+              {user.maxTravelDistance &&
+                `-ийн орчмоор ${user.maxTravelDistance} миль дотор ажиллана`}
             </span>
           </div>
         </CardContent>

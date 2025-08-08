@@ -21,10 +21,10 @@ const OverviewTab = ({
 }) => {
   const completionRate = calculateCompletionRate(user);
   const responseTime = calculateResponseTime(taskApplications);
-  const recentTasks = mapApplicationsToRecentTasks(taskApplications, user).slice(
-    0,
-    3
-  );
+  const recentTasks = mapApplicationsToRecentTasks(
+    taskApplications,
+    user
+  ).slice(0, 3);
   return (
     <TabsContent value="overview" className="space-y-6">
       {/* About & Quick Stats */}
