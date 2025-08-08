@@ -98,6 +98,30 @@ query GetUserById($getUserByIdId: ID!) {
       status
       appliedAt
       respondedAt
+      helper {
+        id
+        firstName
+        lastName
+      }
+      task {
+        id
+        title
+        categoryId
+        paymentAmount
+        estimatedDuration
+        status
+        createdAt
+        posterId
+        poster {
+          id
+          firstName
+          lastName
+        }
+        helperRating
+        helperFeedback
+        posterRating
+        posterFeedback
+      }
     }
   }
 }

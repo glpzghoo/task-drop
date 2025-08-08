@@ -8,26 +8,32 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { TabsContent } from '@/components/ui/tabs';
-import { recentTasks } from '../mocks';
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
-import { Users } from '@/graphql/generated';
+import { TaskApplications, Users } from '@/graphql/generated';
+import { mapApplicationsToRecentTasks } from '@/lib/profile';
 
-const TasksTab = ({ user }: { user: Users }) => {
-  console.log(user);
+const TasksTab = ({
+  user,
+  taskApplications,
+}: {
+  user: Users;
+  taskApplications: TaskApplications[];
+}) => {
+  const tasks = mapApplicationsToRecentTasks(taskApplications, user);
   return (
     <TabsContent value="tasks" className="space-y-6">
       <Card className="bg-background text-foreground">
         <CardHeader>
           <CardTitle>Сүүлийн даалгаврууд</CardTitle>
           <CardDescription className="text-muted-foreground">
-            {`Сарагийн хамгийн сүүлд оролцсон даалгаврууд`}
+            {`${user.firstName}-ийн хамгийн сүүлд оролцсон даалгаврууд`}
           </CardDescription>
         </CardHeader>
 
         <CardContent>
           <div className="space-y-4">
-            {recentTasks.map((task) => (
+            {tasks.map((task) => (
               <div
                 key={task.id}
                 className="p-4 rounded-lg border border-border bg-muted/40"
@@ -36,7 +42,9 @@ const TasksTab = ({ user }: { user: Users }) => {
                   <div className="flex-1 space-y-2">
                     <div className="flex flex-wrap items-center gap-2">
                       <h4 className="font-medium">{task.title}</h4>
-                      <Badge variant="secondary">{task.category}</Badge>
+                      {task.category && (
+                        <Badge variant="secondary">{task.category}</Badge>
+                      )}
                       {task.role === 'helper' ? (
                         <Badge
                           variant="outline"
@@ -56,12 +64,13 @@ const TasksTab = ({ user }: { user: Users }) => {
 
                     <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                       <span>{task.date}</span>
-                      <span>{task.duration}</span>
-                      <span>
-                        {task.role === 'helper'
-                          ? `Захиалагч: ${task.client}`
-                          : `Гүйцэтгэгч: ${task.helper}`}
-                      </span>
+                      {task.duration && <span>{task.duration}</span>}
+                      {task.role === 'helper' && task.client && (
+                        <span>{`Захиалагч: ${task.client}`}</span>
+                      )}
+                      {task.role === 'poster' && task.helper && (
+                        <span>{`Гүйцэтгэгч: ${task.helper}`}</span>
+                      )}
                     </div>
 
                     <div className="flex items-center gap-2">

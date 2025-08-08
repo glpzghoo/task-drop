@@ -19,17 +19,23 @@ import {
   TrendingUp,
   User,
 } from 'lucide-react';
-import { mockUser } from '../mocks';
 import { TaskApplications, Users } from '@/graphql/generated';
 import { formatDistanceToNow } from 'date-fns';
 import { mn } from 'date-fns/locale';
+import {
+  calculateCompletionRate,
+  calculateResponseTime,
+} from '@/lib/profile';
 
 const ProfileHeader = ({
   user,
+  taskApplications,
 }: {
   user: Users;
   taskApplications: TaskApplications[];
 }) => {
+  const completionRate = calculateCompletionRate(user);
+  const responseTime = calculateResponseTime(taskApplications);
   return (
     <Card className="bg-background text-foreground mb-8 shadow">
       <CardContent className="pt-6">
@@ -92,7 +98,7 @@ const ProfileHeader = ({
           <div className="flex-1 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Helper Stats */}
-              {!user.isHelper && (
+              {user.isHelper && (
                 <div>
                   <h3 className="font-semibold flex items-center gap-2 mb-3">
                     <User className="w-5 h-5" />
@@ -112,24 +118,20 @@ const ProfileHeader = ({
                     </div>
                     <div className="flex items-center gap-2">
                       <TrendingUp className="w-5 h-5 text-blue-500" />
-                      <span>
-                        (
-                        {((Number(user.tasksCompleted) || 0) /
-                          (Number(user.tasksPosted) || 1)) *
-                          100}
-                        %) гүйцэтгэлийн хувь
-                      </span>
+                      <span>{completionRate}% гүйцэтгэлийн хувь</span>
                     </div>
-                    {/* <div className="flex items-center gap-2">
-                      <Clock className="w-5 h-5 text-purple-500" />
-                      <span>{mockUser.responseTime} хариулах хугацаа</span>
-                    </div> */}
+                    {responseTime && (
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-5 h-5 text-purple-500" />
+                        <span>{responseTime} хариулах хугацаа</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
 
               {/* Poster Stats */}
-              {mockUser.isTaskPoster && (
+              {user.isTaskPoster && (
                 <div>
                   <h3 className="font-semibold flex items-center gap-2 mb-3">
                     <Edit className="w-5 h-5" />

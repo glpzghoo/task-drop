@@ -8,13 +8,13 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { TabsContent } from '@/components/ui/tabs';
-import { mockUser } from '../mocks';
 import { Badge } from '@/components/ui/badge';
 import { Shield } from 'lucide-react';
 import { Users } from '@/graphql/generated';
+import { getSkills } from '@/lib/profile';
 
 const SkillsTab = ({ user }: { user: Users }) => {
-  console.log(user);
+  const skills = getSkills(user);
 
   return (
     <TabsContent value="skills" className="space-y-6">
@@ -22,20 +22,20 @@ const SkillsTab = ({ user }: { user: Users }) => {
         <CardHeader>
           <CardTitle>Ур чадвар ба туршлага</CardTitle>
           <CardDescription className="text-muted-foreground">
-            Сарагийн баталгаажсан ур чадвар, түвшин
+            {`${user.firstName}-ийн баталгаажсан ур чадвар`}
           </CardDescription>
         </CardHeader>
 
         <CardContent>
-          <div className="grid md:grid-cols-2 gap-4">
-            {mockUser.skills.map((skill, index) => (
-              <div
-                key={index}
-                className="p-4 rounded-lg border border-border bg-muted/40"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-medium">{skill.name}</h4>
-                  {skill.verified && (
+          {skills.length > 0 ? (
+            <div className="grid md:grid-cols-2 gap-4">
+              {skills.map((skill, index) => (
+                <div
+                  key={index}
+                  className="p-4 rounded-lg border border-border bg-muted/40"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-medium">{skill}</h4>
                     <Badge
                       variant="secondary"
                       className="flex items-center gap-1 text-green-800 bg-green-100 dark:bg-green-900/30 dark:text-green-400"
@@ -43,15 +43,13 @@ const SkillsTab = ({ user }: { user: Users }) => {
                       <Shield className="w-3 h-3" />
                       Баталгаажсан
                     </Badge>
-                  )}
+                  </div>
                 </div>
-                <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <span>{skill.category}</span>
-                  <span className="font-medium">{skill.level}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-muted-foreground text-sm">Ур чадвар алга</p>
+          )}
         </CardContent>
       </Card>
     </TabsContent>
