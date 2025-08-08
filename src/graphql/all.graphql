@@ -48,6 +48,84 @@ query CurrentUser {
   }
 }
 
+query GetUserById($getUserByIdId: ID!) {
+  getUserById(id: $getUserByIdId) {
+    user {
+      id
+      email
+      passwordHash
+      firstName
+      lastName
+      phone
+      profileImageUrl
+      bio
+      dateOfBirth
+      address
+      city
+      state
+      country
+      zipCode
+      latitude
+      longitude
+      isHelper
+      isTaskPoster
+      availableNow
+      maxTravelDistance
+      preferredCategories
+      helperRating
+      helperRatingCount
+      posterRating
+      posterRatingCount
+      tasksCompleted
+      tasksPosted
+      totalEarned
+      totalSpent
+      emailVerified
+      phoneVerified
+      backgroundCheckStatus
+      accountStatus
+      createdAt
+      updatedAt
+      lastActiveAt
+    }
+    taskApplications {
+      id
+      taskId
+      helperId
+      message
+      proposedStartTime
+      estimatedCompletionTime
+      status
+      appliedAt
+      respondedAt
+      helper {
+        id
+        firstName
+        lastName
+      }
+      task {
+        id
+        title
+        categoryId
+        paymentAmount
+        estimatedDuration
+        status
+        createdAt
+        posterId
+        poster {
+          id
+          firstName
+          lastName
+        }
+        helperRating
+        helperFeedback
+        posterRating
+        posterFeedback
+      }
+    }
+  }
+}
+
 mutation CreateUser(
   $email: String!
   $firstName: String!

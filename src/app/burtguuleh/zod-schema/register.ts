@@ -7,7 +7,9 @@ export const registerSchema = z
     email: z.email('Буруу имэйл хаяг'),
     phone: z.string().min(8, 'Утасны дугаар 8-аас дээш тэмдэгттэй байх ёстой'),
     password: z.string().min(6, 'Нууц үг 6-аас дээш тэмдэгттэй байх ёстой'),
-    confirmPassword: z.string().min(6, 'Нууц үг 6-аас дээш тэмдэгттэй байх ёстой'),
+    confirmPassword: z
+      .string()
+      .min(6, 'Нууц үг 6-аас дээш тэмдэгттэй байх ёстой'),
   })
   .refine(
     (data) => {

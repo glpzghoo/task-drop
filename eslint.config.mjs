@@ -23,6 +23,10 @@ export default defineConfig([
     },
   },
   {
-    ignores: ['./lib/generated/**', './src/components/**', './src/lib/generated/**'],
+    ignores: [
+      './lib/generated/**',
+      './src/components/**',
+      './src/lib/generated/**',
+    ],
   },
 ]);

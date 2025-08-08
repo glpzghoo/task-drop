@@ -21,7 +21,10 @@ import { useState, useEffect } from 'react';
 
 export default function RegisterPage() {
   const [createUser, { data, error }] = useCreateUserMutation();
-  const [snackbar, setSnackbar] = useState<{ message: string; success: boolean } | null>(null);
+  const [snackbar, setSnackbar] = useState<{
+    message: string;
+    success: boolean;
+  } | null>(null);
 
   const form = useForm({
     resolver: zodResolver(registerSchema),
@@ -53,7 +56,9 @@ export default function RegisterPage() {
       <div className="w-full max-w-4xl bg-card rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-2 overflow-hidden">
         {/* Left side — info/branding */}
         <div className="hidden md:flex flex-col justify-center items-center bg-muted p-8 text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-2">Тавтай морил!</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-2">
+            Тавтай морил!
+          </h2>
           <p className="text-muted-foreground">
             Чөлөөт цагаа зөв зарцуулмаар байна уу? <br /> Эндээс эхэл!
           </p>
@@ -62,7 +67,9 @@ export default function RegisterPage() {
         {/* Right side — form */}
         <div className="p-6 sm:p-8">
           <CardHeader className="p-0 mb-4">
-            <CardTitle className="text-2xl text-center text-foreground">Бүртгүүлэх</CardTitle>
+            <CardTitle className="text-2xl text-center text-foreground">
+              Бүртгүүлэх
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             {snackbar && (
@@ -73,7 +80,10 @@ export default function RegisterPage() {
               />
             )}
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
@@ -122,7 +132,11 @@ export default function RegisterPage() {
                     <FormItem>
                       <FormLabel>Утасны дугаар</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="Утасны дугаар" {...field} />
+                        <Input
+                          type="number"
+                          placeholder="Утасны дугаар"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -136,7 +150,11 @@ export default function RegisterPage() {
                       <FormItem>
                         <FormLabel>Нууц үг</FormLabel>
                         <FormControl>
-                          <Input type="password" placeholder="Нууц үг" {...field} />
+                          <Input
+                            type="password"
+                            placeholder="Нууц үг"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -149,7 +167,11 @@ export default function RegisterPage() {
                       <FormItem>
                         <FormLabel>Нууц үг баталгаажуулах</FormLabel>
                         <FormControl>
-                          <Input type="password" placeholder="Дахин бичнэ үү" {...field} />
+                          <Input
+                            type="password"
+                            placeholder="Дахин бичнэ үү"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -157,7 +179,9 @@ export default function RegisterPage() {
                   />
                 </div>
                 <Button
-                  disabled={form.formState.isSubmitting || !form.formState.isValid}
+                  disabled={
+                    form.formState.isSubmitting || !form.formState.isValid
+                  }
                   type="submit"
                   className="w-full"
                 >

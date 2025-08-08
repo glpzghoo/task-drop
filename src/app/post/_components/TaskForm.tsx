@@ -1,6 +1,12 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -70,7 +76,9 @@ export default function TaskForm({
     <Card className="border-muted shadow-sm">
       <CardHeader>
         <CardTitle>Ажлын мэдээлэл</CardTitle>
-        <CardDescription>Тодорхой мэдээлэл нь зөв хүнийг татдаг</CardDescription>
+        <CardDescription>
+          Тодорхой мэдээлэл нь зөв хүнийг татдаг
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Гарчиг */}
@@ -112,7 +120,9 @@ export default function TaskForm({
             placeholder="Заавар, шаардлага, байршлын мэдээлэл гэх мэт..."
             className="min-h-[120px]"
           />
-          <p className="text-sm text-muted-foreground">Дэлгэрэнгүй, ойлгомжтой бичих тусам сайн</p>
+          <p className="text-sm text-muted-foreground">
+            Дэлгэрэнгүй, ойлгомжтой бичих тусам сайн
+          </p>
         </div>
 
         {/* Байршил / Цахимаар */}
@@ -123,7 +133,11 @@ export default function TaskForm({
               <Label htmlFor="remote" className="text-sm">
                 Цахимаар
               </Label>
-              <Switch id="remote" checked={isRemote} onCheckedChange={setIsRemote} />
+              <Switch
+                id="remote"
+                checked={isRemote}
+                onCheckedChange={setIsRemote}
+              />
             </div>
           </div>
           {!isRemote ? (
@@ -138,7 +152,9 @@ export default function TaskForm({
               <div className="flex items-center gap-2 font-medium">
                 <MapPin className="w-4 h-4" /> Цахим ажил
               </div>
-              <p className="text-muted-foreground">Интернэттэй газраас гүйцэтгэх боломжтой</p>
+              <p className="text-muted-foreground">
+                Интернэттэй газраас гүйцэтгэх боломжтой
+              </p>
             </div>
           )}
         </div>
@@ -217,7 +233,11 @@ export default function TaskForm({
               </p>
             </div>
           </div>
-          <Switch id="urgent" checked={isUrgent} onCheckedChange={setIsUrgent} />
+          <Switch
+            id="urgent"
+            checked={isUrgent}
+            onCheckedChange={setIsUrgent}
+          />
         </div>
 
         {/* Нэмэлт шаардлага */}

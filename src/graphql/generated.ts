@@ -37,6 +37,12 @@ export enum DataType {
   String = 'string'
 }
 
+export type GetUserByIdResponse = {
+  __typename?: 'GetUserByIdResponse';
+  taskApplications: Array<TaskApplications>;
+  user: Users;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: Users;
@@ -70,7 +76,7 @@ export type Query = {
   __typename?: 'Query';
   currentUser?: Maybe<Users>;
   getTasks: Array<Maybe<Task>>;
-  getUserById?: Maybe<Users>;
+  getUserById?: Maybe<GetUserByIdResponse>;
   getUsers: Array<Maybe<Users>>;
 };
 
@@ -371,6 +377,13 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CurrentUserQuery = { __typename?: 'Query', currentUser?: { __typename?: 'Users', id: string, accountStatus?: AccountStatus | null, address?: string | null, availableNow?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, bio?: string | null, email: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, dateOfBirth?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, createdAt?: string | null, updatedAt?: string | null, lastActiveAt?: string | null } | null };
 
+export type GetUserByIdQueryVariables = Exact<{
+  getUserByIdId: Scalars['ID']['input'];
+}>;
+
+
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById?: { __typename?: 'GetUserByIdResponse', user: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt?: string | null, updatedAt?: string | null, lastActiveAt?: string | null }, taskApplications: Array<{ __typename?: 'taskApplications', id: number, taskId: number, helperId: number, message?: string | null, proposedStartTime?: string | null, estimatedCompletionTime?: string | null, status: ApplicationStatusEnum, appliedAt?: string | null, respondedAt?: string | null, helper: { __typename?: 'Users', id: string, firstName: string, lastName: string }, task: { __typename?: 'Task', id: number, title: string, categoryId: number, paymentAmount?: number | null, estimatedDuration?: number | null, status: TaskStatus, createdAt?: string | null, posterId: number, helperRating?: number | null, helperFeedback?: string | null, posterRating?: number | null, posterFeedback?: string | null, poster: { __typename?: 'Users', id: string, firstName: string, lastName: string } } }> } | null };
+
 export type CreateUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
   firstName: Scalars['String']['input'];
@@ -512,6 +525,118 @@ export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
 export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
 export type CurrentUserSuspenseQueryHookResult = ReturnType<typeof useCurrentUserSuspenseQuery>;
 export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
+export const GetUserByIdDocument = gql`
+    query GetUserById($getUserByIdId: ID!) {
+  getUserById(id: $getUserByIdId) {
+    user {
+      id
+      email
+      passwordHash
+      firstName
+      lastName
+      phone
+      profileImageUrl
+      bio
+      dateOfBirth
+      address
+      city
+      state
+      country
+      zipCode
+      latitude
+      longitude
+      isHelper
+      isTaskPoster
+      availableNow
+      maxTravelDistance
+      preferredCategories
+      helperRating
+      helperRatingCount
+      posterRating
+      posterRatingCount
+      tasksCompleted
+      tasksPosted
+      totalEarned
+      totalSpent
+      emailVerified
+      phoneVerified
+      backgroundCheckStatus
+      accountStatus
+      createdAt
+      updatedAt
+      lastActiveAt
+    }
+    taskApplications {
+      id
+      taskId
+      helperId
+      message
+      proposedStartTime
+      estimatedCompletionTime
+      status
+      appliedAt
+      respondedAt
+      helper {
+        id
+        firstName
+        lastName
+      }
+      task {
+        id
+        title
+        categoryId
+        paymentAmount
+        estimatedDuration
+        status
+        createdAt
+        posterId
+        poster {
+          id
+          firstName
+          lastName
+        }
+        helperRating
+        helperFeedback
+        posterRating
+        posterFeedback
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserByIdQuery__
+ *
+ * To run a query within a React component, call `useGetUserByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserByIdQuery({
+ *   variables: {
+ *      getUserByIdId: // value for 'getUserByIdId'
+ *   },
+ * });
+ */
+export function useGetUserByIdQuery(baseOptions: Apollo.QueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables> & ({ variables: GetUserByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+      }
+export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+        }
+export function useGetUserByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+        }
+export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
+export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
+export type GetUserByIdSuspenseQueryHookResult = ReturnType<typeof useGetUserByIdSuspenseQuery>;
+export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($email: String!, $firstName: String!, $lastName: String!, $password: String!, $phone: String!) {
   createUser(

@@ -10,8 +10,8 @@ const HeroSection = () => {
           <span className="text-secondary">Хэн нэгэнд туслаарай.</span>
         </h1>
         <p className="text-xl text-muted-foreground mb-8">
-          TaskDrop нь завгүй хүмүүсийг тусламж хэрэгтэй хүмүүстэй холбодог. Түргэн ажил гүйцэтгэж
-          орлого олоорой.
+          TaskDrop нь завгүй хүмүүсийг тусламж хэрэгтэй хүмүүстэй холбодог.
+          Түргэн ажил гүйцэтгэж орлого олоорой.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" className="text-lg px-8 py-3">

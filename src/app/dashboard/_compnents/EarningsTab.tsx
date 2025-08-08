@@ -18,9 +18,13 @@ export default function EarningsTab() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-green-600 mb-2">$347</div>
-            <p className="text-sm text-muted-foreground mb-4">12 ажлаас олсон орлого</p>
+            <p className="text-sm text-muted-foreground mb-4">
+              12 ажлаас олсон орлого
+            </p>
             <Progress value={68} className="mb-2" />
-            <p className="text-sm text-muted-foreground">Сарын зорилгын 68% ($500)</p>
+            <p className="text-sm text-muted-foreground">
+              Сарын зорилгын 68% ($500)
+            </p>
           </CardContent>
         </Card>
         <Card>

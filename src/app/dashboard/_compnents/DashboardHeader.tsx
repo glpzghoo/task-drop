@@ -10,8 +10,12 @@ export default function DashboardHeader() {
   return (
     <div className="flex items-center justify-between mb-8">
       <div>
-        <h1 className="text-3xl font-bold text-foreground">Тавтай морил, Жон!</h1>
-        <p className="text-muted-foreground">Ажлуудтай холбоотой шинэчлэлүүд энд байна</p>
+        <h1 className="text-3xl font-bold text-foreground">
+          Тавтай морил, Жон!
+        </h1>
+        <p className="text-muted-foreground">
+          Ажлуудтай холбоотой шинэчлэлүүд энд байна
+        </p>
       </div>
 
       <div className="flex items-center gap-4">
@@ -19,7 +23,11 @@ export default function DashboardHeader() {
           <Label htmlFor="available-toggle" className="text-sm font-medium">
             Чөлөөтэй байна
           </Label>
-          <Switch id="available-toggle" checked={availableNow} onCheckedChange={setAvailableNow} />
+          <Switch
+            id="available-toggle"
+            checked={availableNow}
+            onCheckedChange={setAvailableNow}
+          />
         </div>
         {availableNow && (
           <div className="flex items-center gap-2 text-green-600">

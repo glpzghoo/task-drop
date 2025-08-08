@@ -1,6 +1,12 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Clock, MapPin } from 'lucide-react';
 
 const FeaturedTasks = () => {
@@ -8,7 +14,8 @@ const FeaturedTasks = () => {
     {
       id: 1,
       title: '30 минут нохой салхилуулах',
-      description: 'Максийг уулзалтынхаа үеэр хороололоор салхилуулах хүнд хэрэгтэй байна',
+      description:
+        'Максийг уулзалтынхаа үеэр хороололоор салхилуулах хүнд хэрэгтэй байна',
       location: 'Улаанбаатар хотын төв',
       duration: '30 минут',
       payment: '15,000₮',
@@ -28,7 +35,8 @@ const FeaturedTasks = () => {
     {
       id: 3,
       title: 'Оффисоос бичиг баримт авах',
-      description: 'Төв оффисоос гэрээний баримтуудыг аваад ирэх хүн хайж байна',
+      description:
+        'Төв оффисоос гэрээний баримтуудыг аваад ирэх хүн хайж байна',
       location: 'Санхүүгийн дүүрэг',
       duration: '45 минут',
       payment: '25,000₮',
@@ -41,16 +49,23 @@ const FeaturedTasks = () => {
     <section className="container mx-auto px-4 py-16">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold mb-4">Яг одоо боломжтой ажлууд</h2>
-        <p className="text-muted-foreground">Одоогоор оролцож туслах эсвэл орлого олоорой</p>
+        <p className="text-muted-foreground">
+          Одоогоор оролцож туслах эсвэл орлого олоорой
+        </p>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
         {featuredTasks.map((task) => (
           <Card key={task.id} className="hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="flex items-start justify-between">
-                <Badge variant={task.urgent ? 'destructive' : 'secondary'}>{task.category}</Badge>
+                <Badge variant={task.urgent ? 'destructive' : 'secondary'}>
+                  {task.category}
+                </Badge>
                 {task.urgent && (
-                  <Badge variant="outline" className="text-red-600 border-red-600">
+                  <Badge
+                    variant="outline"
+                    className="text-red-600 border-red-600"
+                  >
                     Яаралтай
                   </Badge>
                 )}
@@ -69,7 +84,9 @@ const FeaturedTasks = () => {
                   {task.duration}
                 </div>
                 <div className="flex items-center justify-between pt-2">
-                  <span className="text-2xl font-bold text-green-600">{task.payment}</span>
+                  <span className="text-2xl font-bold text-green-600">
+                    {task.payment}
+                  </span>
                   <Button size="sm">Өргөдөл гаргах</Button>
                 </div>
               </div>
