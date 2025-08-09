@@ -15,6 +15,7 @@ import { Skeleton } from '@mui/material';
 import { Zap } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 const Header = () => {
   const { data, loading } = useCurrentUserQuery();
@@ -43,6 +44,12 @@ const Header = () => {
       console.error('Error refetching user:', err);
     }
   };
+
+  useEffect(() => {
+    if (data?.currentUser) {
+      localStorage.setItem('userId', data.currentUser.id);
+    }
+  }, [data]);
 
   return (
     <header className="border-b bg-background dark:bg-background sticky top-0 z-50 shadow-sm">
