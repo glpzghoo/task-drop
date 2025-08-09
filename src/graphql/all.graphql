@@ -153,3 +153,7 @@ mutation loginUser($email: String!, $password: String!) {
 mutation logoutUser {
   logoutUser
 }
+
+mutation UploadPfp($pfp: String!) {
+  UploadPfp(pfp: $pfp)
+}

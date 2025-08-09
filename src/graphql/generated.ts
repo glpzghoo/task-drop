@@ -45,9 +45,15 @@ export type GetUserByIdResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  UploadPfp: Scalars['Boolean']['output'];
   createUser: Users;
   loginUser: Users;
   logoutUser: Scalars['Boolean']['output'];
+};
+
+
+export type MutationUploadPfpArgs = {
+  pfp: Scalars['String']['input'];
 };
 
 
@@ -408,6 +414,13 @@ export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type LogoutUserMutation = { __typename?: 'Mutation', logoutUser: boolean };
 
+export type UploadPfpMutationVariables = Exact<{
+  pfp: Scalars['String']['input'];
+}>;
+
+
+export type UploadPfpMutation = { __typename?: 'Mutation', UploadPfp: boolean };
+
 
 export const GetUsersDocument = gql`
     query GetUsers {
@@ -744,3 +757,34 @@ export function useLogoutUserMutation(baseOptions?: Apollo.MutationHookOptions<L
 export type LogoutUserMutationHookResult = ReturnType<typeof useLogoutUserMutation>;
 export type LogoutUserMutationResult = Apollo.MutationResult<LogoutUserMutation>;
 export type LogoutUserMutationOptions = Apollo.BaseMutationOptions<LogoutUserMutation, LogoutUserMutationVariables>;
+export const UploadPfpDocument = gql`
+    mutation UploadPfp($pfp: String!) {
+  UploadPfp(pfp: $pfp)
+}
+    `;
+export type UploadPfpMutationFn = Apollo.MutationFunction<UploadPfpMutation, UploadPfpMutationVariables>;
+
+/**
+ * __useUploadPfpMutation__
+ *
+ * To run a mutation, you first call `useUploadPfpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUploadPfpMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [uploadPfpMutation, { data, loading, error }] = useUploadPfpMutation({
+ *   variables: {
+ *      pfp: // value for 'pfp'
+ *   },
+ * });
+ */
+export function useUploadPfpMutation(baseOptions?: Apollo.MutationHookOptions<UploadPfpMutation, UploadPfpMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UploadPfpMutation, UploadPfpMutationVariables>(UploadPfpDocument, options);
+      }
+export type UploadPfpMutationHookResult = ReturnType<typeof useUploadPfpMutation>;
+export type UploadPfpMutationResult = Apollo.MutationResult<UploadPfpMutation>;
+export type UploadPfpMutationOptions = Apollo.BaseMutationOptions<UploadPfpMutation, UploadPfpMutationVariables>;
