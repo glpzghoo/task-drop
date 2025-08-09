@@ -11,6 +11,8 @@ import {
   calculateResponseTime,
   mapApplicationsToRecentTasks,
 } from '@/lib/profile';
+import { useParams } from 'next/navigation';
+import EditBio from './EditBio';
 
 const OverviewTab = ({
   user,
@@ -19,6 +21,10 @@ const OverviewTab = ({
   user: Users;
   taskApplications: TaskApplications[];
 }) => {
+  const params = useParams();
+  const { userId } = params as { userId: string };
+  const currentUserId = localStorage.getItem('userId');
+  const owner = userId === currentUserId;
   const completionRate = calculateCompletionRate(user);
   const responseTime = calculateResponseTime(taskApplications);
   const recentTasks = mapApplicationsToRecentTasks(
@@ -28,16 +34,18 @@ const OverviewTab = ({
   return (
     <TabsContent value="overview" className="space-y-6">
       {/* About & Quick Stats */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-1 gap-6">
         {/* About */}
         <Card className="bg-background text-foreground">
           <CardHeader>
-            <CardTitle>Тухай</CardTitle>
+            <CardTitle className=" flex items-center justify-between">
+              <div>Тухай</div>
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="leading-relaxed text-muted-foreground">
-              {user.bio ?? 'Био алга.'}
-            </p>
+            <div className=" text-start whitespace-pre-wrap text-muted-foreground w-full h-full">
+              {owner ? <EditBio bio={user.bio} /> : (user.bio ?? 'Био алга.')}
+            </div>
           </CardContent>
         </Card>
 

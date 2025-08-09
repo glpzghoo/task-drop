@@ -35,7 +35,7 @@ const ReviewTab = ({
                 Сэтгэгдлүүд ({user.helperRatingCount || reviews.length})
               </CardTitle>
               <CardDescription className="text-muted-foreground">
-                Бусад хүмүүсийн {user.firstName}-ийн талаар хэлсэн сэтгэгдэл
+                Бусад хүмүүсийн {user.lastName}-ийн талаар хэлсэн сэтгэгдэл
               </CardDescription>
             </div>
             <div className="text-right">

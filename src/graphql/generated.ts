@@ -45,10 +45,16 @@ export type GetUserByIdResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  UpdateBio: Scalars['Boolean']['output'];
   UploadPfp: Scalars['Boolean']['output'];
   createUser: Users;
   loginUser: Users;
   logoutUser: Scalars['Boolean']['output'];
+};
+
+
+export type MutationUpdateBioArgs = {
+  bio: Scalars['String']['input'];
 };
 
 
@@ -421,6 +427,13 @@ export type UploadPfpMutationVariables = Exact<{
 
 export type UploadPfpMutation = { __typename?: 'Mutation', UploadPfp: boolean };
 
+export type UpdateBioMutationVariables = Exact<{
+  bio: Scalars['String']['input'];
+}>;
+
+
+export type UpdateBioMutation = { __typename?: 'Mutation', UpdateBio: boolean };
+
 
 export const GetUsersDocument = gql`
     query GetUsers {
@@ -788,3 +801,34 @@ export function useUploadPfpMutation(baseOptions?: Apollo.MutationHookOptions<Up
 export type UploadPfpMutationHookResult = ReturnType<typeof useUploadPfpMutation>;
 export type UploadPfpMutationResult = Apollo.MutationResult<UploadPfpMutation>;
 export type UploadPfpMutationOptions = Apollo.BaseMutationOptions<UploadPfpMutation, UploadPfpMutationVariables>;
+export const UpdateBioDocument = gql`
+    mutation UpdateBio($bio: String!) {
+  UpdateBio(bio: $bio)
+}
+    `;
+export type UpdateBioMutationFn = Apollo.MutationFunction<UpdateBioMutation, UpdateBioMutationVariables>;
+
+/**
+ * __useUpdateBioMutation__
+ *
+ * To run a mutation, you first call `useUpdateBioMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateBioMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateBioMutation, { data, loading, error }] = useUpdateBioMutation({
+ *   variables: {
+ *      bio: // value for 'bio'
+ *   },
+ * });
+ */
+export function useUpdateBioMutation(baseOptions?: Apollo.MutationHookOptions<UpdateBioMutation, UpdateBioMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateBioMutation, UpdateBioMutationVariables>(UpdateBioDocument, options);
+      }
+export type UpdateBioMutationHookResult = ReturnType<typeof useUpdateBioMutation>;
+export type UpdateBioMutationResult = Apollo.MutationResult<UpdateBioMutation>;
+export type UpdateBioMutationOptions = Apollo.BaseMutationOptions<UpdateBioMutation, UpdateBioMutationVariables>;

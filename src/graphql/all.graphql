@@ -157,3 +157,7 @@ mutation logoutUser {
 mutation UploadPfp($pfp: String!) {
   UploadPfp(pfp: $pfp)
 }
+
+mutation UpdateBio($bio: String!) {
+  UpdateBio(bio: $bio)
+}
