@@ -1,6 +1,3 @@
-'use client';
-
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -23,6 +20,7 @@ import { TaskApplications, Users } from '@/graphql/generated';
 import { formatDistanceToNow } from 'date-fns';
 import { mn } from 'date-fns/locale';
 import { calculateCompletionRate, calculateResponseTime } from '@/lib/profile';
+import UserPFP from './user-pfp';
 
 const ProfileHeader = ({
   user,
@@ -39,24 +37,7 @@ const ProfileHeader = ({
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Column */}
           <div className="flex flex-col items-center md:items-start gap-4 w-full md:w-1/3">
-            <div className="relative">
-              <Avatar className="w-32 h-32">
-                <AvatarImage
-                  src={user.profileImageUrl || '/placeholder.svg'}
-                  alt={`${user.firstName} ${user.lastName}`}
-                />
-                <AvatarFallback className="text-2xl">
-                  {user.firstName[0]}
-                  {user.lastName[0]}
-                </AvatarFallback>
-              </Avatar>
-              {user.availableNow && (
-                <div className="absolute -bottom-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
-                  <div className="w-2 h-2 bg-white rounded-full animate-ping"></div>
-                  Бэлэн байна
-                </div>
-              )}
-            </div>
+            <UserPFP user={user} />
 
             <div className="text-center text-xs flex flex-col gap-2 md:text-left">
               <h1 className="text-2xl font-bold">
