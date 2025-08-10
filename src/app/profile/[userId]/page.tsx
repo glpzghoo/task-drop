@@ -4,7 +4,7 @@ import ProfileTabs from './_components/ProfileTabs';
 import ProfileHeader from './_components/ProfileHeader';
 import { useParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
-import { TaskApplications, useGetUserByIdQuery } from '@/graphql/generated';
+import { useGetUserByIdQuery } from '@/graphql/generated';
 import UserProfileSkeleton from './_components/UserProfileSkeleton';
 
 export default function UserProfilePage() {
@@ -31,11 +31,8 @@ export default function UserProfilePage() {
     return notFound();
   }
 
-  const user = data.getUserById.user;
-  const taskApplications =
-    data.getUserById.taskApplications.filter(
-      (t): t is TaskApplications => t !== null
-    ) || [];
+  const user: any = data.getUserById.user;
+  const taskApplications: any = data.getUserById.taskApplications;
 
   return (
     <div className="min-h-screen bg-background text-foreground">

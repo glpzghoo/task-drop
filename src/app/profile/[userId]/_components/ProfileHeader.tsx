@@ -16,7 +16,7 @@ import {
   TrendingUp,
   User,
 } from 'lucide-react';
-import { TaskApplications, Users } from '@/graphql/generated';
+import { GetUserByIdResponse } from '@/graphql/generated';
 import { formatDistanceToNow } from 'date-fns';
 import { mn } from 'date-fns/locale';
 import { calculateCompletionRate, calculateResponseTime } from '@/lib/profile';
@@ -26,8 +26,8 @@ const ProfileHeader = ({
   user,
   taskApplications,
 }: {
-  user: Users;
-  taskApplications: TaskApplications[];
+  user: GetUserByIdResponse['user'];
+  taskApplications: GetUserByIdResponse['taskApplications'];
 }) => {
   const completionRate = calculateCompletionRate(user);
   const responseTime = calculateResponseTime(taskApplications);

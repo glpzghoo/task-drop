@@ -5,7 +5,7 @@ import { TabsContent } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
-import { TaskApplications, Users } from '@/graphql/generated';
+import { GetUserByIdResponse } from '@/graphql/generated';
 import {
   calculateCompletionRate,
   calculateResponseTime,
@@ -18,8 +18,8 @@ const OverviewTab = ({
   user,
   taskApplications,
 }: {
-  user: Users;
-  taskApplications: TaskApplications[];
+  user: GetUserByIdResponse['user'];
+  taskApplications: GetUserByIdResponse['taskApplications'];
 }) => {
   const params = useParams();
   const { userId } = params as { userId: string };
