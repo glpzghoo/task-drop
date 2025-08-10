@@ -10,38 +10,14 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { MapPin, Clock, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
-import type { GetUserByIdResponse, Task, Maybe } from '@/graphql/generated';
-import { formatDistanceToNow, isValid } from 'date-fns';
-import { mn } from 'date-fns/locale';
-
-const toDate = (ts?: string | null) => {
-  if (!ts) return null;
-  const n = Number(ts);
-  if (!Number.isFinite(n)) return null;
-  const d = new Date(n);
-  return isValid(d) ? d : null;
-};
-
-const formatRelative = (d?: Date | null) => {
-  if (!d) return 'Огноо байхгүй';
-  return formatDistanceToNow(d, { addSuffix: true, locale: mn });
-};
-
-const formatDuration = (mins?: number | null) =>
-  mins == null ? 'Хугацаа тодорхойгүй' : `${mins} мин`;
-
-const formatMNT = (amt?: number | null) =>
-  amt == null
-    ? '—'
-    : new Intl.NumberFormat('mn-MN', {
-        style: 'currency',
-        currency: 'MNT',
-        maximumFractionDigits: 0,
-      }).format(amt);
-
-function isTask(t: Maybe<Task>): t is Task {
-  return !!t && typeof t.id === 'string';
-}
+import type { GetUserByIdResponse, Task } from '@/graphql/generated';
+import {
+  formatDuration,
+  formatMNT,
+  formatRelative,
+  isTask,
+} from '../utils/helpers';
+import { toDate } from 'date-fns';
 
 const TasksTab = ({ user }: { user: GetUserByIdResponse['user'] }) => {
   const raw = user.postedTasks;
@@ -61,6 +37,7 @@ const TasksTab = ({ user }: { user: GetUserByIdResponse['user'] }) => {
             {`${user?.firstName ?? 'Хэрэглэгч'}-ийн хамгийн сүүлд нийтэлсэн даалгаврууд`}
           </CardDescription>
         </CardHeader>
+
         <CardContent>
           <div className="space-y-4">
             {tasks.length > 0 ? (
