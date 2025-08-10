@@ -22,12 +22,12 @@ const Footer = () => {
             <ul className="space-y-2 text-muted-foreground">
               <li>
                 <Link href="/browse" className="hover:underline">
-                  Ажил хайх
+                  Даалгавар хайх
                 </Link>
               </li>
               <li>
                 <Link href="/how-it-works" className="hover:underline">
-                  Хэрхэн ажиллах вэ
+                  Хэрхэн Ажиллах вэ?
                 </Link>
               </li>
               <li>
@@ -38,11 +38,11 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-4">Ажил захиалагчдад</h3>
+            <h3 className="font-semibold mb-4">Даалгавар захиалагчдад</h3>
             <ul className="space-y-2 text-muted-foreground">
               <li>
                 <Link href="/post" className="hover:underline">
-                  Ажил нийтлэх
+                  Даалгавар нийтлэх
                 </Link>
               </li>
               <li>

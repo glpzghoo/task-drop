@@ -88,7 +88,7 @@ const OverviewTab = ({
       {/* Recent Activity */}
       <Card className="bg-background text-foreground">
         <CardHeader>
-          <CardTitle>Сүүлийн үйл ажиллагаа</CardTitle>
+          <CardTitle>Сүүлийн үйл даалгаварлагаа</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -137,7 +137,7 @@ const OverviewTab = ({
               ))
             ) : (
               <p className="text-muted-foreground text-sm">
-                Сүүлийн үйл ажиллагаа алга.
+                Сүүлийн үйл даалгаварлагаа алга.
               </p>
             )}
           </div>

@@ -80,7 +80,7 @@ export default function TaskForm() {
   useEffect(() => {
     if (response) {
       setSnackbar({
-        message: 'Категориудыг амжилттай татаж авлаа.',
+        message: 'Даалгавар амжилттай нийтлэгдлээ.',
         success: true,
       });
       form.reset(initialDefaults);
@@ -91,7 +91,7 @@ export default function TaskForm() {
         success: false,
       });
     }
-  }, [data]);
+  }, [response]);
   return (
     <Card className="border-muted shadow-sm">
       {snackbar && (
@@ -145,7 +145,7 @@ export default function TaskForm() {
                         defaultValue={field.value || 'other'}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Ажлын төрөл сонгох" />
+                          <SelectValue placeholder="Даалгаврын төрөл сонгох" />
                         </SelectTrigger>
                         <SelectContent>
                           {categories.length > 0 &&
@@ -248,7 +248,7 @@ export default function TaskForm() {
                 />
               ) : (
                 <div className="p-4 rounded-md border text-sm">
-                  <div className="font-medium">Цахим ажил</div>
+                  <div className="font-medium">Цахим даалгавар</div>
                   <p className="text-muted-foreground">
                     Интернэттэй газраас гүйцэтгэх боломжтой.
                   </p>

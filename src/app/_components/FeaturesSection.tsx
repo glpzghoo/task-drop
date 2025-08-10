@@ -35,8 +35,8 @@ const FeaturesSection = () => {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              Цаг хянах, баталгаатай төлбөрийн системтэй. Ажил дуусмагц шууд
-              орлого олоорой.
+              Цаг хянах, баталгаатай төлбөрийн системтэй. Даалгавар дуусмагц
+              шууд орлого олоорой.
             </p>
           </CardContent>
         </Card>

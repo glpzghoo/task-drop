@@ -17,7 +17,7 @@ const AvailabilityTab = ({ user }: { user: Users }) => {
         <CardHeader>
           <CardTitle>Ирцийн цагийн хуваарь</CardTitle>
           <CardDescription className="text-muted-foreground">
-            {`${user.firstName} ихэвчлэн ямар цагуудад ажилд авах боломжтой вэ`}
+            {`${user.firstName} ихэвчлэн ямар цагуудад даалгавард авах боломжтой вэ`}
           </CardDescription>
         </CardHeader>
 
@@ -38,7 +38,7 @@ const AvailabilityTab = ({ user }: { user: Users }) => {
             <span>
               {user.address || user.city}
               {user.maxTravelDistance &&
-                `-ийн орчмоор ${user.maxTravelDistance} миль дотор ажиллана`}
+                `-ийн орчмоор ${user.maxTravelDistance} миль дотор даалгаварлана`}
             </span>
           </div> */}
         </CardContent>

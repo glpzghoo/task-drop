@@ -62,10 +62,10 @@ const Header = () => {
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <Link href="/browse" className={linkClass('/browse')}>
-            Ажил хайх
+            Даалгавар хайх
           </Link>
           <Link href="/post" className={linkClass('/post')}>
-            Ажил нийтлэх
+            Даалгавар нийтлэх
           </Link>
           <Link href="/dashboard" className={linkClass('/dashboard')}>
             Хяналтын самбар
@@ -81,10 +81,10 @@ const Header = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem asChild>
-                <Link href="/browse">Ажил хайх</Link>
+                <Link href="/browse">Даалгавар хайх</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/post">Ажил нийтлэх</Link>
+                <Link href="/post">Даалгавар нийтлэх</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/dashboard">Хяналтын самбар</Link>

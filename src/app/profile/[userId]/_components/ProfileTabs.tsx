@@ -27,7 +27,7 @@ const ProfileTabs = ({
       <TabsList className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 bg-muted text-muted-foreground">
         <TabsTrigger value="overview">Тойм</TabsTrigger>
         <TabsTrigger value="reviews">Сэтгэгдэл</TabsTrigger>
-        <TabsTrigger value="tasks">Ажлын түүх</TabsTrigger>
+        <TabsTrigger value="tasks">Даалгаврын түүх</TabsTrigger>
         <TabsTrigger value="skills">Ур чадвар</TabsTrigger>
         <TabsTrigger value="availability">Ирц</TabsTrigger>
       </TabsList>

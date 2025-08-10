@@ -22,7 +22,9 @@ export default function TaskPreview() {
   return (
     <Card className="bg-muted">
       <CardHeader>
-        <CardTitle className="text-lg">Ажлын урьдчилсан харагдац</CardTitle>
+        <CardTitle className="text-lg">
+          Даалгаврын урьдчилсан харагдац
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-2">
