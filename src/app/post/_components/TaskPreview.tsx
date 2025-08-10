@@ -1,22 +1,24 @@
+'use client';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Clock, DollarSign, MapPin } from 'lucide-react';
+import { Clock, MapPin } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { NewTaskFormData } from './zod-schema/new-task';
+import { typeLabels } from '../utils/type-labels';
 
-interface Props {
-  category: string;
-  isUrgent: boolean;
-  isRemote: boolean;
-  estimatedCost: number;
-}
+const STORAGE_KEY = 'taskFormData';
 
-export default function TaskPreview({
-  category,
-  isUrgent,
-  isRemote,
-  estimatedCost,
-}: Props) {
-  if (!estimatedCost) return null;
+export default function TaskPreview() {
+  const [form, setForm] = useState<NewTaskFormData>();
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedForm = localStorage.getItem(STORAGE_KEY);
+      if (storedForm) {
+        setForm(JSON.parse(storedForm));
+      }
+    }
+  }, []);
   return (
     <Card className="bg-muted">
       <CardHeader>
@@ -25,8 +27,10 @@ export default function TaskPreview({
       <CardContent>
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <Badge variant="secondary">{category}</Badge>
-            {isUrgent && (
+            <Badge variant="secondary">
+              {(form?.type && typeLabels[form?.type]) || 'Бүх категори'}
+            </Badge>
+            {form?.isUrgent && (
               <Badge
                 variant="outline"
                 className="text-orange-600 border-orange-600"
@@ -34,7 +38,7 @@ export default function TaskPreview({
                 Яаралтай
               </Badge>
             )}
-            {isRemote && (
+            {form?.isRemote && (
               <Badge
                 variant="outline"
                 className="text-blue-600 border-blue-600"
@@ -43,17 +47,19 @@ export default function TaskPreview({
               </Badge>
             )}
           </div>
-          <h3 className="font-medium">Нохой салхилуулах - 30 минут</h3>
+          <h3 className="font-medium">
+            {form?.title || ''} - {form?.duration || 0} минут
+          </h3>
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1">
               <MapPin className="w-4 h-4" />
-              {isRemote ? 'Цахимаар' : 'Улаанбаатар хотын төв'}
+              {form?.isRemote ? 'Цахимаар' : 'Улаанбаатар хотын төв'}
             </div>
             <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" /> 30 минут
+              <Clock className="w-4 h-4" /> {form?.duration || 0} минут
             </div>
             <div className="flex items-center gap-1">
-              <DollarSign className="w-4 h-4" /> ₮{estimatedCost}
+              ₮{form?.estimatedCost || 0}
             </div>
           </div>
         </div>
