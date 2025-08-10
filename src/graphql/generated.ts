@@ -45,11 +45,25 @@ export type GetUserByIdResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  NewTask: Task;
   UpdateBio: Scalars['Boolean']['output'];
   UploadPfp: Scalars['Boolean']['output'];
   createUser: Users;
   loginUser: Users;
   logoutUser: Scalars['Boolean']['output'];
+};
+
+
+export type MutationNewTaskArgs = {
+  description: Scalars['String']['input'];
+  duration: Scalars['Int']['input'];
+  estimatedCost: Scalars['Int']['input'];
+  isRemote: Scalars['Boolean']['input'];
+  isUrgent: Scalars['Boolean']['input'];
+  location: Scalars['String']['input'];
+  requirements?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
+  type: Scalars['String']['input'];
 };
 
 
@@ -87,6 +101,7 @@ export enum ProficiencyLevel {
 export type Query = {
   __typename?: 'Query';
   currentUser?: Maybe<Users>;
+  getCategories: Array<Categories>;
   getTasks: Array<Maybe<Task>>;
   getUserById?: Maybe<GetUserByIdResponse>;
   getUsers: Array<Maybe<Users>>;
@@ -118,7 +133,7 @@ export type Task = {
   address?: Maybe<Scalars['String']['output']>;
   assignedTo?: Maybe<Scalars['Int']['output']>;
   autoAssign?: Maybe<Scalars['Boolean']['output']>;
-  categoryId: Scalars['Int']['output'];
+  categoryId: Scalars['String']['output'];
   city?: Maybe<Scalars['String']['output']>;
   completedAt?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['String']['output']>;
@@ -127,7 +142,7 @@ export type Task = {
   estimatedDuration?: Maybe<Scalars['Int']['output']>;
   helperFeedback?: Maybe<Scalars['String']['output']>;
   helperRating?: Maybe<Scalars['Float']['output']>;
-  id: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
   isRemote?: Maybe<Scalars['Boolean']['output']>;
   isUrgent?: Maybe<Scalars['Boolean']['output']>;
   latitude?: Maybe<Scalars['Float']['output']>;
@@ -136,12 +151,12 @@ export type Task = {
   paymentAmount?: Maybe<Scalars['Float']['output']>;
   poster: Users;
   posterFeedback?: Maybe<Scalars['String']['output']>;
-  posterId: Scalars['Int']['output'];
+  posterId: Scalars['String']['output'];
   posterRating?: Maybe<Scalars['Float']['output']>;
   requirements?: Maybe<Scalars['String']['output']>;
   startedAt?: Maybe<Scalars['String']['output']>;
   state?: Maybe<Scalars['String']['output']>;
-  status: TaskStatus;
+  status?: Maybe<TaskStatus>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['String']['output']>;
   urgencyFee?: Maybe<Scalars['Float']['output']>;
@@ -162,30 +177,30 @@ export type UserReports = {
   createdAt?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   evidenceUrls?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  id: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
   reason: ReportReason;
   reportedUser: Users;
-  reportedUserId: Scalars['Int']['output'];
+  reporteduserId: Scalars['String']['output'];
   reporter: Users;
-  reporterId: Scalars['Int']['output'];
+  reporterId: Scalars['String']['output'];
   resolvedAt?: Maybe<Scalars['String']['output']>;
   status: ReportStatus;
   task?: Maybe<Task>;
-  taskId?: Maybe<Scalars['Int']['output']>;
+  taskId?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserSkills = {
   __typename?: 'UserSkills';
   category: Scalars['String']['output'];
-  categoryId: Scalars['Int']['output'];
+  categoryId: Scalars['String']['output'];
   createdAt?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
   isVerified?: Maybe<Scalars['Boolean']['output']>;
   proficiencyLevel: ProficiencyLevel;
   skillName: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['String']['output']>;
   user: Users;
-  userId: Scalars['Int']['output'];
+  userId: Scalars['String']['output'];
   yearsExperience?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -241,12 +256,12 @@ export type AvailabilitySchedules = {
   createdAt?: Maybe<Scalars['String']['output']>;
   dayOfWeek: Scalars['Int']['output'];
   endTime: Scalars['String']['output'];
-  id: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
   isActive: Scalars['Boolean']['output'];
   startTime: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['String']['output']>;
   user: Users;
-  userId: Scalars['Int']['output'];
+  userId: Scalars['String']['output'];
 };
 
 export type Categories = {
@@ -254,7 +269,7 @@ export type Categories = {
   createdAt?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   icon?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
   isActive: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
   slug: Scalars['String']['output'];
@@ -273,36 +288,36 @@ export type Messages = {
   __typename?: 'messages';
   attachmentUrl?: Maybe<Scalars['String']['output']>;
   content: Scalars['String']['output'];
-  id: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
   isRead: Scalars['Boolean']['output'];
   messageType: MessageTypeEnum;
   readAt?: Maybe<Scalars['String']['output']>;
   recipient: Users;
-  recipientId: Scalars['Int']['output'];
+  recipientId: Scalars['String']['output'];
   sender: Users;
-  senderId: Scalars['Int']['output'];
+  senderId: Scalars['String']['output'];
   sentAt?: Maybe<Scalars['String']['output']>;
   task?: Maybe<Task>;
-  taskId?: Maybe<Scalars['Int']['output']>;
+  taskId?: Maybe<Scalars['String']['output']>;
 };
 
 export type Notifications = {
   __typename?: 'notifications';
   createdAt?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
   isEmailed: Scalars['Boolean']['output'];
   isPushed: Scalars['Boolean']['output'];
   isRead: Scalars['Boolean']['output'];
   message: Scalars['String']['output'];
   readAt?: Maybe<Scalars['String']['output']>;
   relatedUser?: Maybe<Users>;
-  relatedUserId?: Maybe<Scalars['Int']['output']>;
+  relateduserId?: Maybe<Scalars['String']['output']>;
   task?: Maybe<Task>;
-  taskId?: Maybe<Scalars['Int']['output']>;
+  taskId?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
   user: Users;
-  userId: Scalars['Int']['output'];
+  userId: Scalars['String']['output'];
 };
 
 export enum PaymentStatusEnum {
@@ -317,12 +332,12 @@ export type Payments = {
   __typename?: 'payments';
   amount: Scalars['Float']['output'];
   createdAt?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
   netAmount?: Maybe<Scalars['Float']['output']>;
   payee: Users;
-  payeeId: Scalars['Int']['output'];
+  payeeId: Scalars['String']['output'];
   payer: Users;
-  payerId: Scalars['Int']['output'];
+  payerId: Scalars['String']['output'];
   paymentMethod?: Maybe<Scalars['String']['output']>;
   platformFee?: Maybe<Scalars['Float']['output']>;
   processedAt?: Maybe<Scalars['String']['output']>;
@@ -330,7 +345,7 @@ export type Payments = {
   stripeChargeId?: Maybe<Scalars['String']['output']>;
   stripePaymentIntentId?: Maybe<Scalars['String']['output']>;
   task: Task;
-  taskId: Scalars['Int']['output'];
+  taskId: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['String']['output']>;
   urgencyFee?: Maybe<Scalars['Float']['output']>;
 };
@@ -340,7 +355,7 @@ export type SystemSettings = {
   createdAt?: Maybe<Scalars['String']['output']>;
   dataType: DataType;
   description?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
   key: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['String']['output']>;
   value: Scalars['String']['output'];
@@ -351,14 +366,14 @@ export type TaskApplications = {
   appliedAt?: Maybe<Scalars['String']['output']>;
   estimatedCompletionTime?: Maybe<Scalars['String']['output']>;
   helper: Users;
-  helperId: Scalars['Int']['output'];
-  id: Scalars['Int']['output'];
+  helperId: Scalars['String']['output'];
+  id: Scalars['String']['output'];
   message?: Maybe<Scalars['String']['output']>;
   proposedStartTime?: Maybe<Scalars['String']['output']>;
   respondedAt?: Maybe<Scalars['String']['output']>;
   status: ApplicationStatusEnum;
   task: Task;
-  taskId: Scalars['Int']['output'];
+  taskId: Scalars['String']['output'];
 };
 
 export type TimeSessions = {
@@ -369,14 +384,14 @@ export type TimeSessions = {
   endLongitude?: Maybe<Scalars['Float']['output']>;
   endedAt?: Maybe<Scalars['String']['output']>;
   helper: Users;
-  helperId: Scalars['Int']['output'];
-  id: Scalars['Int']['output'];
+  helperId: Scalars['String']['output'];
+  id: Scalars['String']['output'];
   startLatitude?: Maybe<Scalars['Float']['output']>;
   startLongitude?: Maybe<Scalars['Float']['output']>;
   startedAt: Scalars['String']['output'];
   status?: Maybe<TaskStatus>;
   task: Task;
-  taskId: Scalars['Int']['output'];
+  taskId: Scalars['String']['output'];
 };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
@@ -394,7 +409,12 @@ export type GetUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', getUserById?: { __typename?: 'GetUserByIdResponse', user: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt?: string | null, updatedAt?: string | null, lastActiveAt?: string | null }, taskApplications: Array<{ __typename?: 'taskApplications', id: number, taskId: number, helperId: number, message?: string | null, proposedStartTime?: string | null, estimatedCompletionTime?: string | null, status: ApplicationStatusEnum, appliedAt?: string | null, respondedAt?: string | null, helper: { __typename?: 'Users', id: string, firstName: string, lastName: string }, task: { __typename?: 'Task', id: number, title: string, categoryId: number, paymentAmount?: number | null, estimatedDuration?: number | null, status: TaskStatus, createdAt?: string | null, posterId: number, helperRating?: number | null, helperFeedback?: string | null, posterRating?: number | null, posterFeedback?: string | null, poster: { __typename?: 'Users', id: string, firstName: string, lastName: string } } }> } | null };
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById?: { __typename?: 'GetUserByIdResponse', user: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt?: string | null, updatedAt?: string | null, lastActiveAt?: string | null }, taskApplications: Array<{ __typename?: 'taskApplications', id: string, taskId: string, helperId: string, message?: string | null, proposedStartTime?: string | null, estimatedCompletionTime?: string | null, status: ApplicationStatusEnum, appliedAt?: string | null, respondedAt?: string | null, helper: { __typename?: 'Users', id: string, firstName: string, lastName: string }, task: { __typename?: 'Task', id: string, title: string, categoryId: string, paymentAmount?: number | null, estimatedDuration?: number | null, status?: TaskStatus | null, createdAt?: string | null, posterId: string, helperRating?: number | null, helperFeedback?: string | null, posterRating?: number | null, posterFeedback?: string | null, poster: { __typename?: 'Users', id: string, firstName: string, lastName: string } } }> } | null };
+
+export type GetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCategoriesQuery = { __typename?: 'Query', getCategories: Array<{ __typename?: 'categories', id: string, name: string, slug: string, description?: string | null, icon?: string | null, isActive: boolean, sortOrder?: number | null, createdAt?: string | null, updatedAt?: string | null }> };
 
 export type CreateUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -433,6 +453,21 @@ export type UpdateBioMutationVariables = Exact<{
 
 
 export type UpdateBioMutation = { __typename?: 'Mutation', UpdateBio: boolean };
+
+export type NewTaskMutationVariables = Exact<{
+  title: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+  location: Scalars['String']['input'];
+  isRemote: Scalars['Boolean']['input'];
+  isUrgent: Scalars['Boolean']['input'];
+  duration: Scalars['Int']['input'];
+  requirements?: InputMaybe<Scalars['String']['input']>;
+  estimatedCost: Scalars['Int']['input'];
+}>;
+
+
+export type NewTaskMutation = { __typename?: 'Mutation', NewTask: { __typename?: 'Task', title: string, id: string, posterId: string, categoryId: string, description?: string | null, requirements?: string | null, isRemote?: boolean | null, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration?: number | null, paymentAmount?: number | null, isUrgent?: boolean | null, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt?: string | null, updatedAt?: string | null } };
 
 
 export const GetUsersDocument = gql`
@@ -663,6 +698,53 @@ export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
 export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
 export type GetUserByIdSuspenseQueryHookResult = ReturnType<typeof useGetUserByIdSuspenseQuery>;
 export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export const GetCategoriesDocument = gql`
+    query GetCategories {
+  getCategories {
+    id
+    name
+    slug
+    description
+    icon
+    isActive
+    sortOrder
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useGetCategoriesQuery__
+ *
+ * To run a query within a React component, call `useGetCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCategoriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetCategoriesQuery, GetCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, options);
+      }
+export function useGetCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoriesQuery, GetCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, options);
+        }
+export function useGetCategoriesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetCategoriesQuery, GetCategoriesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, options);
+        }
+export type GetCategoriesQueryHookResult = ReturnType<typeof useGetCategoriesQuery>;
+export type GetCategoriesLazyQueryHookResult = ReturnType<typeof useGetCategoriesLazyQuery>;
+export type GetCategoriesSuspenseQueryHookResult = ReturnType<typeof useGetCategoriesSuspenseQuery>;
+export type GetCategoriesQueryResult = Apollo.QueryResult<GetCategoriesQuery, GetCategoriesQueryVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($email: String!, $firstName: String!, $lastName: String!, $password: String!, $phone: String!) {
   createUser(
@@ -832,3 +914,83 @@ export function useUpdateBioMutation(baseOptions?: Apollo.MutationHookOptions<Up
 export type UpdateBioMutationHookResult = ReturnType<typeof useUpdateBioMutation>;
 export type UpdateBioMutationResult = Apollo.MutationResult<UpdateBioMutation>;
 export type UpdateBioMutationOptions = Apollo.BaseMutationOptions<UpdateBioMutation, UpdateBioMutationVariables>;
+export const NewTaskDocument = gql`
+    mutation NewTask($title: String!, $description: String!, $type: String!, $location: String!, $isRemote: Boolean!, $isUrgent: Boolean!, $duration: Int!, $requirements: String, $estimatedCost: Int!) {
+  NewTask(
+    title: $title
+    description: $description
+    type: $type
+    location: $location
+    isRemote: $isRemote
+    isUrgent: $isUrgent
+    duration: $duration
+    requirements: $requirements
+    estimatedCost: $estimatedCost
+  ) {
+    title
+    id
+    posterId
+    categoryId
+    description
+    requirements
+    isRemote
+    address
+    city
+    state
+    zipCode
+    latitude
+    longitude
+    estimatedDuration
+    paymentAmount
+    isUrgent
+    urgencyFee
+    status
+    assignedTo
+    startedAt
+    completedAt
+    dueDate
+    maxApplications
+    autoAssign
+    helperRating
+    posterRating
+    helperFeedback
+    posterFeedback
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type NewTaskMutationFn = Apollo.MutationFunction<NewTaskMutation, NewTaskMutationVariables>;
+
+/**
+ * __useNewTaskMutation__
+ *
+ * To run a mutation, you first call `useNewTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useNewTaskMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [newTaskMutation, { data, loading, error }] = useNewTaskMutation({
+ *   variables: {
+ *      title: // value for 'title'
+ *      description: // value for 'description'
+ *      type: // value for 'type'
+ *      location: // value for 'location'
+ *      isRemote: // value for 'isRemote'
+ *      isUrgent: // value for 'isUrgent'
+ *      duration: // value for 'duration'
+ *      requirements: // value for 'requirements'
+ *      estimatedCost: // value for 'estimatedCost'
+ *   },
+ * });
+ */
+export function useNewTaskMutation(baseOptions?: Apollo.MutationHookOptions<NewTaskMutation, NewTaskMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<NewTaskMutation, NewTaskMutationVariables>(NewTaskDocument, options);
+      }
+export type NewTaskMutationHookResult = ReturnType<typeof useNewTaskMutation>;
+export type NewTaskMutationResult = Apollo.MutationResult<NewTaskMutation>;
+export type NewTaskMutationOptions = Apollo.BaseMutationOptions<NewTaskMutation, NewTaskMutationVariables>;

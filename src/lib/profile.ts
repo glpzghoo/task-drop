@@ -26,7 +26,7 @@ export function calculateResponseTime(apps: TaskApplications[]): string | null {
 }
 
 export type RecentTask = {
-  id: number;
+  id: string;
   title: string;
   role: 'helper' | 'poster';
   date: string;
@@ -45,7 +45,7 @@ export function mapApplicationsToRecentTasks(
 ): RecentTask[] {
   return apps.map((app) => {
     const t = app.task;
-    const role = t.posterId === Number(user.id) ? 'poster' : 'helper';
+    const role = t.posterId === user.id ? 'poster' : 'helper';
     const payment =
       t.paymentAmount !== undefined && t.paymentAmount !== null
         ? `$${t.paymentAmount}`
@@ -85,7 +85,7 @@ export function mapApplicationsToRecentTasks(
 }
 
 export type Review = {
-  id: number;
+  id: string;
   rating: number;
   date: string;
   reviewer: string;
@@ -101,7 +101,7 @@ export function mapApplicationsToReviews(
   return apps
     .map((app) => {
       const t = app.task;
-      const isHelper = t.posterId !== Number(user.id);
+      const isHelper = t.posterId !== user.id;
       const rating = isHelper ? t.posterRating : t.helperRating;
       const comment = isHelper ? t.posterFeedback : t.helperFeedback;
       if (rating == null && !comment) return null;

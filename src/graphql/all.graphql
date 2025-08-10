@@ -126,6 +126,20 @@ query GetUserById($getUserByIdId: ID!) {
   }
 }
 
+query GetCategories {
+  getCategories {
+    id
+    name
+    slug
+    description
+    icon
+    isActive
+    sortOrder
+    createdAt
+    updatedAt
+  }
+}
+
 mutation CreateUser(
   $email: String!
   $firstName: String!
@@ -160,4 +174,59 @@ mutation UploadPfp($pfp: String!) {
 
 mutation UpdateBio($bio: String!) {
   UpdateBio(bio: $bio)
+}
+
+mutation NewTask(
+  $title: String!
+  $description: String!
+  $type: String!
+  $location: String!
+  $isRemote: Boolean!
+  $isUrgent: Boolean!
+  $duration: Int!
+  $requirements: String
+  $estimatedCost: Int!
+) {
+  NewTask(
+    title: $title
+    description: $description
+    type: $type
+    location: $location
+    isRemote: $isRemote
+    isUrgent: $isUrgent
+    duration: $duration
+    requirements: $requirements
+    estimatedCost: $estimatedCost
+  ) {
+    title
+    id
+    posterId
+    categoryId
+    description
+    requirements
+    isRemote
+    address
+    city
+    state
+    zipCode
+    latitude
+    longitude
+    estimatedDuration
+    paymentAmount
+    isUrgent
+    urgencyFee
+    status
+    assignedTo
+    startedAt
+    completedAt
+    dueDate
+    maxApplications
+    autoAssign
+    helperRating
+    posterRating
+    helperFeedback
+    posterFeedback
+    createdAt
+    updatedAt
+  }
 }
