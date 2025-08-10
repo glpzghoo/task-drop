@@ -35,7 +35,9 @@ export default function BrowseHeader({
             <h1 className="text-2xl font-bold text-foreground">
               Боломжит ажлууд
             </h1>
-            <p className="text-muted-foreground">{tasksCount} ажлын санал</p>
+            <p className="text-muted-foreground">
+              {tasksCount} даалгаврын санал
+            </p>
           </div>
           <div className="flex items-center gap-2">
             <Label htmlFor="sort" className="text-sm font-medium">

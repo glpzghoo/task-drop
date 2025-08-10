@@ -52,7 +52,7 @@ export default function FiltersSidebar({
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="search">Ажил хайх</Label>
+            <Label htmlFor="search">Даалгавар хайх</Label>
             <div className="relative">
               <Input
                 id="search"

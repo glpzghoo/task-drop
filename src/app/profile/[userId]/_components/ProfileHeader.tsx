@@ -92,7 +92,7 @@ const ProfileHeader = ({
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle className="w-5 h-5 text-green-500" />
-                      <span>{user.tasksCompleted} ажил гүйцэтгэсэн</span>
+                      <span>{user.tasksCompleted} Даалгавар гүйцэтгэсэн</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <TrendingUp className="w-5 h-5 text-blue-500" />
@@ -113,7 +113,7 @@ const ProfileHeader = ({
                 <div>
                   <h3 className="font-semibold flex items-center gap-2 mb-3">
                     <Edit className="w-5 h-5" />
-                    Ажил захиалагч
+                    Даалгавар захиалагч
                   </h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2">
@@ -125,7 +125,7 @@ const ProfileHeader = ({
                     </div>
                     <div className="flex items-center gap-2">
                       <Calendar className="w-5 h-5 text-blue-500" />
-                      <span>{user.tasksPosted} ажил нийтэлсэн</span>
+                      <span>{user.tasksPosted} Даалгавар нийтэлсэн</span>
                     </div>
                   </div>
                 </div>

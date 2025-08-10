@@ -14,7 +14,7 @@ export default function ActiveTasksTab({ tasks }: { tasks: any[] }) {
           Идэвхтэй ажлууд
         </h2>
         <Button asChild>
-          <Link href="/browse">Ажил хайх</Link>
+          <Link href="/browse">Даалгавар хайх</Link>
         </Button>
       </div>
 
@@ -75,13 +75,13 @@ export default function ActiveTasksTab({ tasks }: { tasks: any[] }) {
           <CardContent className="pt-6 text-center">
             <AlertCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="font-medium text-foreground mb-2">
-              Идэвхтэй ажил алга
+              Идэвхтэй даалгавар алга
             </h3>
             <p className="text-muted-foreground mb-4">
               Орлого олохын тулд боломжит ажлуудыг үзэх
             </p>
             <Button asChild>
-              <Link href="/browse">Ажил хайх</Link>
+              <Link href="/browse">Даалгавар хайх</Link>
             </Button>
           </CardContent>
         </Card>

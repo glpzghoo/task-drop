@@ -40,7 +40,7 @@ const FeaturedTasks = () => {
       location: 'Санхүүгийн дүүрэг',
       duration: '45 минут',
       payment: '25,000₮',
-      category: 'Ажил хэрэг',
+      category: 'Даалгавар хэрэг',
       urgent: true,
     },
   ];

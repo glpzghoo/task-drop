@@ -139,6 +139,88 @@ query GetCategories {
     updatedAt
   }
 }
+query GetTasks {
+  getTasks {
+    id
+    posterId
+    categoryId
+    title
+    description
+    requirements
+    isRemote
+    address
+    city
+    state
+    zipCode
+    latitude
+    longitude
+    estimatedDuration
+    paymentAmount
+    isUrgent
+    urgencyFee
+    status
+    assignedTo
+    startedAt
+    completedAt
+    dueDate
+    maxApplications
+    autoAssign
+    helperRating
+    posterRating
+    helperFeedback
+    posterFeedback
+    createdAt
+    updatedAt
+    poster {
+      id
+      email
+      firstName
+      lastName
+      phone
+      profileImageUrl
+      bio
+      dateOfBirth
+      address
+      city
+      state
+      country
+      zipCode
+      latitude
+      longitude
+      isHelper
+      isTaskPoster
+      availableNow
+      maxTravelDistance
+      preferredCategories
+      helperRating
+      helperRatingCount
+      posterRating
+      posterRatingCount
+      tasksCompleted
+      tasksPosted
+      totalEarned
+      totalSpent
+      emailVerified
+      phoneVerified
+      backgroundCheckStatus
+      accountStatus
+      createdAt
+      updatedAt
+      lastActiveAt
+    }
+    category {
+      id
+      name
+      slug
+      description
+      icon
+      isActive
+      sortOrder
+      createdAt
+      updatedAt
+    }
+  }
+}
 
 mutation CreateUser(
   $email: String!

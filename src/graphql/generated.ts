@@ -45,12 +45,18 @@ export type GetUserByIdResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  NewCategory: Categories;
   NewTask: Task;
   UpdateBio: Scalars['Boolean']['output'];
   UploadPfp: Scalars['Boolean']['output'];
   createUser: Users;
   loginUser: Users;
   logoutUser: Scalars['Boolean']['output'];
+};
+
+
+export type MutationNewCategoryArgs = {
+  name: Scalars['String']['input'];
 };
 
 
@@ -133,6 +139,7 @@ export type Task = {
   address?: Maybe<Scalars['String']['output']>;
   assignedTo?: Maybe<Scalars['Int']['output']>;
   autoAssign?: Maybe<Scalars['Boolean']['output']>;
+  category: Categories;
   categoryId: Scalars['String']['output'];
   city?: Maybe<Scalars['String']['output']>;
   completedAt?: Maybe<Scalars['String']['output']>;
@@ -415,6 +422,11 @@ export type GetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCategoriesQuery = { __typename?: 'Query', getCategories: Array<{ __typename?: 'categories', id: string, name: string, slug: string, description?: string | null, icon?: string | null, isActive: boolean, sortOrder?: number | null, createdAt?: string | null, updatedAt?: string | null }> };
+
+export type GetTasksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTasksQuery = { __typename?: 'Query', getTasks: Array<{ __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description?: string | null, requirements?: string | null, isRemote?: boolean | null, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration?: number | null, paymentAmount?: number | null, isUrgent?: boolean | null, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt?: string | null, updatedAt?: string | null, poster: { __typename?: 'Users', id: string, email: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt?: string | null, updatedAt?: string | null, lastActiveAt?: string | null }, category: { __typename?: 'categories', id: string, name: string, slug: string, description?: string | null, icon?: string | null, isActive: boolean, sortOrder?: number | null, createdAt?: string | null, updatedAt?: string | null } } | null> };
 
 export type CreateUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -745,6 +757,122 @@ export type GetCategoriesQueryHookResult = ReturnType<typeof useGetCategoriesQue
 export type GetCategoriesLazyQueryHookResult = ReturnType<typeof useGetCategoriesLazyQuery>;
 export type GetCategoriesSuspenseQueryHookResult = ReturnType<typeof useGetCategoriesSuspenseQuery>;
 export type GetCategoriesQueryResult = Apollo.QueryResult<GetCategoriesQuery, GetCategoriesQueryVariables>;
+export const GetTasksDocument = gql`
+    query GetTasks {
+  getTasks {
+    id
+    posterId
+    categoryId
+    title
+    description
+    requirements
+    isRemote
+    address
+    city
+    state
+    zipCode
+    latitude
+    longitude
+    estimatedDuration
+    paymentAmount
+    isUrgent
+    urgencyFee
+    status
+    assignedTo
+    startedAt
+    completedAt
+    dueDate
+    maxApplications
+    autoAssign
+    helperRating
+    posterRating
+    helperFeedback
+    posterFeedback
+    createdAt
+    updatedAt
+    poster {
+      id
+      email
+      firstName
+      lastName
+      phone
+      profileImageUrl
+      bio
+      dateOfBirth
+      address
+      city
+      state
+      country
+      zipCode
+      latitude
+      longitude
+      isHelper
+      isTaskPoster
+      availableNow
+      maxTravelDistance
+      preferredCategories
+      helperRating
+      helperRatingCount
+      posterRating
+      posterRatingCount
+      tasksCompleted
+      tasksPosted
+      totalEarned
+      totalSpent
+      emailVerified
+      phoneVerified
+      backgroundCheckStatus
+      accountStatus
+      createdAt
+      updatedAt
+      lastActiveAt
+    }
+    category {
+      id
+      name
+      slug
+      description
+      icon
+      isActive
+      sortOrder
+      createdAt
+      updatedAt
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetTasksQuery__
+ *
+ * To run a query within a React component, call `useGetTasksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTasksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTasksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTasksQuery(baseOptions?: Apollo.QueryHookOptions<GetTasksQuery, GetTasksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTasksQuery, GetTasksQueryVariables>(GetTasksDocument, options);
+      }
+export function useGetTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTasksQuery, GetTasksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTasksQuery, GetTasksQueryVariables>(GetTasksDocument, options);
+        }
+export function useGetTasksSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTasksQuery, GetTasksQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTasksQuery, GetTasksQueryVariables>(GetTasksDocument, options);
+        }
+export type GetTasksQueryHookResult = ReturnType<typeof useGetTasksQuery>;
+export type GetTasksLazyQueryHookResult = ReturnType<typeof useGetTasksLazyQuery>;
+export type GetTasksSuspenseQueryHookResult = ReturnType<typeof useGetTasksSuspenseQuery>;
+export type GetTasksQueryResult = Apollo.QueryResult<GetTasksQuery, GetTasksQueryVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($email: String!, $firstName: String!, $lastName: String!, $password: String!, $phone: String!) {
   createUser(

@@ -13,7 +13,7 @@ export default function PostedTasksTab({ tasks }: { tasks: any[] }) {
           Таны нийтэлсэн ажлууд
         </h2>
         <Button asChild>
-          <Link href="/post">Шинэ ажил нийтлэх</Link>
+          <Link href="/post">Шинэ даалгавар нийтлэх</Link>
         </Button>
       </div>
       <div className="grid gap-4">
