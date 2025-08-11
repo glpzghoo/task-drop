@@ -7,14 +7,14 @@ import ReviewTab from './ReviewTab';
 import TasksTab from './TasksTab';
 import SkillsTab from './SkillsTab';
 import AvailabilityTab from './AvailabilityTab';
-import { TaskApplications, Users } from '@/graphql/generated';
+import { GetUserByIdResponse } from '@/graphql/generated';
 
 const ProfileTabs = ({
   user,
   taskApplications,
 }: {
-  user: Users;
-  taskApplications: TaskApplications[];
+  user: GetUserByIdResponse['user'];
+  taskApplications: GetUserByIdResponse['taskApplications'];
 }) => {
   const [activeTab, setActiveTab] = useState('overview');
 
@@ -38,9 +38,7 @@ const ProfileTabs = ({
       {activeTab === 'reviews' && (
         <ReviewTab user={user} taskApplications={taskApplications} />
       )}
-      {activeTab === 'tasks' && (
-        <TasksTab user={user} taskApplications={taskApplications} />
-      )}
+      {activeTab === 'tasks' && <TasksTab user={user} />}
       {activeTab === 'skills' && <SkillsTab user={user} />}
       {activeTab === 'availability' && <AvailabilityTab user={user} />}
     </Tabs>

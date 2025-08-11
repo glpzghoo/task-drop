@@ -53,7 +53,6 @@ query GetUserById($getUserByIdId: ID!) {
     user {
       id
       email
-      passwordHash
       firstName
       lastName
       phone
@@ -87,6 +86,38 @@ query GetUserById($getUserByIdId: ID!) {
       createdAt
       updatedAt
       lastActiveAt
+      postedTasks {
+        id
+        posterId
+        categoryId
+        title
+        description
+        requirements
+        isRemote
+        address
+        city
+        state
+        zipCode
+        latitude
+        longitude
+        estimatedDuration
+        paymentAmount
+        isUrgent
+        urgencyFee
+        status
+        assignedTo
+        startedAt
+        completedAt
+        dueDate
+        maxApplications
+        autoAssign
+        helperRating
+        posterRating
+        helperFeedback
+        posterFeedback
+        createdAt
+        updatedAt
+      }
     }
     taskApplications {
       id

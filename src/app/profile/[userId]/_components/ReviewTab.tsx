@@ -12,15 +12,15 @@ import { Star, ThumbsUp } from 'lucide-react';
 import { useState } from 'react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { TaskApplications, Users } from '@/graphql/generated';
+import { GetUserByIdResponse } from '@/graphql/generated';
 import { mapApplicationsToReviews } from '@/lib/profile';
 
 const ReviewTab = ({
   user,
   taskApplications,
 }: {
-  user: Users;
-  taskApplications: TaskApplications[];
+  user: GetUserByIdResponse['user'];
+  taskApplications: GetUserByIdResponse['taskApplications'];
 }) => {
   const [showAllReviews, setShowAllReviews] = useState(false);
   const reviews = mapApplicationsToReviews(taskApplications, user);
