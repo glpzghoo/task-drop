@@ -10,10 +10,10 @@ import {
 import { TabsContent } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Shield } from 'lucide-react';
-import { GetUserByIdResponse } from '@/graphql/generated';
 import { getSkills } from '@/lib/profile';
+import { Users } from '@/graphql/generated';
 
-const SkillsTab = ({ user }: { user: GetUserByIdResponse['user'] }) => {
+const SkillsTab = ({ user }: { user: Users }) => {
   const skills = getSkills(user);
 
   return (

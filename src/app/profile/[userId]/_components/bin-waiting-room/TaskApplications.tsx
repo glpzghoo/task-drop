@@ -11,18 +11,16 @@ import { TabsContent } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
 import { mapApplicationsToRecentTasks } from '@/lib/profile';
-import { GetUserByIdResponse } from '@/graphql/generated';
+import { Users } from '@/graphql/generated';
 
-const TasksTab = ({
-  user,
-  taskApplications,
-}: {
-  user: GetUserByIdResponse['user'];
-  taskApplications: GetUserByIdResponse['taskApplications'];
-}) => {
-  const AllTasks = user.postedTasks;
-  const tasks = mapApplicationsToRecentTasks(taskApplications, user);
-  console.log(AllTasks);
+const TasksTab = ({ user }: { user: Users }) => {
+  const tasks = mapApplicationsToRecentTasks(
+    (user.taskApplications ?? []).filter(
+      (a): a is NonNullable<typeof a> => a != null
+    ),
+    user
+  );
+
   return (
     <TabsContent value="tasks" className="space-y-6">
       <Card className="bg-background text-foreground">

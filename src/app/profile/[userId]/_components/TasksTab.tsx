@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { MapPin, Clock, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
-import type { GetUserByIdResponse, Task } from '@/graphql/generated';
+import type { Task, Users } from '@/graphql/generated';
 import {
   formatDuration,
   formatMNT,
@@ -19,10 +19,10 @@ import {
 } from '../utils/helpers';
 import { toDate } from 'date-fns';
 
-const TasksTab = ({ user }: { user: GetUserByIdResponse['user'] }) => {
+const TasksTab = ({ user }: { user: Users }) => {
   const raw = user.postedTasks;
 
-  const tasks: Task[] = raw.filter(isTask).sort((a, b) => {
+  const tasks: Task[] = (raw ?? []).filter(isTask).sort((a, b) => {
     const da = toDate(a.createdAt)?.getTime() ?? 0;
     const db = toDate(b.createdAt)?.getTime() ?? 0;
     return db - da;

@@ -8,9 +8,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { TabsContent } from '@/components/ui/tabs';
-import { GetUserByIdResponse } from '@/graphql/generated';
+import { Users } from '@/graphql/generated';
 
-const AvailabilityTab = ({ user }: { user: GetUserByIdResponse['user'] }) => {
+const AvailabilityTab = ({ user }: { user: Users }) => {
   return (
     <TabsContent value="availability" className="space-y-6">
       <Card className="bg-background text-foreground">
