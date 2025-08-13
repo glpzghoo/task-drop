@@ -9,7 +9,10 @@ export function calculateCompletionRate(user: Users): number {
   return Math.round((completed / posted) * 100);
 }
 
-export function calculateResponseTime(apps: TaskApplications[]): string | null {
+export function calculateResponseTime(
+  apps?: TaskApplications[]
+): string | null {
+  if (!apps) return null;
   const deltas = apps
     .filter((a) => a.appliedAt && a.respondedAt)
     .map(

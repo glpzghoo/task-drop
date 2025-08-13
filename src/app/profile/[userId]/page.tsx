@@ -4,14 +4,14 @@ import ProfileTabs from './_components/ProfileTabs';
 import ProfileHeader from './_components/ProfileHeader';
 import { useParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
-import { useGetUserByIdQuery } from '@/graphql/generated';
+import { useGetUserByIdQuery, Users } from '@/graphql/generated';
 import UserProfileSkeleton from './_components/UserProfileSkeleton';
 
 export default function UserProfilePage() {
   const params = useParams();
   const { userId } = params as { userId: string };
 
-  const { data, loading } = useGetUserByIdQuery({
+  const { data, loading, error } = useGetUserByIdQuery({
     variables: { getUserByIdId: userId! },
     skip: !userId || typeof userId !== 'string',
   });
@@ -27,12 +27,11 @@ export default function UserProfilePage() {
     );
   }
 
-  if (!userId || !data?.getUserById) {
+  if (!userId || !data?.getUserById || error) {
     return notFound();
   }
 
-  const user: any = data.getUserById.user;
-  const taskApplications: any = data.getUserById.taskApplications;
+  const user: Users = data.getUserById as Users;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -41,10 +40,10 @@ export default function UserProfilePage() {
 
       <main className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Profile Header */}
-        <ProfileHeader user={user} taskApplications={taskApplications} />
+        <ProfileHeader user={user} />
 
         {/* Profile Tabs */}
-        <ProfileTabs user={user} taskApplications={taskApplications} />
+        <ProfileTabs user={user} />
       </main>
     </div>
   );

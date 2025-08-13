@@ -5,7 +5,6 @@ import { TabsContent } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
-import { GetUserByIdResponse } from '@/graphql/generated';
 import {
   calculateCompletionRate,
   calculateResponseTime,
@@ -13,22 +12,25 @@ import {
 } from '@/lib/profile';
 import { useParams } from 'next/navigation';
 import EditBio from './EditBio';
+import { Users } from '@/graphql/generated';
 
-const OverviewTab = ({
-  user,
-  taskApplications,
-}: {
-  user: GetUserByIdResponse['user'];
-  taskApplications: GetUserByIdResponse['taskApplications'];
-}) => {
+const OverviewTab = ({ user }: { user: Users }) => {
   const params = useParams();
   const { userId } = params as { userId: string };
   const currentUserId = localStorage.getItem('userId');
   const owner = userId === currentUserId;
   const completionRate = calculateCompletionRate(user);
-  const responseTime = calculateResponseTime(taskApplications);
+  const responseTime = calculateResponseTime(
+    user.taskApplications
+      ? user.taskApplications.filter(
+          (a): a is NonNullable<typeof a> => a !== null
+        )
+      : undefined
+  );
   const recentTasks = mapApplicationsToRecentTasks(
-    taskApplications,
+    (user.taskApplications ?? []).filter(
+      (a): a is NonNullable<typeof a> => a !== null
+    ),
     user
   ).slice(0, 3);
   return (
