@@ -50,75 +50,64 @@ query CurrentUser {
 
 query GetUserById($getUserByIdId: ID!) {
   getUserById(id: $getUserByIdId) {
-    user {
+    id
+    email
+    passwordHash
+    firstName
+    lastName
+    phone
+    profileImageUrl
+    bio
+    dateOfBirth
+    address
+    city
+    state
+    country
+    zipCode
+    latitude
+    longitude
+    isHelper
+    isTaskPoster
+    availableNow
+    maxTravelDistance
+    preferredCategories
+    postedTasks {
       id
-      email
-      firstName
-      lastName
-      phone
-      profileImageUrl
-      bio
-      dateOfBirth
+      posterId
+      categoryId
+      title
+      description
+      requirements
+      isRemote
       address
       city
       state
-      country
       zipCode
       latitude
       longitude
-      isHelper
-      isTaskPoster
-      availableNow
-      maxTravelDistance
-      preferredCategories
+      estimatedDuration
+      paymentAmount
+      isUrgent
+      urgencyFee
+      status
+      assignedTo
+      startedAt
+      completedAt
+      dueDate
+      maxApplications
+      autoAssign
       helperRating
-      helperRatingCount
       posterRating
-      posterRatingCount
-      tasksCompleted
-      tasksPosted
-      totalEarned
-      totalSpent
-      emailVerified
-      phoneVerified
-      backgroundCheckStatus
-      accountStatus
+      helperFeedback
+      posterFeedback
       createdAt
       updatedAt
-      lastActiveAt
-      postedTasks {
-        id
-        posterId
-        categoryId
-        title
-        description
-        requirements
-        isRemote
-        address
-        city
-        state
-        zipCode
-        latitude
-        longitude
-        estimatedDuration
-        paymentAmount
-        isUrgent
-        urgencyFee
-        status
-        assignedTo
-        startedAt
-        completedAt
-        dueDate
-        maxApplications
-        autoAssign
-        helperRating
-        posterRating
-        helperFeedback
-        posterFeedback
-        createdAt
-        updatedAt
-      }
     }
+    helperRating
+    helperRatingCount
+    posterRating
+    posterRatingCount
+    tasksCompleted
     taskApplications {
       id
       taskId
@@ -129,31 +118,17 @@ query GetUserById($getUserByIdId: ID!) {
       status
       appliedAt
       respondedAt
-      helper {
-        id
-        firstName
-        lastName
-      }
-      task {
-        id
-        title
-        categoryId
-        paymentAmount
-        estimatedDuration
-        status
-        createdAt
-        posterId
-        poster {
-          id
-          firstName
-          lastName
-        }
-        helperRating
-        helperFeedback
-        posterRating
-        posterFeedback
-      }
     }
+    tasksPosted
+    totalEarned
+    totalSpent
+    emailVerified
+    phoneVerified
+    backgroundCheckStatus
+    accountStatus
+    createdAt
+    updatedAt
+    lastActiveAt
   }
 }
 

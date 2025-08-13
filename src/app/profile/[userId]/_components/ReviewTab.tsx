@@ -12,18 +12,17 @@ import { Star, ThumbsUp } from 'lucide-react';
 import { useState } from 'react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { GetUserByIdResponse } from '@/graphql/generated';
 import { mapApplicationsToReviews } from '@/lib/profile';
+import { Users } from '@/graphql/generated';
 
-const ReviewTab = ({
-  user,
-  taskApplications,
-}: {
-  user: GetUserByIdResponse['user'];
-  taskApplications: GetUserByIdResponse['taskApplications'];
-}) => {
+const ReviewTab = ({ user }: { user: Users }) => {
   const [showAllReviews, setShowAllReviews] = useState(false);
-  const reviews = mapApplicationsToReviews(taskApplications, user);
+  const reviews = mapApplicationsToReviews(
+    (user.taskApplications ?? []).filter(
+      (app): app is NonNullable<typeof app> => !!app
+    ),
+    user
+  );
 
   return (
     <TabsContent value="reviews" className="space-y-6">

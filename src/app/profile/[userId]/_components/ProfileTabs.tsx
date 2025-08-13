@@ -7,15 +7,9 @@ import ReviewTab from './ReviewTab';
 import TasksTab from './TasksTab';
 import SkillsTab from './SkillsTab';
 import AvailabilityTab from './AvailabilityTab';
-import { GetUserByIdResponse } from '@/graphql/generated';
+import { Users } from '@/graphql/generated';
 
-const ProfileTabs = ({
-  user,
-  taskApplications,
-}: {
-  user: GetUserByIdResponse['user'];
-  taskApplications: GetUserByIdResponse['taskApplications'];
-}) => {
+const ProfileTabs = ({ user }: { user: Users }) => {
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
@@ -32,12 +26,8 @@ const ProfileTabs = ({
         <TabsTrigger value="availability">Ирц</TabsTrigger>
       </TabsList>
 
-      {activeTab === 'overview' && (
-        <OverviewTab user={user} taskApplications={taskApplications} />
-      )}
-      {activeTab === 'reviews' && (
-        <ReviewTab user={user} taskApplications={taskApplications} />
-      )}
+      {activeTab === 'overview' && <OverviewTab user={user} />}
+      {activeTab === 'reviews' && <ReviewTab user={user} />}
       {activeTab === 'tasks' && <TasksTab user={user} />}
       {activeTab === 'skills' && <SkillsTab user={user} />}
       {activeTab === 'availability' && <AvailabilityTab user={user} />}

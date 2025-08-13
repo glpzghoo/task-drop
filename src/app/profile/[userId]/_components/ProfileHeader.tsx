@@ -16,21 +16,21 @@ import {
   TrendingUp,
   User,
 } from 'lucide-react';
-import { GetUserByIdResponse } from '@/graphql/generated';
 import { formatDistanceToNow } from 'date-fns';
 import { mn } from 'date-fns/locale';
 import { calculateCompletionRate, calculateResponseTime } from '@/lib/profile';
 import UserPFP from './user-pfp';
+import { Users } from '@/graphql/generated';
 
-const ProfileHeader = ({
-  user,
-  taskApplications,
-}: {
-  user: GetUserByIdResponse['user'];
-  taskApplications: GetUserByIdResponse['taskApplications'];
-}) => {
+const ProfileHeader = ({ user }: { user: Users }) => {
   const completionRate = calculateCompletionRate(user);
-  const responseTime = calculateResponseTime(taskApplications);
+  const responseTime = calculateResponseTime(
+    user.taskApplications
+      ? user.taskApplications.filter(
+          (a): a is NonNullable<typeof a> => a !== null
+        )
+      : undefined
+  );
   return (
     <Card className="bg-background text-foreground mb-8 shadow">
       <CardContent className="pt-6">

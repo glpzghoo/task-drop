@@ -37,12 +37,6 @@ export enum DataType {
   String = 'string'
 }
 
-export type GetUserByIdResponse = {
-  __typename?: 'GetUserByIdResponse';
-  taskApplications: Array<TaskApplications>;
-  user: Users;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   NewCategory: Categories;
@@ -109,7 +103,7 @@ export type Query = {
   currentUser?: Maybe<Users>;
   getCategories: Array<Categories>;
   getTasks: Array<Maybe<Task>>;
-  getUserById?: Maybe<GetUserByIdResponse>;
+  getUserById: Users;
   getUsers: Array<Maybe<Users>>;
 };
 
@@ -238,12 +232,13 @@ export type Users = {
   passwordHash: Scalars['String']['output'];
   phone: Scalars['String']['output'];
   phoneVerified?: Maybe<Scalars['Boolean']['output']>;
-  postedTasks: Array<Maybe<Task>>;
+  postedTasks?: Maybe<Array<Maybe<Task>>>;
   posterRating?: Maybe<Scalars['Float']['output']>;
   posterRatingCount?: Maybe<Scalars['Int']['output']>;
   preferredCategories?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   profileImageUrl?: Maybe<Scalars['String']['output']>;
   state?: Maybe<Scalars['String']['output']>;
+  taskApplications?: Maybe<Array<Maybe<TaskApplications>>>;
   tasksCompleted?: Maybe<Scalars['Int']['output']>;
   tasksPosted?: Maybe<Scalars['Int']['output']>;
   totalEarned?: Maybe<Scalars['Float']['output']>;
@@ -417,7 +412,7 @@ export type GetUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', getUserById?: { __typename?: 'GetUserByIdResponse', user: { __typename?: 'Users', id: string, email: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null, postedTasks: Array<{ __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description?: string | null, requirements?: string | null, isRemote?: boolean | null, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration?: number | null, paymentAmount?: number | null, isUrgent?: boolean | null, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string } | null> }, taskApplications: Array<{ __typename?: 'taskApplications', id: string, taskId: string, helperId: string, message?: string | null, proposedStartTime?: string | null, estimatedCompletionTime?: string | null, status: ApplicationStatusEnum, appliedAt?: string | null, respondedAt?: string | null, helper: { __typename?: 'Users', id: string, firstName: string, lastName: string }, task: { __typename?: 'Task', id: string, title: string, categoryId: string, paymentAmount?: number | null, estimatedDuration?: number | null, status?: TaskStatus | null, createdAt: string, posterId: string, helperRating?: number | null, helperFeedback?: string | null, posterRating?: number | null, posterFeedback?: string | null, poster: { __typename?: 'Users', id: string, firstName: string, lastName: string } } }> } | null };
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null, postedTasks?: Array<{ __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description?: string | null, requirements?: string | null, isRemote?: boolean | null, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration?: number | null, paymentAmount?: number | null, isUrgent?: boolean | null, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string } | null> | null, taskApplications?: Array<{ __typename?: 'taskApplications', id: string, taskId: string, helperId: string, message?: string | null, proposedStartTime?: string | null, estimatedCompletionTime?: string | null, status: ApplicationStatusEnum, appliedAt?: string | null, respondedAt?: string | null } | null> | null } };
 
 export type GetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -602,75 +597,64 @@ export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, Curren
 export const GetUserByIdDocument = gql`
     query GetUserById($getUserByIdId: ID!) {
   getUserById(id: $getUserByIdId) {
-    user {
+    id
+    email
+    passwordHash
+    firstName
+    lastName
+    phone
+    profileImageUrl
+    bio
+    dateOfBirth
+    address
+    city
+    state
+    country
+    zipCode
+    latitude
+    longitude
+    isHelper
+    isTaskPoster
+    availableNow
+    maxTravelDistance
+    preferredCategories
+    postedTasks {
       id
-      email
-      firstName
-      lastName
-      phone
-      profileImageUrl
-      bio
-      dateOfBirth
+      posterId
+      categoryId
+      title
+      description
+      requirements
+      isRemote
       address
       city
       state
-      country
       zipCode
       latitude
       longitude
-      isHelper
-      isTaskPoster
-      availableNow
-      maxTravelDistance
-      preferredCategories
+      estimatedDuration
+      paymentAmount
+      isUrgent
+      urgencyFee
+      status
+      assignedTo
+      startedAt
+      completedAt
+      dueDate
+      maxApplications
+      autoAssign
       helperRating
-      helperRatingCount
       posterRating
-      posterRatingCount
-      tasksCompleted
-      tasksPosted
-      totalEarned
-      totalSpent
-      emailVerified
-      phoneVerified
-      backgroundCheckStatus
-      accountStatus
+      helperFeedback
+      posterFeedback
       createdAt
       updatedAt
-      lastActiveAt
-      postedTasks {
-        id
-        posterId
-        categoryId
-        title
-        description
-        requirements
-        isRemote
-        address
-        city
-        state
-        zipCode
-        latitude
-        longitude
-        estimatedDuration
-        paymentAmount
-        isUrgent
-        urgencyFee
-        status
-        assignedTo
-        startedAt
-        completedAt
-        dueDate
-        maxApplications
-        autoAssign
-        helperRating
-        posterRating
-        helperFeedback
-        posterFeedback
-        createdAt
-        updatedAt
-      }
     }
+    helperRating
+    helperRatingCount
+    posterRating
+    posterRatingCount
+    tasksCompleted
     taskApplications {
       id
       taskId
@@ -681,31 +665,17 @@ export const GetUserByIdDocument = gql`
       status
       appliedAt
       respondedAt
-      helper {
-        id
-        firstName
-        lastName
-      }
-      task {
-        id
-        title
-        categoryId
-        paymentAmount
-        estimatedDuration
-        status
-        createdAt
-        posterId
-        poster {
-          id
-          firstName
-          lastName
-        }
-        helperRating
-        helperFeedback
-        posterRating
-        posterFeedback
-      }
     }
+    tasksPosted
+    totalEarned
+    totalSpent
+    emailVerified
+    phoneVerified
+    backgroundCheckStatus
+    accountStatus
+    createdAt
+    updatedAt
+    lastActiveAt
   }
 }
     `;
