@@ -31,10 +31,10 @@ const ReviewTab = ({ user }: { user: Users }) => {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <CardTitle>
-                Сэтгэгдлүүд ({user.helperRatingCount || reviews.length})
+                Үнэлгээнүүд ({user.helperRatingCount || reviews.length})
               </CardTitle>
               <CardDescription className="text-muted-foreground">
-                Бусад хүмүүсийн {user.lastName}-ийн талаар хэлсэн сэтгэгдэл
+                Бусад хүмүүсийн {user.lastName}-ийн талаар хэлсэн үнэлгээ
               </CardDescription>
             </div>
             <div className="text-right">
@@ -43,7 +43,7 @@ const ReviewTab = ({ user }: { user: Users }) => {
                 <span className="text-2xl font-bold">{user.helperRating}</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                {user.helperRatingCount || reviews.length} сэтгэгдэл
+                {user.helperRatingCount || reviews.length} үнэлгээ
               </p>
             </div>
           </div>
@@ -97,7 +97,7 @@ const ReviewTab = ({ user }: { user: Users }) => {
                 </div>
               ))
             ) : (
-              <p className="text-muted-foreground text-sm">Сэтгэгдэл алга.</p>
+              <p className="text-muted-foreground text-sm">Үнэлгээ алга.</p>
             )}
           </div>
 
@@ -109,7 +109,7 @@ const ReviewTab = ({ user }: { user: Users }) => {
               >
                 {showAllReviews
                   ? 'Цөөн үзүүлэх'
-                  : `Бүх ${reviews.length} сэтгэгдлийг үзэх`}
+                  : `Бүх ${reviews.length} үнэлгээнүүдийг үзэх`}
               </Button>
             </div>
           )}

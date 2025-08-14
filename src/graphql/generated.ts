@@ -102,9 +102,15 @@ export type Query = {
   __typename?: 'Query';
   currentUser?: Maybe<Users>;
   getCategories: Array<Categories>;
+  getTaskById: Task;
   getTasks: Array<Maybe<Task>>;
   getUserById: Users;
   getUsers: Array<Maybe<Users>>;
+};
+
+
+export type QueryGetTaskByIdArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -131,6 +137,7 @@ export enum ReportStatus {
 export type Task = {
   __typename?: 'Task';
   address?: Maybe<Scalars['String']['output']>;
+  applications: Array<TaskApplications>;
   assignedTo?: Maybe<Scalars['Int']['output']>;
   autoAssign?: Maybe<Scalars['Boolean']['output']>;
   category: Categories;
@@ -138,18 +145,18 @@ export type Task = {
   city?: Maybe<Scalars['String']['output']>;
   completedAt?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['String']['output'];
-  description?: Maybe<Scalars['String']['output']>;
+  description: Scalars['String']['output'];
   dueDate?: Maybe<Scalars['String']['output']>;
-  estimatedDuration?: Maybe<Scalars['Int']['output']>;
+  estimatedDuration: Scalars['Int']['output'];
   helperFeedback?: Maybe<Scalars['String']['output']>;
   helperRating?: Maybe<Scalars['Float']['output']>;
   id: Scalars['String']['output'];
-  isRemote?: Maybe<Scalars['Boolean']['output']>;
-  isUrgent?: Maybe<Scalars['Boolean']['output']>;
+  isRemote: Scalars['Boolean']['output'];
+  isUrgent: Scalars['Boolean']['output'];
   latitude?: Maybe<Scalars['Float']['output']>;
   longitude?: Maybe<Scalars['Float']['output']>;
   maxApplications?: Maybe<Scalars['Int']['output']>;
-  paymentAmount?: Maybe<Scalars['Float']['output']>;
+  paymentAmount: Scalars['Float']['output'];
   poster: Users;
   posterFeedback?: Maybe<Scalars['String']['output']>;
   posterId: Scalars['String']['output'];
@@ -366,13 +373,13 @@ export type SystemSettings = {
 
 export type TaskApplications = {
   __typename?: 'taskApplications';
-  appliedAt?: Maybe<Scalars['String']['output']>;
-  estimatedCompletionTime?: Maybe<Scalars['String']['output']>;
+  appliedAt: Scalars['String']['output'];
+  estimatedCompletionTime: Scalars['String']['output'];
   helper: Users;
   helperId: Scalars['String']['output'];
   id: Scalars['String']['output'];
-  message?: Maybe<Scalars['String']['output']>;
-  proposedStartTime?: Maybe<Scalars['String']['output']>;
+  message: Scalars['String']['output'];
+  proposedStartTime: Scalars['String']['output'];
   respondedAt?: Maybe<Scalars['String']['output']>;
   status: ApplicationStatusEnum;
   task: Task;
@@ -412,7 +419,7 @@ export type GetUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null, postedTasks?: Array<{ __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description?: string | null, requirements?: string | null, isRemote?: boolean | null, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration?: number | null, paymentAmount?: number | null, isUrgent?: boolean | null, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string } | null> | null, taskApplications?: Array<{ __typename?: 'taskApplications', id: string, taskId: string, helperId: string, message?: string | null, proposedStartTime?: string | null, estimatedCompletionTime?: string | null, status: ApplicationStatusEnum, appliedAt?: string | null, respondedAt?: string | null } | null> | null } };
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null, postedTasks?: Array<{ __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description: string, requirements?: string | null, isRemote: boolean, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string } | null> | null, taskApplications?: Array<{ __typename?: 'taskApplications', id: string, taskId: string, helperId: string, message: string, proposedStartTime: string, estimatedCompletionTime: string, status: ApplicationStatusEnum, appliedAt: string, respondedAt?: string | null } | null> | null } };
 
 export type GetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -422,7 +429,7 @@ export type GetCategoriesQuery = { __typename?: 'Query', getCategories: Array<{ 
 export type GetTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTasksQuery = { __typename?: 'Query', getTasks: Array<{ __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description?: string | null, requirements?: string | null, isRemote?: boolean | null, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration?: number | null, paymentAmount?: number | null, isUrgent?: boolean | null, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string, poster: { __typename?: 'Users', id: string, email: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null }, category: { __typename?: 'categories', id: string, name: string, slug: string, description?: string | null, icon?: string | null, isActive: boolean, sortOrder?: number | null, createdAt?: string | null, updatedAt?: string | null } } | null> };
+export type GetTasksQuery = { __typename?: 'Query', getTasks: Array<{ __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description: string, requirements?: string | null, isRemote: boolean, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string, poster: { __typename?: 'Users', id: string, email: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null }, category: { __typename?: 'categories', id: string, name: string, slug: string, description?: string | null, icon?: string | null, isActive: boolean, sortOrder?: number | null, createdAt?: string | null, updatedAt?: string | null } } | null> };
 
 export type CreateUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -434,6 +441,13 @@ export type CreateUserMutationVariables = Exact<{
 
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'Users', id: string } };
+
+export type GetTaskByIdQueryVariables = Exact<{
+  getTaskByIdId: Scalars['String']['input'];
+}>;
+
+
+export type GetTaskByIdQuery = { __typename?: 'Query', getTaskById: { __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description: string, requirements?: string | null, isRemote: boolean, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string, poster: { __typename?: 'Users', id: string, email: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null }, category: { __typename?: 'categories', id: string, name: string, slug: string, description?: string | null, icon?: string | null, isActive: boolean, sortOrder?: number | null, createdAt?: string | null, updatedAt?: string | null }, applications: Array<{ __typename?: 'taskApplications', id: string, taskId: string, helperId: string, message: string, proposedStartTime: string, estimatedCompletionTime: string, status: ApplicationStatusEnum, appliedAt: string, respondedAt?: string | null }> } };
 
 export type LoginUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -475,7 +489,7 @@ export type NewTaskMutationVariables = Exact<{
 }>;
 
 
-export type NewTaskMutation = { __typename?: 'Mutation', NewTask: { __typename?: 'Task', title: string, id: string, posterId: string, categoryId: string, description?: string | null, requirements?: string | null, isRemote?: boolean | null, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration?: number | null, paymentAmount?: number | null, isUrgent?: boolean | null, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string } };
+export type NewTaskMutation = { __typename?: 'Mutation', NewTask: { __typename?: 'Task', title: string, id: string, posterId: string, categoryId: string, description: string, requirements?: string | null, isRemote: boolean, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string } };
 
 
 export const GetUsersDocument = gql`
@@ -918,6 +932,134 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const GetTaskByIdDocument = gql`
+    query getTaskById($getTaskByIdId: String!) {
+  getTaskById(id: $getTaskByIdId) {
+    id
+    posterId
+    poster {
+      id
+      email
+      firstName
+      lastName
+      phone
+      profileImageUrl
+      bio
+      dateOfBirth
+      address
+      city
+      state
+      country
+      zipCode
+      latitude
+      longitude
+      isHelper
+      isTaskPoster
+      availableNow
+      maxTravelDistance
+      preferredCategories
+      helperRating
+      helperRatingCount
+      posterRating
+      posterRatingCount
+      tasksCompleted
+      tasksPosted
+      totalEarned
+      totalSpent
+      emailVerified
+      phoneVerified
+      backgroundCheckStatus
+      accountStatus
+      createdAt
+      updatedAt
+      lastActiveAt
+    }
+    categoryId
+    category {
+      id
+      name
+      slug
+      description
+      icon
+      isActive
+      sortOrder
+      createdAt
+      updatedAt
+    }
+    title
+    description
+    requirements
+    isRemote
+    address
+    city
+    state
+    zipCode
+    latitude
+    longitude
+    estimatedDuration
+    paymentAmount
+    isUrgent
+    urgencyFee
+    status
+    assignedTo
+    startedAt
+    completedAt
+    dueDate
+    maxApplications
+    autoAssign
+    helperRating
+    posterRating
+    helperFeedback
+    posterFeedback
+    createdAt
+    updatedAt
+    applications {
+      id
+      taskId
+      helperId
+      message
+      proposedStartTime
+      estimatedCompletionTime
+      status
+      appliedAt
+      respondedAt
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetTaskByIdQuery__
+ *
+ * To run a query within a React component, call `useGetTaskByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTaskByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTaskByIdQuery({
+ *   variables: {
+ *      getTaskByIdId: // value for 'getTaskByIdId'
+ *   },
+ * });
+ */
+export function useGetTaskByIdQuery(baseOptions: Apollo.QueryHookOptions<GetTaskByIdQuery, GetTaskByIdQueryVariables> & ({ variables: GetTaskByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTaskByIdQuery, GetTaskByIdQueryVariables>(GetTaskByIdDocument, options);
+      }
+export function useGetTaskByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTaskByIdQuery, GetTaskByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTaskByIdQuery, GetTaskByIdQueryVariables>(GetTaskByIdDocument, options);
+        }
+export function useGetTaskByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTaskByIdQuery, GetTaskByIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTaskByIdQuery, GetTaskByIdQueryVariables>(GetTaskByIdDocument, options);
+        }
+export type GetTaskByIdQueryHookResult = ReturnType<typeof useGetTaskByIdQuery>;
+export type GetTaskByIdLazyQueryHookResult = ReturnType<typeof useGetTaskByIdLazyQuery>;
+export type GetTaskByIdSuspenseQueryHookResult = ReturnType<typeof useGetTaskByIdSuspenseQuery>;
+export type GetTaskByIdQueryResult = Apollo.QueryResult<GetTaskByIdQuery, GetTaskByIdQueryVariables>;
 export const LoginUserDocument = gql`
     mutation loginUser($email: String!, $password: String!) {
   loginUser(email: $email, password: $password) {

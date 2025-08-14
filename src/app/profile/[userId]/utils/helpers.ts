@@ -12,6 +12,7 @@ const toDate = (ts?: string | null) => {
 
 const formatRelative = (d?: Date | null) => {
   if (!d) return 'Огноо байхгүй';
+  if (!isValid(d)) return 'Хугацаа буруу';
   return formatDistanceToNow(d, { addSuffix: true, locale: mn });
 };
 

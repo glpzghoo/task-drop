@@ -42,7 +42,7 @@ const TasksTab = ({ user }: { user: Users }) => {
           <div className="space-y-4">
             {tasks.length > 0 ? (
               tasks.map((task) => {
-                const created = toDate(task.createdAt);
+                const created = toDate(Number(task.createdAt));
                 return (
                   <div
                     key={task.id}
@@ -67,7 +67,7 @@ const TasksTab = ({ user }: { user: Users }) => {
                         )}
 
                         <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                          <span>{formatRelative(created)}</span>
+                          <span>{formatRelative(new Date(created))}</span>
                           <span className="flex items-center gap-1">
                             <Clock className="w-4 h-4" />
                             {formatDuration(task.estimatedDuration)}

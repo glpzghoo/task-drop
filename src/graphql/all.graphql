@@ -246,6 +246,100 @@ mutation CreateUser(
   }
 }
 
+query getTaskById($getTaskByIdId: String!) {
+  getTaskById(id: $getTaskByIdId) {
+    id
+    posterId
+    poster {
+      id
+      email
+      firstName
+      lastName
+      phone
+      profileImageUrl
+      bio
+      dateOfBirth
+      address
+      city
+      state
+      country
+      zipCode
+      latitude
+      longitude
+      isHelper
+      isTaskPoster
+      availableNow
+      maxTravelDistance
+      preferredCategories
+      helperRating
+      helperRatingCount
+      posterRating
+      posterRatingCount
+      tasksCompleted
+      tasksPosted
+      totalEarned
+      totalSpent
+      emailVerified
+      phoneVerified
+      backgroundCheckStatus
+      accountStatus
+      createdAt
+      updatedAt
+      lastActiveAt
+    }
+    categoryId
+    category {
+      id
+      name
+      slug
+      description
+      icon
+      isActive
+      sortOrder
+      createdAt
+      updatedAt
+    }
+    title
+    description
+    requirements
+    isRemote
+    address
+    city
+    state
+    zipCode
+    latitude
+    longitude
+    estimatedDuration
+    paymentAmount
+    isUrgent
+    urgencyFee
+    status
+    assignedTo
+    startedAt
+    completedAt
+    dueDate
+    maxApplications
+    autoAssign
+    helperRating
+    posterRating
+    helperFeedback
+    posterFeedback
+    createdAt
+    updatedAt
+    applications {
+      id
+      taskId
+      helperId
+      message
+      proposedStartTime
+      estimatedCompletionTime
+      status
+      appliedAt
+      respondedAt
+    }
+  }
+}
+
 mutation loginUser($email: String!, $password: String!) {
   loginUser(email: $email, password: $password) {
     id
