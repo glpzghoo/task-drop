@@ -1,0 +1,454 @@
+query GetUsers {
+  getUsers {
+    id
+    lastName
+    email
+    firstName
+    emailVerified
+  }
+}
+
+query CurrentUser {
+  currentUser {
+    id
+    accountStatus
+    address
+    availableNow
+    backgroundCheckStatus
+    bio
+    email
+    firstName
+    lastName
+    phone
+    profileImageUrl
+    dateOfBirth
+    city
+    state
+    country
+    zipCode
+    latitude
+    longitude
+    isHelper
+    isTaskPoster
+    maxTravelDistance
+    preferredCategories
+    helperRating
+    helperRatingCount
+    posterRating
+    posterRatingCount
+    tasksCompleted
+    tasksPosted
+    totalEarned
+    totalSpent
+    emailVerified
+    phoneVerified
+    createdAt
+    updatedAt
+    lastActiveAt
+  }
+}
+
+query GetUserById($getUserByIdId: ID!) {
+  getUserById(id: $getUserByIdId) {
+    id
+    email
+    passwordHash
+    firstName
+    lastName
+    phone
+    profileImageUrl
+    bio
+    dateOfBirth
+    address
+    city
+    state
+    country
+    zipCode
+    latitude
+    longitude
+    isHelper
+    isTaskPoster
+    availableNow
+    maxTravelDistance
+    preferredCategories
+    postedTasks {
+      id
+      posterId
+      categoryId
+      title
+      description
+      requirements
+      isRemote
+      address
+      city
+      state
+      zipCode
+      latitude
+      longitude
+      estimatedDuration
+      paymentAmount
+      isUrgent
+      urgencyFee
+      status
+      assignedTo
+      startedAt
+      completedAt
+      dueDate
+      maxApplications
+      autoAssign
+      helperRating
+      posterRating
+      helperFeedback
+      posterFeedback
+      createdAt
+      updatedAt
+    }
+    helperRating
+    helperRatingCount
+    posterRating
+    posterRatingCount
+    tasksCompleted
+    taskApplications {
+      id
+      taskId
+      helperId
+      message
+      proposedStartTime
+      estimatedCompletionTime
+      status
+      appliedAt
+      respondedAt
+    }
+    tasksPosted
+    totalEarned
+    totalSpent
+    emailVerified
+    phoneVerified
+    backgroundCheckStatus
+    accountStatus
+    createdAt
+    updatedAt
+    lastActiveAt
+  }
+}
+
+query GetCategories {
+  getCategories {
+    id
+    name
+    slug
+    description
+    icon
+    isActive
+    sortOrder
+    createdAt
+    updatedAt
+  }
+}
+query GetTasks {
+  getTasks {
+    id
+    posterId
+    categoryId
+    title
+    description
+    requirements
+    isRemote
+    address
+    city
+    state
+    zipCode
+    latitude
+    longitude
+    estimatedDuration
+    paymentAmount
+    isUrgent
+    urgencyFee
+    status
+    assignedTo
+    startedAt
+    completedAt
+    dueDate
+    maxApplications
+    autoAssign
+    helperRating
+    posterRating
+    helperFeedback
+    posterFeedback
+    createdAt
+    updatedAt
+    poster {
+      id
+      email
+      firstName
+      lastName
+      phone
+      profileImageUrl
+      bio
+      dateOfBirth
+      address
+      city
+      state
+      country
+      zipCode
+      latitude
+      longitude
+      isHelper
+      isTaskPoster
+      availableNow
+      maxTravelDistance
+      preferredCategories
+      helperRating
+      helperRatingCount
+      posterRating
+      posterRatingCount
+      tasksCompleted
+      tasksPosted
+      totalEarned
+      totalSpent
+      emailVerified
+      phoneVerified
+      backgroundCheckStatus
+      accountStatus
+      createdAt
+      updatedAt
+      lastActiveAt
+    }
+    category {
+      id
+      name
+      slug
+      description
+      icon
+      isActive
+      sortOrder
+      createdAt
+      updatedAt
+    }
+  }
+}
+
+query getTaskById($getTaskByIdId: String!) {
+  getTaskById(id: $getTaskByIdId) {
+    id
+    posterId
+    poster {
+      id
+      email
+      firstName
+      lastName
+      phone
+      profileImageUrl
+      bio
+      dateOfBirth
+      address
+      city
+      state
+      country
+      zipCode
+      latitude
+      longitude
+      isHelper
+      isTaskPoster
+      availableNow
+      maxTravelDistance
+      preferredCategories
+      helperRating
+      helperRatingCount
+      posterRating
+      posterRatingCount
+      tasksCompleted
+      tasksPosted
+      totalEarned
+      totalSpent
+      emailVerified
+      phoneVerified
+      backgroundCheckStatus
+      accountStatus
+      createdAt
+      updatedAt
+      lastActiveAt
+    }
+    categoryId
+    category {
+      id
+      name
+      slug
+      description
+      icon
+      isActive
+      sortOrder
+      createdAt
+      updatedAt
+    }
+    title
+    description
+    requirements
+    isRemote
+    address
+    city
+    state
+    zipCode
+    latitude
+    longitude
+    estimatedDuration
+    paymentAmount
+    isUrgent
+    urgencyFee
+    status
+    assignedTo
+    startedAt
+    completedAt
+    dueDate
+    maxApplications
+    autoAssign
+    helperRating
+    posterRating
+    helperFeedback
+    posterFeedback
+    createdAt
+    updatedAt
+    applications {
+      id
+      taskId
+      helperId
+      message
+      proposedStartTime
+      estimatedCompletionTime
+      status
+      appliedAt
+      respondedAt
+      helper {
+        id
+        email
+        passwordHash
+        firstName
+        lastName
+        phone
+        profileImageUrl
+        bio
+        dateOfBirth
+        address
+        city
+        state
+        country
+        zipCode
+        latitude
+        longitude
+        isHelper
+        isTaskPoster
+        availableNow
+        maxTravelDistance
+        preferredCategories
+        helperRating
+        helperRatingCount
+        posterRating
+        posterRatingCount
+        tasksCompleted
+        tasksPosted
+        totalEarned
+        totalSpent
+        emailVerified
+        phoneVerified
+        backgroundCheckStatus
+        accountStatus
+        createdAt
+        updatedAt
+        lastActiveAt
+      }
+    }
+  }
+}
+
+mutation CreateUser(
+  $email: String!
+  $firstName: String!
+  $lastName: String!
+  $password: String!
+  $phone: String!
+) {
+  createUser(
+    email: $email
+    firstName: $firstName
+    lastName: $lastName
+    password: $password
+    phone: $phone
+  ) {
+    id
+  }
+}
+
+mutation loginUser($email: String!, $password: String!) {
+  loginUser(email: $email, password: $password) {
+    id
+  }
+}
+
+mutation logoutUser {
+  logoutUser
+}
+
+mutation UploadPfp($pfp: String!) {
+  UploadPfp(pfp: $pfp)
+}
+
+mutation UpdateBio($bio: String!) {
+  UpdateBio(bio: $bio)
+}
+
+mutation NewTask(
+  $title: String!
+  $description: String!
+  $type: String!
+  $location: String!
+  $isRemote: Boolean!
+  $isUrgent: Boolean!
+  $duration: Int!
+  $requirements: String
+  $estimatedCost: Int!
+  $urgencyFee: Int
+) {
+  NewTask(
+    title: $title
+    description: $description
+    type: $type
+    location: $location
+    isRemote: $isRemote
+    isUrgent: $isUrgent
+    duration: $duration
+    requirements: $requirements
+    estimatedCost: $estimatedCost
+    urgencyFee: $urgencyFee
+  ) {
+    title
+    id
+    posterId
+    categoryId
+    description
+    requirements
+    isRemote
+    address
+    city
+    state
+    zipCode
+    latitude
+    longitude
+    estimatedDuration
+    paymentAmount
+    isUrgent
+    urgencyFee
+    status
+    assignedTo
+    startedAt
+    completedAt
+    dueDate
+    maxApplications
+    autoAssign
+    helperRating
+    posterRating
+    helperFeedback
+    posterFeedback
+    createdAt
+    updatedAt
+  }
+}
