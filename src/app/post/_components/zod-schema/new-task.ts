@@ -21,6 +21,7 @@ export const NewTaskSchema = z.object({
   estimatedCost: z.number().min(0),
   isUrgent: z.boolean(),
   requirements: z.string().optional(),
+  urgencyFee: z.number().min(0).optional(),
 });
 
 export type NewTaskFormData = z.infer<typeof NewTaskSchema>;

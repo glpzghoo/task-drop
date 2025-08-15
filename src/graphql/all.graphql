@@ -228,24 +228,6 @@ query GetTasks {
   }
 }
 
-mutation CreateUser(
-  $email: String!
-  $firstName: String!
-  $lastName: String!
-  $password: String!
-  $phone: String!
-) {
-  createUser(
-    email: $email
-    firstName: $firstName
-    lastName: $lastName
-    password: $password
-    phone: $phone
-  ) {
-    id
-  }
-}
-
 query getTaskById($getTaskByIdId: String!) {
   getTaskById(id: $getTaskByIdId) {
     id
@@ -336,7 +318,63 @@ query getTaskById($getTaskByIdId: String!) {
       status
       appliedAt
       respondedAt
+      helper {
+        id
+        email
+        passwordHash
+        firstName
+        lastName
+        phone
+        profileImageUrl
+        bio
+        dateOfBirth
+        address
+        city
+        state
+        country
+        zipCode
+        latitude
+        longitude
+        isHelper
+        isTaskPoster
+        availableNow
+        maxTravelDistance
+        preferredCategories
+        helperRating
+        helperRatingCount
+        posterRating
+        posterRatingCount
+        tasksCompleted
+        tasksPosted
+        totalEarned
+        totalSpent
+        emailVerified
+        phoneVerified
+        backgroundCheckStatus
+        accountStatus
+        createdAt
+        updatedAt
+        lastActiveAt
+      }
     }
+  }
+}
+
+mutation CreateUser(
+  $email: String!
+  $firstName: String!
+  $lastName: String!
+  $password: String!
+  $phone: String!
+) {
+  createUser(
+    email: $email
+    firstName: $firstName
+    lastName: $lastName
+    password: $password
+    phone: $phone
+  ) {
+    id
   }
 }
 
@@ -368,6 +406,7 @@ mutation NewTask(
   $duration: Int!
   $requirements: String
   $estimatedCost: Int!
+  $urgencyFee: Int
 ) {
   NewTask(
     title: $title
@@ -379,6 +418,7 @@ mutation NewTask(
     duration: $duration
     requirements: $requirements
     estimatedCost: $estimatedCost
+    urgencyFee: $urgencyFee
   ) {
     title
     id

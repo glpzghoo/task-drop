@@ -47,6 +47,7 @@ const initialDefaults: NewTaskFormData = {
   estimatedCost: 0,
   isUrgent: false,
   requirements: '',
+  urgencyFee: 0,
 };
 
 export default function TaskForm() {
@@ -62,7 +63,6 @@ export default function TaskForm() {
   });
 
   const onSubmit = async (data: NewTaskFormData) => {
-    console.log('Submitting form with data:', data);
     try {
       await NewTask({
         variables: { ...data, duration: Number(data.duration) },
@@ -76,6 +76,7 @@ export default function TaskForm() {
     data?.getCategories.filter((c): c is Categories => c.id !== undefined) ||
     [];
   const isRemote = useWatch({ control: form.control, name: 'isRemote' });
+  const isUrgent = useWatch({ control: form.control, name: 'isUrgent' });
 
   useEffect(() => {
     if (response) {
@@ -349,6 +350,27 @@ export default function TaskForm() {
                   </FormItem>
                 )}
               />
+              {isUrgent && (
+                <FormField
+                  control={form.control}
+                  name="urgencyFee"
+                  render={({ field }) => (
+                    <FormItem className="flex items-center justify-between rounded-md border p-4">
+                      <FormLabel>Яаралтай үеийн нэмэгдэл</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                          type="number"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
             </div>
             <div className="rounded-lg border border-border bg-card p-6 space-y-6">
               <h3 className="text-lg font-semibold">Нэмэлт шаардлага</h3>

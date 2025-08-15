@@ -9,9 +9,10 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { MapPin, Navigation, Star } from 'lucide-react';
-import { formatTimeAgo, timeUntilDue } from '../utils/helpers';
+import { timeUntilDue } from '../utils/helpers';
 import { Button } from '@/components/ui/button';
 import { Task } from '@/graphql/generated';
+import { format } from 'date-fns';
 
 const TaskDetails = ({ task }: { task: Task }) => {
   return (
@@ -27,7 +28,7 @@ const TaskDetails = ({ task }: { task: Task }) => {
           value="applications"
           className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
         >
-          Өргөдөл ({task.applications.length})
+          Хүсэлт ({task.applications.length})
         </TabsTrigger>
         <TabsTrigger
           value="location"
@@ -78,7 +79,7 @@ const TaskDetails = ({ task }: { task: Task }) => {
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Төлбөр</span>
                   <span className="text-foreground font-medium">
-                    ${task.paymentAmount}
+                    ₮{task.paymentAmount}
                   </span>
                 </div>
                 {task.isUrgent && (
@@ -87,7 +88,7 @@ const TaskDetails = ({ task }: { task: Task }) => {
                       Яаралтайгийн шимтгэл
                     </span>
                     <span className="text-foreground font-medium">
-                      +${task.urgencyFee}
+                      +₮{task.urgencyFee}
                     </span>
                   </div>
                 )}
@@ -95,10 +96,10 @@ const TaskDetails = ({ task }: { task: Task }) => {
                   <span className="text-muted-foreground">Нийт төлбөр</span>
                   <span className="text-foreground font-bold text-lg">
                     ₮
-                    {(
+                    {Math.floor(
                       task.paymentAmount +
-                      (task.isUrgent ? task.urgencyFee || 0 : 0)
-                    ).toFixed(2)}
+                        (task.isUrgent ? task.urgencyFee || 0 : 0)
+                    )}
                   </span>
                 </div>
               </div>
@@ -131,15 +132,15 @@ const TaskDetails = ({ task }: { task: Task }) => {
         </Card>
       </TabsContent>
 
-      {/* Өргөдөл таб */}
+      {/* Хүсэлт таб */}
       <TabsContent value="applications" className="space-y-6">
         <Card className="bg-background border-border">
           <CardHeader>
             <CardTitle className="text-foreground">
-              Өргөдөл ({task.applications.length})
+              Хүсэлт ({task.applications.length})
             </CardTitle>
             <CardDescription className="text-muted-foreground">
-              Энэ ажилд өргөдөл гаргасан хүмүүс
+              Энэ ажилд хүсэлт гаргасан хүмүүс
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -190,14 +191,18 @@ const TaskDetails = ({ task }: { task: Task }) => {
 
                         <div className="text-right text-sm text-muted-foreground">
                           <div>
-                            Өргөдөл илгээсэн:{' '}
-                            {formatTimeAgo(application.appliedAt)}
+                            Хүсэлт илгээсэн:{' '}
+                            {format(
+                              Number(application.appliedAt),
+                              'yyyy-MM-dd HH:mm'
+                            )}
                           </div>
                           <div>
                             Эхлэх боломжтой:{' '}
-                            {new Date(
-                              application.proposedStartTime
-                            ).toLocaleTimeString()}
+                            {format(
+                              Number(application.proposedStartTime),
+                              'yyyy-MM-dd HH:mm'
+                            )}
                           </div>
                         </div>
                       </div>
@@ -211,7 +216,7 @@ const TaskDetails = ({ task }: { task: Task }) => {
                           size="sm"
                           className="bg-primary text-primary-foreground hover:bg-primary/90"
                         >
-                          Өргөдөл зөвшөөрөх
+                          Хүсэлт зөвшөөрөх
                         </Button>
                         <Button
                           size="sm"

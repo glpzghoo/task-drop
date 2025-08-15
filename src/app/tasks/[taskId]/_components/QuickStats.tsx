@@ -17,7 +17,7 @@ const QuickStats = ({ task }: { task: Task }) => {
             </div>
             <div>
               <div className="text-white font-medium">
-                {task.applications.length} өргөдөл
+                {task.applications.length} хүсэлт
               </div>
               <div className="text-sm text-gray-400">
                 хамгийн их - {task.maxApplications}

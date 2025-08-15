@@ -105,7 +105,7 @@ const TaskHeader = ({ task }: { task: Task }) => {
 
         {/* Үйлдлийн товчнууд */}
         <div className="flex flex-wrap gap-3 mt-4">
-          {/* Өргөдөл илгээх цонх */}
+          {/* Хүсэлт илгээх цонх */}
           <Dialog
             open={showApplicationDialog}
             onOpenChange={setShowApplicationDialog}
@@ -118,7 +118,7 @@ const TaskHeader = ({ task }: { task: Task }) => {
             <DialogContent className="bg-gray-900 border border-gray-800 text-white max-w-lg">
               <DialogHeader>
                 <DialogTitle className="text-lg font-semibold">
-                  Ажилд өргөдөл илгээх
+                  Ажилд хүсэлт илгээх
                 </DialogTitle>
                 <DialogDescription className="text-gray-400">
                   {task.poster?.firstName || 'Захиалагч'}-д та энэ ажлыг хийхэд

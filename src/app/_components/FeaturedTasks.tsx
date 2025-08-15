@@ -87,7 +87,7 @@ const FeaturedTasks = () => {
                   <span className="text-2xl font-bold text-green-600">
                     {task.payment}
                   </span>
-                  <Button size="sm">Өргөдөл гаргах</Button>
+                  <Button size="sm">Хүсэлт гаргах</Button>
                 </div>
               </div>
             </CardContent>

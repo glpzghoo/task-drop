@@ -90,7 +90,7 @@ const OverviewTab = ({ user }: { user: Users }) => {
       {/* Recent Activity */}
       <Card className="bg-background text-foreground">
         <CardHeader>
-          <CardTitle>Сүүлийн үйл даалгаварлагаа</CardTitle>
+          <CardTitle>Сүүлийн даалгаврууд</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
