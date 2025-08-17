@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Task } from '@/graphql/generated';
 import { formatDistanceToNow } from 'date-fns';
 import { mn } from 'date-fns/locale';
+import Link from 'next/link';
 
 const PosterCard = ({ task }: { task: Task }) => {
   return (
@@ -90,12 +91,14 @@ const PosterCard = ({ task }: { task: Task }) => {
         </div>
 
         <div className="flex gap-2">
-          <Button
-            variant="outline"
-            className="flex-1 border-gray-700 text-white hover:bg-gray-800 bg-transparent"
-          >
-            Профайл харах
-          </Button>
+          <Link href={`/profile/${task.poster.id}`}>
+            <Button
+              variant="outline"
+              className="flex-1 border-gray-700 text-white hover:bg-gray-800 bg-transparent"
+            >
+              Профайл харах
+            </Button>
+          </Link>
           <Button
             variant="outline"
             className="flex-1 border-gray-700 text-white hover:bg-gray-800 bg-transparent"
