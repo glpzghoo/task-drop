@@ -46,6 +46,8 @@ export function mapApplicationsToRecentTasks(
   apps: TaskApplications[],
   user: Users
 ): RecentTask[] {
+  console.log('Mapping applications to recent tasks:', apps, user);
+  if (apps.length === 0) return [];
   return apps.map((app) => {
     const t = app.task;
     const role = t.posterId === user.id ? 'poster' : 'helper';
@@ -66,7 +68,7 @@ export function mapApplicationsToRecentTasks(
         ? `${app.helper.firstName} ${app.helper.lastName}`
         : undefined;
     const date = t.createdAt
-      ? formatDistanceToNow(new Date(t.createdAt), {
+      ? formatDistanceToNow(new Date(Number(t.createdAt)), {
           locale: mn,
           addSuffix: true,
         })

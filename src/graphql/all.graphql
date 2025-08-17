@@ -111,6 +111,7 @@ query GetUserById($getUserByIdId: ID!) {
     taskApplications {
       id
       taskId
+
       helperId
       message
       proposedStartTime
@@ -118,6 +119,76 @@ query GetUserById($getUserByIdId: ID!) {
       status
       appliedAt
       respondedAt
+      task {
+        id
+        posterId
+        categoryId
+        title
+        description
+        requirements
+        isRemote
+        address
+        city
+        state
+        zipCode
+        latitude
+        longitude
+        estimatedDuration
+        paymentAmount
+        isUrgent
+        urgencyFee
+        status
+        assignedTo
+        startedAt
+        completedAt
+        dueDate
+        maxApplications
+        autoAssign
+        helperRating
+        posterRating
+        helperFeedback
+        posterFeedback
+        createdAt
+        updatedAt
+        poster {
+          id
+          email
+          passwordHash
+          firstName
+          lastName
+          phone
+          profileImageUrl
+          bio
+          dateOfBirth
+          address
+          city
+          state
+          country
+          zipCode
+          latitude
+          longitude
+          isHelper
+          isTaskPoster
+          availableNow
+          maxTravelDistance
+          preferredCategories
+          helperRating
+          helperRatingCount
+          posterRating
+          posterRatingCount
+          tasksCompleted
+          tasksPosted
+          totalEarned
+          totalSpent
+          emailVerified
+          phoneVerified
+          backgroundCheckStatus
+          accountStatus
+          createdAt
+          updatedAt
+          lastActiveAt
+        }
+      }
     }
     tasksPosted
     totalEarned
@@ -400,7 +471,7 @@ mutation NewTask(
   $title: String!
   $description: String!
   $type: String!
-  $location: String!
+  $location: String
   $isRemote: Boolean!
   $isUrgent: Boolean!
   $duration: Int!
@@ -450,5 +521,19 @@ mutation NewTask(
     posterFeedback
     createdAt
     updatedAt
+  }
+}
+
+mutation NewTaskApplication(
+  $taskId: String!
+  $message: String!
+  $proposedStartTime: String!
+) {
+  newTaskApplication(
+    taskId: $taskId
+    message: $message
+    proposedStartTime: $proposedStartTime
+  ) {
+    id
   }
 }

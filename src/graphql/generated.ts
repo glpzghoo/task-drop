@@ -61,7 +61,7 @@ export type MutationNewTaskArgs = {
   estimatedCost: Scalars['Int']['input'];
   isRemote: Scalars['Boolean']['input'];
   isUrgent: Scalars['Boolean']['input'];
-  location: Scalars['String']['input'];
+  location?: InputMaybe<Scalars['String']['input']>;
   requirements?: InputMaybe<Scalars['String']['input']>;
   title: Scalars['String']['input'];
   type: Scalars['String']['input'];
@@ -428,7 +428,7 @@ export type GetUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null, postedTasks?: Array<{ __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description: string, requirements?: string | null, isRemote: boolean, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string } | null> | null, taskApplications?: Array<{ __typename?: 'taskApplications', id: string, taskId: string, helperId: string, message: string, proposedStartTime: string, estimatedCompletionTime?: string | null, status: ApplicationStatusEnum, appliedAt: string, respondedAt?: string | null } | null> | null } };
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null, postedTasks?: Array<{ __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description: string, requirements?: string | null, isRemote: boolean, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string } | null> | null, taskApplications?: Array<{ __typename?: 'taskApplications', id: string, taskId: string, helperId: string, message: string, proposedStartTime: string, estimatedCompletionTime?: string | null, status: ApplicationStatusEnum, appliedAt: string, respondedAt?: string | null, task: { __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description: string, requirements?: string | null, isRemote: boolean, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string, poster: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null } } } | null> | null } };
 
 export type GetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -489,7 +489,7 @@ export type NewTaskMutationVariables = Exact<{
   title: Scalars['String']['input'];
   description: Scalars['String']['input'];
   type: Scalars['String']['input'];
-  location: Scalars['String']['input'];
+  location?: InputMaybe<Scalars['String']['input']>;
   isRemote: Scalars['Boolean']['input'];
   isUrgent: Scalars['Boolean']['input'];
   duration: Scalars['Int']['input'];
@@ -500,6 +500,15 @@ export type NewTaskMutationVariables = Exact<{
 
 
 export type NewTaskMutation = { __typename?: 'Mutation', NewTask: { __typename?: 'Task', title: string, id: string, posterId: string, categoryId: string, description: string, requirements?: string | null, isRemote: boolean, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: number | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string } };
+
+export type NewTaskApplicationMutationVariables = Exact<{
+  taskId: Scalars['String']['input'];
+  message: Scalars['String']['input'];
+  proposedStartTime: Scalars['String']['input'];
+}>;
+
+
+export type NewTaskApplicationMutation = { __typename?: 'Mutation', newTaskApplication: { __typename?: 'taskApplications', id: string } };
 
 
 export const GetUsersDocument = gql`
@@ -689,6 +698,76 @@ export const GetUserByIdDocument = gql`
       status
       appliedAt
       respondedAt
+      task {
+        id
+        posterId
+        categoryId
+        title
+        description
+        requirements
+        isRemote
+        address
+        city
+        state
+        zipCode
+        latitude
+        longitude
+        estimatedDuration
+        paymentAmount
+        isUrgent
+        urgencyFee
+        status
+        assignedTo
+        startedAt
+        completedAt
+        dueDate
+        maxApplications
+        autoAssign
+        helperRating
+        posterRating
+        helperFeedback
+        posterFeedback
+        createdAt
+        updatedAt
+        poster {
+          id
+          email
+          passwordHash
+          firstName
+          lastName
+          phone
+          profileImageUrl
+          bio
+          dateOfBirth
+          address
+          city
+          state
+          country
+          zipCode
+          latitude
+          longitude
+          isHelper
+          isTaskPoster
+          availableNow
+          maxTravelDistance
+          preferredCategories
+          helperRating
+          helperRatingCount
+          posterRating
+          posterRatingCount
+          tasksCompleted
+          tasksPosted
+          totalEarned
+          totalSpent
+          emailVerified
+          phoneVerified
+          backgroundCheckStatus
+          accountStatus
+          createdAt
+          updatedAt
+          lastActiveAt
+        }
+      }
     }
     tasksPosted
     totalEarned
@@ -1235,7 +1314,7 @@ export type UpdateBioMutationHookResult = ReturnType<typeof useUpdateBioMutation
 export type UpdateBioMutationResult = Apollo.MutationResult<UpdateBioMutation>;
 export type UpdateBioMutationOptions = Apollo.BaseMutationOptions<UpdateBioMutation, UpdateBioMutationVariables>;
 export const NewTaskDocument = gql`
-    mutation NewTask($title: String!, $description: String!, $type: String!, $location: String!, $isRemote: Boolean!, $isUrgent: Boolean!, $duration: Int!, $requirements: String, $estimatedCost: Int!, $urgencyFee: Int) {
+    mutation NewTask($title: String!, $description: String!, $type: String!, $location: String, $isRemote: Boolean!, $isUrgent: Boolean!, $duration: Int!, $requirements: String, $estimatedCost: Int!, $urgencyFee: Int) {
   NewTask(
     title: $title
     description: $description
@@ -1316,3 +1395,42 @@ export function useNewTaskMutation(baseOptions?: Apollo.MutationHookOptions<NewT
 export type NewTaskMutationHookResult = ReturnType<typeof useNewTaskMutation>;
 export type NewTaskMutationResult = Apollo.MutationResult<NewTaskMutation>;
 export type NewTaskMutationOptions = Apollo.BaseMutationOptions<NewTaskMutation, NewTaskMutationVariables>;
+export const NewTaskApplicationDocument = gql`
+    mutation NewTaskApplication($taskId: String!, $message: String!, $proposedStartTime: String!) {
+  newTaskApplication(
+    taskId: $taskId
+    message: $message
+    proposedStartTime: $proposedStartTime
+  ) {
+    id
+  }
+}
+    `;
+export type NewTaskApplicationMutationFn = Apollo.MutationFunction<NewTaskApplicationMutation, NewTaskApplicationMutationVariables>;
+
+/**
+ * __useNewTaskApplicationMutation__
+ *
+ * To run a mutation, you first call `useNewTaskApplicationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useNewTaskApplicationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [newTaskApplicationMutation, { data, loading, error }] = useNewTaskApplicationMutation({
+ *   variables: {
+ *      taskId: // value for 'taskId'
+ *      message: // value for 'message'
+ *      proposedStartTime: // value for 'proposedStartTime'
+ *   },
+ * });
+ */
+export function useNewTaskApplicationMutation(baseOptions?: Apollo.MutationHookOptions<NewTaskApplicationMutation, NewTaskApplicationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<NewTaskApplicationMutation, NewTaskApplicationMutationVariables>(NewTaskApplicationDocument, options);
+      }
+export type NewTaskApplicationMutationHookResult = ReturnType<typeof useNewTaskApplicationMutation>;
+export type NewTaskApplicationMutationResult = Apollo.MutationResult<NewTaskApplicationMutation>;
+export type NewTaskApplicationMutationOptions = Apollo.BaseMutationOptions<NewTaskApplicationMutation, NewTaskApplicationMutationVariables>;

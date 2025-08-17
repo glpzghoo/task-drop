@@ -10,26 +10,13 @@ import {
   Share2,
 } from 'lucide-react';
 import { timeUntilDue } from '../utils/helpers';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Task } from '@/graphql/generated';
 import { formatDistanceToNow } from 'date-fns';
 import { mn } from 'date-fns/locale';
+import NewTaskApplicationDialog from './dialogs/NewApplication';
 
 const TaskHeader = ({ task }: { task: Task }) => {
-  const [showApplicationDialog, setShowApplicationDialog] = useState(false);
-  const [applicationMessage, setApplicationMessage] = useState('');
-  const [proposedStartTime, setProposedStartTime] = useState('');
   return (
     <Card className="bg-gray-900 border-gray-800 rounded-xl shadow-sm">
       <CardContent className="pt-6 space-y-6">
@@ -106,71 +93,7 @@ const TaskHeader = ({ task }: { task: Task }) => {
         {/* Үйлдлийн товчнууд */}
         <div className="flex flex-wrap gap-3 mt-4">
           {/* Хүсэлт илгээх цонх */}
-          <Dialog
-            open={showApplicationDialog}
-            onOpenChange={setShowApplicationDialog}
-          >
-            <DialogTrigger asChild>
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-5 py-2 rounded-md">
-                Даалгаварт хүсэлт илгээх
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="bg-gray-900 border border-gray-800 text-white max-w-lg">
-              <DialogHeader>
-                <DialogTitle className="text-lg font-semibold">
-                  Ажилд хүсэлт илгээх
-                </DialogTitle>
-                <DialogDescription className="text-gray-400">
-                  {task.poster?.firstName || 'Захиалагч'}-д та энэ ажлыг хийхэд
-                  тохиромжтой гэдгээ тайлбарлан илгээнэ үү.
-                </DialogDescription>
-              </DialogHeader>
-
-              <div className="space-y-5">
-                {/* Мессеж */}
-                <div>
-                  <Label htmlFor="message">Таны мессеж</Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Сайн байна уу! Би энэ ажлыг хийх дуртай бөгөөд..."
-                    value={applicationMessage}
-                    onChange={(e) => setApplicationMessage(e.target.value)}
-                    className="bg-gray-800 border-gray-700 text-white mt-2 focus:ring-2 focus:ring-primary"
-                    rows={4}
-                  />
-                </div>
-
-                {/* Эхлэх хугацаа */}
-                <div>
-                  <Label htmlFor="start-time">Хэзээ эхлэх боломжтой вэ?</Label>
-                  <input
-                    type="datetime-local"
-                    id="start-time"
-                    value={proposedStartTime}
-                    onChange={(e) => setProposedStartTime(e.target.value)}
-                    className="w-full mt-2 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-2 focus:ring-primary"
-                  />
-                </div>
-
-                {/* Үйлдлийн товчнууд */}
-                <div className="flex gap-3">
-                  <Button
-                    variant="outline"
-                    onClick={() => setShowApplicationDialog(false)}
-                    className="flex-1 border-gray-700 text-white hover:bg-gray-800"
-                  >
-                    Болих
-                  </Button>
-                  <Button
-                    className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
-                    onClick={() => setShowApplicationDialog(false)}
-                  >
-                    Илгээх
-                  </Button>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <NewTaskApplicationDialog task={task} />
 
           {/* Бусад товчнууд */}
           <Button

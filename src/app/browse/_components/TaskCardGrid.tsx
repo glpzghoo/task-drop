@@ -77,35 +77,37 @@ export default function TaskCardGrid({
 
               <CardHeader className="space-y-3">
                 <div className="flex items-start justify-between gap-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Badge variant="secondary" className="px-2 py-0.5 text-xs">
-                      {task.category?.name ?? 'Төрөлгүй'}
-                    </Badge>
-                    {task.isUrgent && (
+                  <div className="flex items-center gap-1.5">
+                    {task.category?.name && (
                       <Badge
-                        variant="destructive"
-                        className="px-2 py-0.5 text-xs"
+                        variant="secondary"
+                        className="text-[10px] font-medium"
                       >
-                        Яаралтай
+                        {task.category?.name}
+                      </Badge>
+                    )}
+                    {task.isUrgent && (
+                      <Badge variant="destructive" className="text-[10px]">
+                        ⚡
                       </Badge>
                     )}
                     {task.isRemote && (
-                      <Badge variant="outline" className="px-2 py-0.5 text-xs">
-                        Цахимаар
+                      <Badge variant="outline" className="text-[10px]">
+                        🌐
                       </Badge>
                     )}
                   </div>
 
-                  <div className="text-right">
-                    <div className="text-2xl font-bold text-green-600 leading-none">
+                  <div className="text-right leading-tight space-y-0.5">
+                    <div className="text-xl font-bold text-green-500">
                       {formatCurrency(
                         (task as Task).paymentAmount ??
                           (task as Task).urgencyFee ??
                           undefined
                       )}
                     </div>
-                    <div className="mt-1 flex items-center justify-end gap-1 text-xs text-muted-foreground">
-                      <Clock className="h-3.5 w-3.5" />
+                    <div className="flex items-center justify-end gap-1 text-[11px] text-muted-foreground">
+                      <Clock className="h-3 w-3" />{' '}
                       <span>{task.estimatedDuration ?? 'Тодорхойгүй'}</span>
                     </div>
                   </div>
@@ -126,11 +128,17 @@ export default function TaskCardGrid({
               <CardContent className="space-y-4 pt-0">
                 <div className="text-sm text-muted-foreground flex flex-wrap items-center gap-4">
                   <div className="flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4" />
-                    <span
-                      className="line-clamp-1"
-                      title={task.address ?? undefined}
-                    >
+                    <MapPin
+                      className="h-4 w-4"
+                      color={task.isRemote ? '#22c55e' : undefined}
+                    />
+                    {task.isRemote && (
+                      <Badge variant="outline" className="text-[10px]">
+                        Цахимаар
+                      </Badge>
+                    )}
+
+                    <span className="truncate">
                       {task.address ?? 'Байршил үл мэдэгдэнэ'}
                     </span>
                   </div>
@@ -151,8 +159,7 @@ export default function TaskCardGrid({
                           </AvatarFallback>
                         </Avatar>
                         <span className="truncate">
-                          Захиалагч: {task.poster.firstName}{' '}
-                          {task.poster.lastName}
+                          {task.poster.firstName} {task.poster.lastName}
                         </span>
                       </div>
                     )}
