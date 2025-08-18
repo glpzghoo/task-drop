@@ -46,7 +46,13 @@ const TaskHeader = ({ task }: { task: Task }) => {
                   task.status === 'open' && 'border-green-500 text-green-400'
                 }`}
               >
-                {task.status === 'open' ? 'Нээлттэй' : task.status}
+                {task.status === 'open'
+                  ? 'Нээлттэй'
+                  : task.status === 'in_progress'
+                    ? 'Гүйцэтгэж байгаа'
+                    : task.status === 'completed'
+                      ? 'Дууссан'
+                      : task.status}
               </Badge>
             </div>
 

@@ -149,7 +149,6 @@ export default function TaskCardGrid({
                     {task.poster && (
                       <div className="flex items-center gap-2 min-w-0">
                         <Avatar className="h-7 w-7">
-                          {/* If you have an avatar url on poster, replace src below */}
                           <AvatarImage
                             src={(task.poster as any)?.avatarUrl ?? undefined}
                             alt="poster"
