@@ -121,6 +121,8 @@ export type Query = {
   getTaskById: Task;
   getTasks: Array<Maybe<Task>>;
   getUserById: Users;
+  getUserPrivateInfoById: Users;
+  getUserPublicInfoById: Users;
   getUsers: Array<Maybe<Users>>;
 };
 
@@ -131,6 +133,16 @@ export type QueryGetTaskByIdArgs = {
 
 
 export type QueryGetUserByIdArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryGetUserPrivateInfoByIdArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryGetUserPublicInfoByIdArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -430,12 +442,19 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CurrentUserQuery = { __typename?: 'Query', currentUser?: { __typename?: 'Users', id: string, accountStatus?: AccountStatus | null, address?: string | null, availableNow?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, bio?: string | null, email: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, dateOfBirth?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null } | null };
 
-export type GetUserByIdQueryVariables = Exact<{
-  getUserByIdId: Scalars['ID']['input'];
+export type GetUserPublicInfoByIdQueryVariables = Exact<{
+  getUserPublicInfoByIdId: Scalars['ID']['input'];
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null, postedTasks?: Array<{ __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description: string, requirements?: string | null, isRemote: boolean, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: string | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string } | null> | null, taskApplications?: Array<{ __typename?: 'taskApplications', id: string, taskId: string, helperId: string, message: string, proposedStartTime: string, estimatedCompletionTime?: string | null, status: ApplicationStatusEnum, appliedAt: string, respondedAt?: string | null, task: { __typename?: 'Task', id: string, posterId: string, categoryId: string, title: string, description: string, requirements?: string | null, isRemote: boolean, address?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, urgencyFee?: number | null, status?: TaskStatus | null, assignedTo?: string | null, startedAt?: string | null, completedAt?: string | null, dueDate?: string | null, maxApplications?: number | null, autoAssign?: boolean | null, helperRating?: number | null, posterRating?: number | null, helperFeedback?: string | null, posterFeedback?: string | null, createdAt: string, updatedAt: string, poster: { __typename?: 'Users', id: string, email: string, passwordHash: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null } } } | null> | null } };
+export type GetUserPublicInfoByIdQuery = { __typename?: 'Query', getUserPublicInfoById: { __typename?: 'Users', id: string, firstName: string, lastName: string, profileImageUrl?: string | null, bio?: string | null, city?: string | null, state?: string | null, country?: string | null, availableNow?: boolean | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null, postedTasks?: Array<{ __typename?: 'Task', id: string, title: string, description: string, isRemote: boolean, address?: string | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, createdAt: string } | null> | null, taskApplications?: Array<{ __typename?: 'taskApplications', id: string, appliedAt: string, respondedAt?: string | null, status: ApplicationStatusEnum, task: { __typename?: 'Task', id: string, posterId: string, title: string, paymentAmount: number, posterRating?: number | null, helperRating?: number | null, posterFeedback?: string | null, helperFeedback?: string | null, estimatedDuration: number, categoryId: string, createdAt: string, poster: { __typename?: 'Users', id: string, firstName: string, lastName: string, profileImageUrl?: string | null } }, helper: { __typename?: 'Users', id: string, firstName: string, lastName: string, profileImageUrl?: string | null } } | null> | null } };
+
+export type GetUserPrivateInfoByIdQueryVariables = Exact<{
+  getUserPrivateInfoByIdId: Scalars['ID']['input'];
+}>;
+
+
+export type GetUserPrivateInfoByIdQuery = { __typename?: 'Query', getUserPrivateInfoById: { __typename?: 'Users', id: string, email: string, firstName: string, lastName: string, phone: string, profileImageUrl?: string | null, bio?: string | null, dateOfBirth?: string | null, address?: string | null, city?: string | null, state?: string | null, country?: string | null, zipCode?: string | null, latitude?: number | null, longitude?: number | null, isHelper?: boolean | null, isTaskPoster?: boolean | null, availableNow?: boolean | null, maxTravelDistance?: number | null, preferredCategories?: Array<string | null> | null, helperRating?: number | null, helperRatingCount?: number | null, posterRating?: number | null, posterRatingCount?: number | null, tasksCompleted?: number | null, tasksPosted?: number | null, totalEarned?: number | null, totalSpent?: number | null, emailVerified?: boolean | null, phoneVerified?: boolean | null, backgroundCheckStatus?: BackgroundCheckStatus | null, accountStatus?: AccountStatus | null, createdAt: string, updatedAt: string, lastActiveAt?: string | null, postedTasks?: Array<{ __typename?: 'Task', id: string, title: string, description: string, isRemote: boolean, address?: string | null, estimatedDuration: number, paymentAmount: number, isUrgent: boolean, createdAt: string } | null> | null, taskApplications?: Array<{ __typename?: 'taskApplications', id: string, appliedAt: string, respondedAt?: string | null, status: ApplicationStatusEnum, task: { __typename?: 'Task', id: string, posterId: string, title: string, paymentAmount: number, posterRating?: number | null, helperRating?: number | null, posterFeedback?: string | null, helperFeedback?: string | null, estimatedDuration: number, categoryId: string, createdAt: string, poster: { __typename?: 'Users', id: string, firstName: string, lastName: string, profileImageUrl?: string | null } }, helper: { __typename?: 'Users', id: string, firstName: string, lastName: string, profileImageUrl?: string | null } } | null> | null } };
 
 export type GetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -634,12 +653,118 @@ export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
 export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
 export type CurrentUserSuspenseQueryHookResult = ReturnType<typeof useCurrentUserSuspenseQuery>;
 export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
-export const GetUserByIdDocument = gql`
-    query GetUserById($getUserByIdId: ID!) {
-  getUserById(id: $getUserByIdId) {
+export const GetUserPublicInfoByIdDocument = gql`
+    query GetUserPublicInfoById($getUserPublicInfoByIdId: ID!) {
+  getUserPublicInfoById(id: $getUserPublicInfoByIdId) {
+    id
+    firstName
+    lastName
+    profileImageUrl
+    bio
+    city
+    state
+    country
+    availableNow
+    isHelper
+    isTaskPoster
+    maxTravelDistance
+    preferredCategories
+    postedTasks {
+      id
+      title
+      description
+      isRemote
+      address
+      estimatedDuration
+      paymentAmount
+      isUrgent
+      createdAt
+    }
+    taskApplications {
+      id
+      appliedAt
+      respondedAt
+      status
+      task {
+        id
+        posterId
+        title
+        paymentAmount
+        posterRating
+        helperRating
+        posterFeedback
+        helperFeedback
+        estimatedDuration
+        categoryId
+        createdAt
+        poster {
+          id
+          firstName
+          lastName
+          profileImageUrl
+        }
+      }
+      helper {
+        id
+        firstName
+        lastName
+        profileImageUrl
+      }
+    }
+    helperRating
+    helperRatingCount
+    posterRating
+    posterRatingCount
+    tasksCompleted
+    tasksPosted
+    emailVerified
+    phoneVerified
+    backgroundCheckStatus
+    accountStatus
+    createdAt
+    updatedAt
+    lastActiveAt
+  }
+}
+    `;
+
+/**
+ * __useGetUserPublicInfoByIdQuery__
+ *
+ * To run a query within a React component, call `useGetUserPublicInfoByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserPublicInfoByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserPublicInfoByIdQuery({
+ *   variables: {
+ *      getUserPublicInfoByIdId: // value for 'getUserPublicInfoByIdId'
+ *   },
+ * });
+ */
+export function useGetUserPublicInfoByIdQuery(baseOptions: Apollo.QueryHookOptions<GetUserPublicInfoByIdQuery, GetUserPublicInfoByIdQueryVariables> & ({ variables: GetUserPublicInfoByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserPublicInfoByIdQuery, GetUserPublicInfoByIdQueryVariables>(GetUserPublicInfoByIdDocument, options);
+      }
+export function useGetUserPublicInfoByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserPublicInfoByIdQuery, GetUserPublicInfoByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserPublicInfoByIdQuery, GetUserPublicInfoByIdQueryVariables>(GetUserPublicInfoByIdDocument, options);
+        }
+export function useGetUserPublicInfoByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserPublicInfoByIdQuery, GetUserPublicInfoByIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetUserPublicInfoByIdQuery, GetUserPublicInfoByIdQueryVariables>(GetUserPublicInfoByIdDocument, options);
+        }
+export type GetUserPublicInfoByIdQueryHookResult = ReturnType<typeof useGetUserPublicInfoByIdQuery>;
+export type GetUserPublicInfoByIdLazyQueryHookResult = ReturnType<typeof useGetUserPublicInfoByIdLazyQuery>;
+export type GetUserPublicInfoByIdSuspenseQueryHookResult = ReturnType<typeof useGetUserPublicInfoByIdSuspenseQuery>;
+export type GetUserPublicInfoByIdQueryResult = Apollo.QueryResult<GetUserPublicInfoByIdQuery, GetUserPublicInfoByIdQueryVariables>;
+export const GetUserPrivateInfoByIdDocument = gql`
+    query GetUserPrivateInfoById($getUserPrivateInfoByIdId: ID!) {
+  getUserPrivateInfoById(id: $getUserPrivateInfoByIdId) {
     id
     email
-    passwordHash
     firstName
     lastName
     phone
@@ -660,122 +785,51 @@ export const GetUserByIdDocument = gql`
     preferredCategories
     postedTasks {
       id
-      posterId
-      categoryId
       title
       description
-      requirements
       isRemote
       address
-      city
-      state
-      zipCode
-      latitude
-      longitude
       estimatedDuration
       paymentAmount
       isUrgent
-      urgencyFee
-      status
-      assignedTo
-      startedAt
-      completedAt
-      dueDate
-      maxApplications
-      autoAssign
-      helperRating
-      posterRating
-      helperFeedback
-      posterFeedback
       createdAt
-      updatedAt
+    }
+    taskApplications {
+      id
+      appliedAt
+      respondedAt
+      status
+      task {
+        id
+        posterId
+        title
+        paymentAmount
+        posterRating
+        helperRating
+        posterFeedback
+        helperFeedback
+        estimatedDuration
+        categoryId
+        createdAt
+        poster {
+          id
+          firstName
+          lastName
+          profileImageUrl
+        }
+      }
+      helper {
+        id
+        firstName
+        lastName
+        profileImageUrl
+      }
     }
     helperRating
     helperRatingCount
     posterRating
     posterRatingCount
     tasksCompleted
-    taskApplications {
-      id
-      taskId
-      helperId
-      message
-      proposedStartTime
-      estimatedCompletionTime
-      status
-      appliedAt
-      respondedAt
-      task {
-        id
-        posterId
-        categoryId
-        title
-        description
-        requirements
-        isRemote
-        address
-        city
-        state
-        zipCode
-        latitude
-        longitude
-        estimatedDuration
-        paymentAmount
-        isUrgent
-        urgencyFee
-        status
-        assignedTo
-        startedAt
-        completedAt
-        dueDate
-        maxApplications
-        autoAssign
-        helperRating
-        posterRating
-        helperFeedback
-        posterFeedback
-        createdAt
-        updatedAt
-        poster {
-          id
-          email
-          passwordHash
-          firstName
-          lastName
-          phone
-          profileImageUrl
-          bio
-          dateOfBirth
-          address
-          city
-          state
-          country
-          zipCode
-          latitude
-          longitude
-          isHelper
-          isTaskPoster
-          availableNow
-          maxTravelDistance
-          preferredCategories
-          helperRating
-          helperRatingCount
-          posterRating
-          posterRatingCount
-          tasksCompleted
-          tasksPosted
-          totalEarned
-          totalSpent
-          emailVerified
-          phoneVerified
-          backgroundCheckStatus
-          accountStatus
-          createdAt
-          updatedAt
-          lastActiveAt
-        }
-      }
-    }
     tasksPosted
     totalEarned
     totalSpent
@@ -791,37 +845,37 @@ export const GetUserByIdDocument = gql`
     `;
 
 /**
- * __useGetUserByIdQuery__
+ * __useGetUserPrivateInfoByIdQuery__
  *
- * To run a query within a React component, call `useGetUserByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetUserPrivateInfoByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserPrivateInfoByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetUserByIdQuery({
+ * const { data, loading, error } = useGetUserPrivateInfoByIdQuery({
  *   variables: {
- *      getUserByIdId: // value for 'getUserByIdId'
+ *      getUserPrivateInfoByIdId: // value for 'getUserPrivateInfoByIdId'
  *   },
  * });
  */
-export function useGetUserByIdQuery(baseOptions: Apollo.QueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables> & ({ variables: GetUserByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetUserPrivateInfoByIdQuery(baseOptions: Apollo.QueryHookOptions<GetUserPrivateInfoByIdQuery, GetUserPrivateInfoByIdQueryVariables> & ({ variables: GetUserPrivateInfoByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+        return Apollo.useQuery<GetUserPrivateInfoByIdQuery, GetUserPrivateInfoByIdQueryVariables>(GetUserPrivateInfoByIdDocument, options);
       }
-export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+export function useGetUserPrivateInfoByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserPrivateInfoByIdQuery, GetUserPrivateInfoByIdQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+          return Apollo.useLazyQuery<GetUserPrivateInfoByIdQuery, GetUserPrivateInfoByIdQueryVariables>(GetUserPrivateInfoByIdDocument, options);
         }
-export function useGetUserByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+export function useGetUserPrivateInfoByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserPrivateInfoByIdQuery, GetUserPrivateInfoByIdQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+          return Apollo.useSuspenseQuery<GetUserPrivateInfoByIdQuery, GetUserPrivateInfoByIdQueryVariables>(GetUserPrivateInfoByIdDocument, options);
         }
-export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
-export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
-export type GetUserByIdSuspenseQueryHookResult = ReturnType<typeof useGetUserByIdSuspenseQuery>;
-export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export type GetUserPrivateInfoByIdQueryHookResult = ReturnType<typeof useGetUserPrivateInfoByIdQuery>;
+export type GetUserPrivateInfoByIdLazyQueryHookResult = ReturnType<typeof useGetUserPrivateInfoByIdLazyQuery>;
+export type GetUserPrivateInfoByIdSuspenseQueryHookResult = ReturnType<typeof useGetUserPrivateInfoByIdSuspenseQuery>;
+export type GetUserPrivateInfoByIdQueryResult = Apollo.QueryResult<GetUserPrivateInfoByIdQuery, GetUserPrivateInfoByIdQueryVariables>;
 export const GetCategoriesDocument = gql`
     query GetCategories {
   getCategories {
