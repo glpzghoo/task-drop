@@ -4,17 +4,56 @@ import ProfileTabs from './_components/ProfileTabs';
 import ProfileHeader from './_components/ProfileHeader';
 import { useParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
-import { useGetUserByIdQuery, Users } from '@/graphql/generated';
+import {
+  useGetUserPrivateInfoByIdQuery,
+  useGetUserPublicInfoByIdQuery,
+  Users,
+} from '@/graphql/generated';
 import UserProfileSkeleton from './_components/UserProfileSkeleton';
+import { useEffect, useState } from 'react';
 
 export default function UserProfilePage() {
   const params = useParams();
   const { userId } = params as { userId: string };
 
-  const { data, loading, error } = useGetUserByIdQuery({
-    variables: { getUserByIdId: userId! },
-    skip: !userId || typeof userId !== 'string',
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCurrentUserId(localStorage.getItem('userId'));
+  }, []);
+
+  const isOwner = currentUserId === userId;
+
+  const {
+    data: publicData,
+    loading: publicLoading,
+    error: publicError,
+  } = useGetUserPublicInfoByIdQuery({
+    variables: { getUserPublicInfoByIdId: userId! },
+    skip:
+      !userId ||
+      typeof userId !== 'string' ||
+      isOwner ||
+      currentUserId === null,
   });
+  const {
+    data: privateData,
+    loading: privateLoading,
+    error: privateError,
+  } = useGetUserPrivateInfoByIdQuery({
+    variables: { getUserPrivateInfoByIdId: userId! },
+    skip:
+      !userId ||
+      typeof userId !== 'string' ||
+      !isOwner ||
+      currentUserId === null,
+  });
+
+  const loading = publicLoading || privateLoading || currentUserId === null;
+  const error = publicError || privateError;
+  const userData = isOwner
+    ? privateData?.getUserPrivateInfoById
+    : publicData?.getUserPublicInfoById;
 
   if (loading) {
     return (
@@ -26,13 +65,11 @@ export default function UserProfilePage() {
       </div>
     );
   }
-
-  if (!userId || !data?.getUserById || error) {
+  if (!userId || !userData || error) {
     return notFound();
   }
 
-  const user: Users = data.getUserById as Users;
-
+  const user: Users = userData as Users;
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
