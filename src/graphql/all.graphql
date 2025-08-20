@@ -48,11 +48,83 @@ query CurrentUser {
   }
 }
 
-query GetUserById($getUserByIdId: ID!) {
-  getUserById(id: $getUserByIdId) {
+query GetUserPublicInfoById($getUserPublicInfoByIdId: ID!) {
+  getUserPublicInfoById(id: $getUserPublicInfoByIdId) {
+    id
+    firstName
+    lastName
+    profileImageUrl
+    bio
+    city
+    state
+    country
+    availableNow
+    isHelper
+    isTaskPoster
+    maxTravelDistance
+    preferredCategories
+    postedTasks {
+      id
+      title
+      description
+      isRemote
+      address
+      estimatedDuration
+      paymentAmount
+      isUrgent
+      createdAt
+    }
+    taskApplications {
+      id
+      appliedAt
+      respondedAt
+      status
+      task {
+        id
+        posterId
+        title
+        paymentAmount
+        posterRating
+        helperRating
+        posterFeedback
+        helperFeedback
+        estimatedDuration
+        categoryId
+        createdAt
+        poster {
+          id
+          firstName
+          lastName
+          profileImageUrl
+        }
+      }
+      helper {
+        id
+        firstName
+        lastName
+        profileImageUrl
+      }
+    }
+    helperRating
+    helperRatingCount
+    posterRating
+    posterRatingCount
+    tasksCompleted
+    tasksPosted
+    emailVerified
+    phoneVerified
+    backgroundCheckStatus
+    accountStatus
+    createdAt
+    updatedAt
+    lastActiveAt
+  }
+}
+
+query GetUserPrivateInfoById($getUserPrivateInfoByIdId: ID!) {
+  getUserPrivateInfoById(id: $getUserPrivateInfoByIdId) {
     id
     email
-    passwordHash
     firstName
     lastName
     phone
@@ -73,123 +145,51 @@ query GetUserById($getUserByIdId: ID!) {
     preferredCategories
     postedTasks {
       id
-      posterId
-      categoryId
       title
       description
-      requirements
       isRemote
       address
-      city
-      state
-      zipCode
-      latitude
-      longitude
       estimatedDuration
       paymentAmount
       isUrgent
-      urgencyFee
-      status
-      assignedTo
-      startedAt
-      completedAt
-      dueDate
-      maxApplications
-      autoAssign
-      helperRating
-      posterRating
-      helperFeedback
-      posterFeedback
       createdAt
-      updatedAt
+    }
+    taskApplications {
+      id
+      appliedAt
+      respondedAt
+      status
+      task {
+        id
+        posterId
+        title
+        paymentAmount
+        posterRating
+        helperRating
+        posterFeedback
+        helperFeedback
+        estimatedDuration
+        categoryId
+        createdAt
+        poster {
+          id
+          firstName
+          lastName
+          profileImageUrl
+        }
+      }
+      helper {
+        id
+        firstName
+        lastName
+        profileImageUrl
+      }
     }
     helperRating
     helperRatingCount
     posterRating
     posterRatingCount
     tasksCompleted
-    taskApplications {
-      id
-      taskId
-
-      helperId
-      message
-      proposedStartTime
-      estimatedCompletionTime
-      status
-      appliedAt
-      respondedAt
-      task {
-        id
-        posterId
-        categoryId
-        title
-        description
-        requirements
-        isRemote
-        address
-        city
-        state
-        zipCode
-        latitude
-        longitude
-        estimatedDuration
-        paymentAmount
-        isUrgent
-        urgencyFee
-        status
-        assignedTo
-        startedAt
-        completedAt
-        dueDate
-        maxApplications
-        autoAssign
-        helperRating
-        posterRating
-        helperFeedback
-        posterFeedback
-        createdAt
-        updatedAt
-        poster {
-          id
-          email
-          passwordHash
-          firstName
-          lastName
-          phone
-          profileImageUrl
-          bio
-          dateOfBirth
-          address
-          city
-          state
-          country
-          zipCode
-          latitude
-          longitude
-          isHelper
-          isTaskPoster
-          availableNow
-          maxTravelDistance
-          preferredCategories
-          helperRating
-          helperRatingCount
-          posterRating
-          posterRatingCount
-          tasksCompleted
-          tasksPosted
-          totalEarned
-          totalSpent
-          emailVerified
-          phoneVerified
-          backgroundCheckStatus
-          accountStatus
-          createdAt
-          updatedAt
-          lastActiveAt
-        }
-      }
-    }
     tasksPosted
     totalEarned
     totalSpent
