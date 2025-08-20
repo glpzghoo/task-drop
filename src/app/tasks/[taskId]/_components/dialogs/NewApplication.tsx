@@ -43,16 +43,11 @@ const NewTaskApplicationDialog = ({ task }: { task: Task }) => {
   });
 
   const onSubmit = async (data: NewApplicationType) => {
-    if (new Date(data.proposedStartTime).getTime() < new Date().getTime()) {
-      console.log('Эхлэх цаг ирээдүйд байх ёстой!');
-      return;
-    }
     try {
       await NewTaskApplication({ variables: { ...data, taskId: task.id } });
     } catch (err) {
       console.error('Error submitting form:', err);
     }
-    console.log('Form submitted:', data);
   };
 
   useEffect(() => {
@@ -136,7 +131,15 @@ const NewTaskApplicationDialog = ({ task }: { task: Task }) => {
                 )}
               />
 
-              <Button>Илгээх</Button>
+              <Button
+                type="submit"
+                disabled={
+                  !form.formState.isValid || form.formState.isSubmitting
+                }
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                {form.formState.isSubmitting ? 'Илгээж байна!' : 'Илгээх'}
+              </Button>
             </div>
           </form>
         </Form>

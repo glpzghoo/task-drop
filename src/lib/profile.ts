@@ -46,14 +46,13 @@ export function mapApplicationsToRecentTasks(
   apps: TaskApplications[],
   user: Users
 ): RecentTask[] {
-  console.log('Mapping applications to recent tasks:', apps, user);
   if (apps.length === 0) return [];
   return apps.map((app) => {
     const t = app.task;
     const role = t.posterId === user.id ? 'poster' : 'helper';
     const payment =
       t.paymentAmount !== undefined && t.paymentAmount !== null
-        ? `$${t.paymentAmount}`
+        ? `₮${t.paymentAmount}`
         : '';
     const rating =
       role === 'helper' ? (t.posterRating ?? 0) : (t.helperRating ?? 0);
@@ -114,7 +113,7 @@ export function mapApplicationsToReviews(
         ? `${t.poster.firstName} ${t.poster.lastName}`
         : `${app.helper.firstName} ${app.helper.lastName}`;
       const date = t.createdAt
-        ? formatDistanceToNow(new Date(t.createdAt), {
+        ? formatDistanceToNow(new Date(Number(t.createdAt)), {
             locale: mn,
             addSuffix: true,
           })
