@@ -26,7 +26,7 @@ const ReviewTab = ({ user }: { user: Users }) => {
 
   return (
     <TabsContent value="reviews" className="space-y-6">
-      <Card className="bg-background text-foreground">
+      <Card className=" text-foreground">
         <CardHeader>
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>

@@ -52,7 +52,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+    <div className="min-h-screen flex items-center justify-center  px-4">
       <div className="w-full max-w-4xl bg-card rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-2 overflow-hidden">
         {/* Left side — info/branding */}
         <div className="hidden md:flex flex-col justify-center items-center bg-muted p-8 text-center">

@@ -64,7 +64,7 @@ const NewTaskApplicationDialog = ({ task }: { task: Task }) => {
 
   return (
     <Dialog
-      open={showApplicationDialog}
+      open={showApplicationDialog && task.status === 'open'}
       onOpenChange={setShowApplicationDialog}
     >
       {snackbar && (
@@ -75,11 +75,14 @@ const NewTaskApplicationDialog = ({ task }: { task: Task }) => {
         />
       )}
       <DialogTrigger asChild>
-        <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-5 py-2 rounded-md">
+        <Button
+          disabled={task.status !== 'open'}
+          className="bg-primary text-primary-foreground hover:bg-primary/90 px-5 py-2 rounded-md"
+        >
           Даалгаварт хүсэлт илгээх
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-gray-900 border border-gray-800 text-white max-w-lg">
+      <DialogContent className=" border border-gray-800 text-white max-w-lg">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold">
             Ажилд хүсэлт илгээх

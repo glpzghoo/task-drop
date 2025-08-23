@@ -32,7 +32,7 @@ const ProfileHeader = ({ user }: { user: Users }) => {
       : undefined
   );
   return (
-    <Card className="bg-background text-foreground mb-8 shadow">
+    <Card className=" text-foreground mb-8 shadow">
       <CardContent className="pt-6">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Column */}

@@ -13,8 +13,10 @@ import { timeUntilDue } from '../utils/helpers';
 import { Button } from '@/components/ui/button';
 import { Task } from '@/graphql/generated';
 import { format } from 'date-fns';
+import AcceptOffer from './AcceptOffer';
 
 const TaskDetails = ({ task }: { task: Task }) => {
+  const taskOwner = task.posterId === localStorage.getItem('userId');
   return (
     <Tabs defaultValue="details" className="space-y-6">
       <TabsList className="grid w-full grid-cols-3 rounded-md bg-card border border-border">
@@ -40,7 +42,7 @@ const TaskDetails = ({ task }: { task: Task }) => {
 
       {/* Дэлгэрэнгүй таб */}
       <TabsContent value="details" className="space-y-6">
-        <Card className="bg-background border-border">
+        <Card className=" border-border">
           <CardHeader>
             <CardTitle className="text-foreground">Ажлын тайлбар</CardTitle>
           </CardHeader>
@@ -63,7 +65,7 @@ const TaskDetails = ({ task }: { task: Task }) => {
         </Card>
 
         {/* Ажлын мэдээлэл / статистик */}
-        <Card className="bg-background border-border">
+        <Card className=" border-border">
           <CardHeader>
             <CardTitle className="text-foreground">Ажлын мэдээлэл</CardTitle>
           </CardHeader>
@@ -117,7 +119,11 @@ const TaskDetails = ({ task }: { task: Task }) => {
                     variant="outline"
                     className="border-border text-muted-foreground"
                   >
-                    {task.status === 'open' ? 'Нээлттэй' : task.status}
+                    {task.status === 'open'
+                      ? 'Нээлттэй'
+                      : task.status === 'assigned'
+                        ? 'Хүн авсан'
+                        : task.status}
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between">
@@ -134,7 +140,7 @@ const TaskDetails = ({ task }: { task: Task }) => {
 
       {/* Хүсэлт таб */}
       <TabsContent value="applications" className="space-y-6">
-        <Card className="bg-background border-border">
+        <Card className=" border-border">
           <CardHeader>
             <CardTitle className="text-foreground">
               Хүсэлт ({task.applications.length})
@@ -211,28 +217,25 @@ const TaskDetails = ({ task }: { task: Task }) => {
                         {application.message}
                       </p>
 
-                      <div className="flex flex-wrap gap-2">
-                        <Button
-                          size="sm"
-                          className="bg-primary text-primary-foreground hover:bg-primary/90"
-                        >
-                          Хүсэлт зөвшөөрөх
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="border-border"
-                        >
-                          Профайл харах
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="border-border"
-                        >
-                          Мессеж бичих
-                        </Button>
-                      </div>
+                      {taskOwner && (
+                        <div className="flex flex-wrap gap-2">
+                          <AcceptOffer taskApplicationId={application.id} />
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-border"
+                          >
+                            Профайл харах
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-border"
+                          >
+                            Мессеж бичих
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -244,7 +247,7 @@ const TaskDetails = ({ task }: { task: Task }) => {
 
       {/* Байршил таб */}
       <TabsContent value="location" className="space-y-6">
-        <Card className="bg-background border-border">
+        <Card className=" border-border">
           <CardHeader>
             <CardTitle className="text-foreground">Байршлын мэдээлэл</CardTitle>
           </CardHeader>

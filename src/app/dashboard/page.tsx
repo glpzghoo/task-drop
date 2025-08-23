@@ -8,7 +8,7 @@ import DashboardTabs from './_compnents/DashboardTabs';
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-secondary">
+    <div className="min-h-screen">
       {/* Header */}
       <Header />
 

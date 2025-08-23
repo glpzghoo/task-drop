@@ -38,7 +38,7 @@ const OverviewTab = ({ user }: { user: Users }) => {
       {/* About & Quick Stats */}
       <div className="grid md:grid-cols-1 gap-6">
         {/* About */}
-        <Card className="bg-background text-foreground">
+        <Card className=" text-foreground">
           <CardHeader>
             <CardTitle className=" flex items-center justify-between">
               <div>Тухай</div>
@@ -52,7 +52,7 @@ const OverviewTab = ({ user }: { user: Users }) => {
         </Card>
 
         {/* Quick Stats */}
-        <Card className="bg-background text-foreground">
+        <Card className=" text-foreground">
           <CardHeader>
             <CardTitle>Товч статистик</CardTitle>
           </CardHeader>
@@ -89,7 +89,7 @@ const OverviewTab = ({ user }: { user: Users }) => {
 
       {/* Recent Activity */}
       {owner && (
-        <Card className="bg-background text-foreground">
+        <Card className=" text-foreground">
           <CardHeader>
             <CardTitle>Сүүлийн даалгаврууд</CardTitle>
           </CardHeader>
