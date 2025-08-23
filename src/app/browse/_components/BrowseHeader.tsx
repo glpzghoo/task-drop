@@ -72,7 +72,7 @@ export default function BrowseHeader({
               id="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Нохой салгах, орчуулга..."
+              placeholder="Нохой салхилуулах, орчуулга..."
               className="pl-10"
             />
           </div>

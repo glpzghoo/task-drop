@@ -5,7 +5,7 @@ import { Task } from '@/graphql/generated';
 
 const QuickStats = ({ task }: { task: Task }) => {
   return (
-    <Card className="bg-gray-900 border-gray-800">
+    <Card className=" border-gray-800">
       <CardHeader>
         <CardTitle className="text-white">Түргэн статистик</CardTitle>
       </CardHeader>

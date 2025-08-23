@@ -257,13 +257,6 @@ query GetTasks {
       profileImageUrl
       bio
       dateOfBirth
-      address
-      city
-      state
-      country
-      zipCode
-      latitude
-      longitude
       isHelper
       isTaskPoster
       availableNow
@@ -536,4 +529,14 @@ mutation NewTaskApplication(
   ) {
     id
   }
+}
+
+mutation UpdateTaskStatusBothSides(
+  $taskApplicationId: String!
+  $ratingGiven: Float
+) {
+  UpdateTaskStatusBothSides(
+    TaskApplicationId: $taskApplicationId
+    ratingGiven: $ratingGiven
+  )
 }

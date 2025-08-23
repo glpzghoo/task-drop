@@ -57,7 +57,7 @@ export default function UserProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background text-foreground">
+      <div className="min-h-screen  text-foreground">
         <Header />
         <main className="w-full max-w-5xl mx-auto px-4 py-8">
           <UserProfileSkeleton />
@@ -71,7 +71,7 @@ export default function UserProfilePage() {
 
   const user: Users = userData as Users;
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen  text-foreground">
       {/* Header */}
       <Header />
 

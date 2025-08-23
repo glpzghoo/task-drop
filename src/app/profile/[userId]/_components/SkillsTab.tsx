@@ -18,7 +18,7 @@ const SkillsTab = ({ user }: { user: Users }) => {
 
   return (
     <TabsContent value="skills" className="space-y-6">
-      <Card className="bg-background text-foreground">
+      <Card className=" text-foreground">
         <CardHeader>
           <CardTitle>Ур чадвар ба туршлага</CardTitle>
           <CardDescription className="text-muted-foreground">

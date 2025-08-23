@@ -52,7 +52,7 @@ const Header = () => {
   }, [data]);
 
   return (
-    <header className="border-b bg-background dark:bg-background sticky top-0 z-50 shadow-sm">
+    <header className="border-b  dark: sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 text-foreground">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">

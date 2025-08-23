@@ -13,7 +13,7 @@ import { Users } from '@/graphql/generated';
 const AvailabilityTab = ({ user }: { user: Users }) => {
   return (
     <TabsContent value="availability" className="space-y-6">
-      <Card className="bg-background text-foreground">
+      <Card className=" text-foreground">
         <CardHeader>
           <CardTitle>Ирцийн цагийн хуваарь</CardTitle>
           <CardDescription className="text-muted-foreground">

@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 const PosterCard = ({ task }: { task: Task }) => {
   return (
-    <Card className="bg-gray-900 border-gray-800">
+    <Card className=" border-gray-800">
       <CardHeader>
         <CardTitle className="text-white">Захиалагч</CardTitle>
       </CardHeader>

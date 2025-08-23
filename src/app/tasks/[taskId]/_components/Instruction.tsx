@@ -4,7 +4,7 @@ import { Flag, Shield } from 'lucide-react';
 
 const Instruction = () => {
   return (
-    <Card className="bg-gray-900 border-gray-800">
+    <Card className=" border-gray-800">
       <CardHeader>
         <CardTitle className="text-white flex items-center gap-2">
           <Shield className="w-5 h-5" />

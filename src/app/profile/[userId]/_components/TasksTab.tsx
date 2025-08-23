@@ -30,7 +30,7 @@ const TasksTab = ({ user }: { user: Users }) => {
 
   return (
     <TabsContent value="tasks" className="space-y-6">
-      <Card className="bg-background text-foreground">
+      <Card className=" text-foreground">
         <CardHeader>
           <CardTitle>Сүүлийн даалгаврууд</CardTitle>
           <CardDescription className="text-muted-foreground">
