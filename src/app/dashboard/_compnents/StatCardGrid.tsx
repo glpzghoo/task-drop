@@ -1,26 +1,30 @@
 import { Card, CardContent } from '@/components/ui/card';
+import { DashboardResponse } from '@/graphql/generated';
 import { CheckCircle, DollarSign, Star, Clock } from 'lucide-react';
 
-export default function StatCardGrid({ stats }: { stats: any }) {
+type Props = {
+  response: DashboardResponse;
+};
+export default function StatCardGrid({ response }: Props) {
   const items = [
     {
-      label: 'Tasks Completed',
-      value: stats.tasksCompleted,
+      label: 'Даалгавар гүйцэтгэсэн',
+      value: response.taskCompleted,
       icon: <CheckCircle className="text-green-500" />,
     },
     {
-      label: 'Total Earned',
-      value: `$${stats.totalEarned}`,
+      label: 'Нийт орлого',
+      value: `$${response.totalEarned}`,
       icon: <DollarSign className="text-green-500" />,
     },
     {
-      label: 'Average Rating',
-      value: stats.averageRating,
+      label: 'Дундаж үнэлгээ',
+      value: response.avgRating,
       icon: <Star className="text-yellow-400 fill-current" />,
     },
     {
-      label: 'Response Time',
-      value: stats.responseTime,
+      label: 'Хариу өгч буй хугацаа',
+      value: response.responseTime,
       icon: <Clock className="text-blue-500" />,
     },
   ];

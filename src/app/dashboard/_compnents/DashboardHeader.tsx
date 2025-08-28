@@ -3,15 +3,19 @@
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { DashboardResponse } from '@/graphql/generated';
 
-export default function DashboardHeader() {
-  const [availableNow, setAvailableNow] = useState(false);
+type Props = {
+  response: DashboardResponse;
+};
+export default function DashboardHeader({ response }: Props) {
+  const [availableNow, setAvailableNow] = useState(response.isAvailable);
 
   return (
     <div className="flex items-center justify-between mb-8">
       <div>
         <h1 className="text-3xl font-bold text-foreground">
-          Тавтай морил, Жон!
+          Тавтай морил, {response.fullname}!
         </h1>
         <p className="text-muted-foreground">
           Ажлуудтай холбоотой шинэчлэлүүд энд байна

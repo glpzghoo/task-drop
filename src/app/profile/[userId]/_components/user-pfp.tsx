@@ -4,9 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Users, useUploadPfpMutation } from '@/graphql/generated';
 import CustomSnackBar from '@/lib/CustomSnackbar';
+import { useParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 const UserPFP = ({ user }: { user: Users }) => {
+  const params = useParams();
+  const { userId } = params as { userId: string };
+  const currentUserId = localStorage.getItem('userId');
+  const isOwner = currentUserId === userId;
   const [UploadPfp, { data, error }] = useUploadPfpMutation();
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -76,6 +81,7 @@ const UserPFP = ({ user }: { user: Users }) => {
         </AvatarFallback>
       </Avatar>
       <Input
+        disabled={!isOwner}
         onChange={(e) => {
           const file = e.target.files?.[0];
           if (!file) return;

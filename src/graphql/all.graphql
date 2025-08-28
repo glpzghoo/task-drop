@@ -11,40 +11,8 @@ query GetUsers {
 query CurrentUser {
   currentUser {
     id
-    accountStatus
-    address
-    availableNow
-    backgroundCheckStatus
-    bio
-    email
     firstName
     lastName
-    phone
-    profileImageUrl
-    dateOfBirth
-    city
-    state
-    country
-    zipCode
-    latitude
-    longitude
-    isHelper
-    isTaskPoster
-    maxTravelDistance
-    preferredCategories
-    helperRating
-    helperRatingCount
-    posterRating
-    posterRatingCount
-    tasksCompleted
-    tasksPosted
-    totalEarned
-    totalSpent
-    emailVerified
-    phoneVerified
-    createdAt
-    updatedAt
-    lastActiveAt
   }
 }
 
@@ -421,6 +389,22 @@ query getTaskById($getTaskByIdId: String!) {
         lastActiveAt
       }
     }
+  }
+}
+
+query Dashboard {
+  dashboard {
+    taskCompleted
+    totalEarned
+    avgRating
+    responseTime
+    assignedTasks {
+      id
+    }
+    isAvailable
+    fullname
+    isHelper
+    isPoster
   }
 }
 

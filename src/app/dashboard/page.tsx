@@ -1,12 +1,27 @@
 'use client';
 
-import { activeTasks, postedTasks, recentTasks, stats } from './mocks';
+import { activeTasks, postedTasks, recentTasks } from './mocks';
 import Header from '../_components/header';
 import DashboardHeader from './_compnents/DashboardHeader';
 import StatCardGrid from './_compnents/StatCardGrid';
 import DashboardTabs from './_compnents/DashboardTabs';
+import { DashboardResponse, useDashboardQuery } from '@/graphql/generated';
+import { Loader2 } from 'lucide-react';
 
 export default function DashboardPage() {
+  const { data, error, loading } = useDashboardQuery();
+
+  if (loading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className=" animate-spin" />
+      </div>
+    );
+  if (error || !data?.dashboard)
+    return <div>Алдаа гарлаа. Ахин нэвтэрнэ үү!</div>;
+
+  const response = data.dashboard as DashboardResponse;
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -14,10 +29,10 @@ export default function DashboardPage() {
 
       <div className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
-        <DashboardHeader />
+        <DashboardHeader response={response} />
 
         {/* Stats Cards */}
-        <StatCardGrid stats={stats} />
+        <StatCardGrid response={response} />
 
         {/* Main Content Tabs */}
         <DashboardTabs

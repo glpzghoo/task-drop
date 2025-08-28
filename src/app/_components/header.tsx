@@ -41,7 +41,7 @@ const Header = () => {
         include: ['CurrentUser'],
       });
     } catch (err) {
-      console.error('Error refetching user:', err);
+      console.error('aldaa:', err);
     }
   };
 
@@ -98,12 +98,12 @@ const Header = () => {
         ) : data?.currentUser ? (
           <DropdownMenu>
             <DropdownMenuTrigger className="text-sm font-medium text-foreground hover:underline">
-              {data.currentUser?.firstName} {data.currentUser?.lastName}
+              {data.currentUser.firstName} {data.currentUser.lastName}
             </DropdownMenuTrigger>
 
             <DropdownMenuContent>
               <DropdownMenuItem>
-                <Link href={`/profile/${data.currentUser?.id}`}>Профайл</Link>
+                <Link href={`/profile/${data.currentUser.id}`}>Профайл</Link>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={Logout}>Гарах</DropdownMenuItem>
             </DropdownMenuContent>
