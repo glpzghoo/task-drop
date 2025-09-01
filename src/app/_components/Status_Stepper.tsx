@@ -2,8 +2,6 @@
 
 import React from 'react';
 import { Check, AlertTriangle, XCircle, Gavel } from 'lucide-react';
-// import { Badge } from "@/components/ui/badge"; // optional if you use shadcn/ui
-// import cn from "classnames"; // optional
 
 export enum TaskStatus {
   Assigned = 'assigned',
@@ -14,8 +12,6 @@ export enum TaskStatus {
   Open = 'open',
   Overdue = 'overdue',
 }
-
-// ---- config -------------------------------------------------------------
 
 type FlowStatus =
   | TaskStatus.Open
@@ -44,7 +40,6 @@ const isTerminal = (s: TaskStatus) =>
   s === TaskStatus.Cancelled || s === TaskStatus.Disputed;
 const isWarning = (s: TaskStatus) => s === TaskStatus.Overdue;
 
-// If we’re in a terminal/warning state, show progress up to the last meaningful step.
 function resolveFlow(status: TaskStatus): FlowStatus {
   switch (status) {
     case TaskStatus.Open:
@@ -55,7 +50,6 @@ function resolveFlow(status: TaskStatus): FlowStatus {
     case TaskStatus.Cancelled:
     case TaskStatus.Disputed:
     case TaskStatus.Overdue:
-      // Without underlying phase info, assume most tasks become terminal/warn from InProgress.
       return TaskStatus.InProgress;
   }
 }
@@ -63,12 +57,10 @@ function resolveFlow(status: TaskStatus): FlowStatus {
 const cx = (...xs: Array<string | false | undefined>) =>
   xs.filter(Boolean).join(' ');
 
-// ---- component ---------------------------------------------------------
-
 export function TaskStatusStepper({
   status,
   className,
-  onChange, // optional: make steps clickable to change status within the flow
+  onChange,
 }: {
   status: TaskStatus;
   className?: string;
