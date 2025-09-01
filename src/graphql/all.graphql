@@ -408,6 +408,53 @@ query Dashboard {
   }
 }
 
+query GetUserTasks {
+  getUserTasks {
+    id
+    posterId
+    categoryId
+    title
+    description
+    requirements
+    isRemote
+    address
+    city
+    state
+    zipCode
+    latitude
+    longitude
+    estimatedDuration
+    paymentAmount
+    isUrgent
+    urgencyFee
+    status
+    assignedTo
+    startedAt
+    completedAt
+    dueDate
+    maxApplications
+    autoAssign
+    helperRating
+    posterRating
+    helperFeedback
+    posterFeedback
+    createdAt
+    updatedAt
+    poster {
+      id
+      lastName
+      firstName
+      email
+    }
+    assignee {
+      id
+      lastName
+      firstName
+      email
+    }
+  }
+}
+
 mutation CreateUser(
   $email: String!
   $firstName: String!

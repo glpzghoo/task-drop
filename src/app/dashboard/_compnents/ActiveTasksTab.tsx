@@ -3,10 +3,42 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Clock, MapPin, MessageSquare, AlertCircle } from 'lucide-react';
+import {
+  Clock,
+  MapPin,
+  MessageSquare,
+  AlertCircle,
+  Loader2,
+} from 'lucide-react';
 import Link from 'next/link';
+import { Task, TaskStatus, useGetUserTasksQuery } from '@/graphql/generated';
+import { getStatusConfig } from '@/app/browse/utils/helpers';
+import { cn } from '@/lib/utils';
+import { TaskStatusStepper } from '@/app/_components/Status_Stepper';
 
-export default function ActiveTasksTab({ tasks }: { tasks: any[] }) {
+export default function ActiveTasksTab() {
+  const { data, loading, error } = useGetUserTasksQuery();
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+        <span className="ml-2 text-sm text-muted-foreground">
+          Ачааллаж байна...
+        </span>
+      </div>
+    );
+  }
+
+  if (error || !data?.getUserTasks) {
+    return (
+      <div className="flex items-center justify-center p-8 rounded-lg border border-destructive/30 bg-destructive/10 text-destructive">
+        Алдаа гарлаа. Дахин оролдоно уу.
+      </div>
+    );
+  }
+
+  const tasks = data?.getUserTasks as Task[];
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -20,55 +52,62 @@ export default function ActiveTasksTab({ tasks }: { tasks: any[] }) {
 
       {tasks.length > 0 ? (
         <div className="grid gap-4">
-          {tasks.map((task) => (
-            <Card key={task.id}>
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="font-medium">{task.title}</h3>
-                      <Badge
-                        variant={
-                          task.status === 'in-progress'
-                            ? 'default'
-                            : 'secondary'
-                        }
-                      >
-                        {task.status === 'in-progress'
-                          ? 'Хийгдэж байна'
-                          : 'Эхлээгүй'}
-                      </Badge>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
-                        {task.location}
+          {tasks.length > 0
+            ? tasks.map((task) => {
+                const statusCfg = getStatusConfig(task.status);
+                return (
+                  <Card key={task.id}>
+                    <CardContent className="pt-6 flex flex-col gap-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <h3 className="font-medium">{task.title}</h3>
+                            <Badge
+                              className={cn(
+                                'text-[11px] px-3 py-1 rounded-full font-semibold',
+                                task.status
+                                  ? statusCfg.color
+                                  : 'bg-muted text-muted-foreground'
+                              )}
+                            >
+                              {statusCfg.label}
+                            </Badge>
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            <div className="flex items-center gap-1">
+                              <MapPin className="w-4 h-4" />
+                              {task.address}
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-4 h-4" />
+                              {task.dueDate
+                                ? `${task.dueDate} үлдсэн`
+                                : 'Дуусах хугацаа байхгүй!'}
+                            </div>
+                            <span>Захиалагч: {task.poster.firstName}</span>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-xl font-bold text-green-600 mb-2">
+                            ₮{task.paymentAmount}
+                          </div>
+                          <div className="flex gap-2">
+                            <Button variant="outline" size="sm">
+                              <MessageSquare className="w-4 h-4 mr-1" />
+                              Зурвас
+                            </Button>
+                            {task.status === 'in_progress' && (
+                              <Button size="sm">Дууссан гэж тэмдэглэх</Button>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {task.timeRemaining} үлдсэн
-                      </div>
-                      <span>Захиалагч: {task.client}</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xl font-bold text-green-600 mb-2">
-                      {task.payment}
-                    </div>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm">
-                        <MessageSquare className="w-4 h-4 mr-1" />
-                        Зурвас
-                      </Button>
-                      {task.status === 'in-progress' && (
-                        <Button size="sm">Дууссан гэж тэмдэглэх</Button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                      <TaskStatusStepper status={task.status as TaskStatus} />
+                    </CardContent>
+                  </Card>
+                );
+              })
+            : 'no tasks'}
         </div>
       ) : (
         <Card>

@@ -85,7 +85,7 @@ export const statusStyles = {
   },
   [TaskStatus.Open]: {
     ring: 'ring-zinc-400/35',
-    tint: 'bg-zinc-200/15 dark:bg-zinc-800/25', // keep Open lighter
+    tint: 'bg-zinc-200/15 dark:bg-zinc-800/25',
     stripe: 'before:bg-zinc-400',
     badge: 'bg-zinc-700/30 text-zinc-100 dark:bg-zinc-700/50 dark:text-zinc-50',
   },

@@ -81,21 +81,16 @@ export default function TaskCardGrid({
               <Card
                 className={cn(
                   'relative overflow-hidden border-border/60 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 transition-all duration-300 hover:shadow-lg ring-1 ring-border ring-offset-1 ring-offset-background',
-                  // neutral base ring
                   'ring-1 ring-border',
-                  // status-driven skin
                   task.status && sx(task.status).tint,
                   task.status && sx(task.status).ring,
-                  // left stripe
                   "before:absolute before:inset-y-0 before:left-0 before:w-1.5 before:content-['']",
                   task.status && sx(task.status).stripe,
-                  // hover
                   isOpen
                     ? 'hover:ring-2 cursor-pointer'
                     : 'hover:ring-1 opacity-85 cursor-not-allowed'
                 )}
               >
-                {/* Disable the full-card link when not open */}
                 <Link
                   href={`/tasks/${task.id}`}
                   aria-disabled={!isOpen}
@@ -107,7 +102,6 @@ export default function TaskCardGrid({
                   aria-label="Дэлгэрэнгүй рүү очих"
                 />
 
-                {/* BIG centered status overlay when not open */}
                 {!isOpen && (
                   <div className="pointer-events-none absolute inset-0 flex items-center justify-center z-20">
                     <div
@@ -160,13 +154,12 @@ export default function TaskCardGrid({
                       {task.title}
                     </CardTitle>
 
-                    {/* Small badge only when open; hidden otherwise to avoid duplication with the big overlay */}
                     {isOpen && (
                       <Badge
                         className={cn(
                           'text-[11px] px-3 py-1 rounded-full font-semibold',
                           task.status
-                            ? sx(task.status).badge
+                            ? statusCfg.color
                             : 'bg-muted text-muted-foreground'
                         )}
                       >
@@ -238,7 +231,6 @@ export default function TaskCardGrid({
                     </div>
 
                     <div className="flex shrink-0 gap-2">
-                      {/* Keep details link but disable pointer when not open */}
                       <Button
                         variant="outline"
                         size="sm"
@@ -274,7 +266,6 @@ export default function TaskCardGrid({
                     </div>
                   </div>
 
-                  {/* Optional: Dates */}
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     {task.startedAt && (
                       <span>

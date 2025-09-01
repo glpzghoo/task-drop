@@ -1,20 +1,32 @@
+'use client';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ActiveTasksTab from './ActiveTasksTab';
 import HistoryTab from './HistoryTab';
 import PostedTasksTab from './PostedTasksTab';
 import EarningsTab from './EarningsTab';
+import { useEffect, useState } from 'react';
 
 export default function DashboardTabs({
-  activeTasks,
   recentTasks,
   postedTasks,
 }: {
-  activeTasks: any[];
   recentTasks: any[];
   postedTasks: any[];
 }) {
+  const [activeTab, setActiveTab] = useState(
+    localStorage.getItem('dashboardActiveTab') || 'active'
+  );
+
+  useEffect(() => {
+    localStorage.setItem('dashboardActiveTab', activeTab);
+  }, [activeTab]);
+
   return (
-    <Tabs defaultValue="active" className="space-y-6">
+    <Tabs
+      defaultValue={activeTab}
+      onValueChange={setActiveTab}
+      className="space-y-6"
+    >
       <TabsList className="grid w-full grid-cols-4">
         <TabsTrigger value="active">Идэвхтэй ажлууд</TabsTrigger>
         <TabsTrigger value="history">Гүйцэтгэсэн түүх</TabsTrigger>
@@ -23,7 +35,7 @@ export default function DashboardTabs({
       </TabsList>
 
       <TabsContent value="active">
-        <ActiveTasksTab tasks={activeTasks} />
+        <ActiveTasksTab />
       </TabsContent>
 
       <TabsContent value="history">

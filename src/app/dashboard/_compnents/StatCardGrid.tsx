@@ -14,7 +14,7 @@ export default function StatCardGrid({ response }: Props) {
     },
     {
       label: 'Нийт орлого',
-      value: `$${response.totalEarned}`,
+      value: `₮${response.totalEarned}`,
       icon: <DollarSign className="text-green-500" />,
     },
     {

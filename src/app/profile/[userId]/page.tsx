@@ -30,11 +30,7 @@ export default function UserProfilePage() {
     error: publicError,
   } = useGetUserPublicInfoByIdQuery({
     variables: { getUserPublicInfoByIdId: userId! },
-    skip:
-      !userId ||
-      typeof userId !== 'string' ||
-      isOwner ||
-      currentUserId === null,
+    skip: !userId || typeof userId !== 'string' || isOwner,
   });
   const {
     data: privateData,
@@ -42,14 +38,10 @@ export default function UserProfilePage() {
     error: privateError,
   } = useGetUserPrivateInfoByIdQuery({
     variables: { getUserPrivateInfoByIdId: userId! },
-    skip:
-      !userId ||
-      typeof userId !== 'string' ||
-      !isOwner ||
-      currentUserId === null,
+    skip: !userId || typeof userId !== 'string' || !isOwner,
   });
 
-  const loading = publicLoading || privateLoading || currentUserId === null;
+  const loading = publicLoading || privateLoading;
   const error = publicError || privateError;
   const userData = isOwner
     ? privateData?.getUserPrivateInfoById

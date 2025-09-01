@@ -7,14 +7,10 @@ import Footer from './_components/Footer';
 export default function HomePage() {
   return (
     <div className="min-h-screen  text-foreground">
-      {/* Header */}
       <Header />
       <HeroSection />
-      {/* Features */}
       <FeaturesSection />
-      {/* Featured Tasks */}
       <FeaturedTasks />
-      {/* Footer */}
       <Footer />
     </div>
   );

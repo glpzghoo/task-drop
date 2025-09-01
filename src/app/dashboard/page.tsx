@@ -1,6 +1,6 @@
 'use client';
 
-import { activeTasks, postedTasks, recentTasks } from './mocks';
+import { postedTasks, recentTasks } from './mocks';
 import Header from '../_components/header';
 import DashboardHeader from './_compnents/DashboardHeader';
 import StatCardGrid from './_compnents/StatCardGrid';
@@ -18,28 +18,26 @@ export default function DashboardPage() {
       </div>
     );
   if (error || !data?.dashboard)
-    return <div>Алдаа гарлаа. Ахин нэвтэрнэ үү!</div>;
+    return (
+      <div>
+        <div className="min-h-screen">
+          <Header />
+          <div className=" min-h-screen flex flex-col justify-center items-center">
+            Нэвтэрнэ үү!
+          </div>
+        </div>
+      </div>
+    );
 
   const response = data.dashboard as DashboardResponse;
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
       <Header />
-
       <div className="container mx-auto px-4 py-8">
-        {/* Welcome Section */}
         <DashboardHeader response={response} />
-
-        {/* Stats Cards */}
         <StatCardGrid response={response} />
-
-        {/* Main Content Tabs */}
-        <DashboardTabs
-          activeTasks={activeTasks}
-          recentTasks={recentTasks}
-          postedTasks={postedTasks}
-        />
+        <DashboardTabs recentTasks={recentTasks} postedTasks={postedTasks} />
       </div>
     </div>
   );
