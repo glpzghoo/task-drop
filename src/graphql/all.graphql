@@ -402,6 +402,8 @@ query GetUserTasks {
     latitude
     longitude
     estimatedDuration
+    disputeReason1
+    disputeReason2
     paymentAmount
     isUrgent
     urgencyFee
