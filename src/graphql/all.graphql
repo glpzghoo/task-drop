@@ -455,6 +455,47 @@ query GetUserTasks {
   }
 }
 
+query GetApplications($taskId: String!) {
+  getApplications(taskId: $taskId) {
+    id
+    taskId
+    helperId
+    posterId
+    message
+    proposedStartTime
+    estimatedCompletionTime
+    status
+    appliedAt
+    respondedAt
+    helper {
+      id
+      firstName
+      lastName
+      profileImageUrl
+      bio
+      dateOfBirth
+      address
+      country
+      isHelper
+      isTaskPoster
+      availableNow
+      maxTravelDistance
+      preferredCategories
+      helperRating
+      helperRatingCount
+      tasksCompleted
+      emailVerified
+      phoneVerified
+      backgroundCheckStatus
+      accountStatus
+      createdAt
+      updatedAt
+      lastActiveAt
+      responseTime
+    }
+  }
+}
+
 mutation CreateUser(
   $email: String!
   $firstName: String!
@@ -562,12 +603,10 @@ mutation NewTaskApplication(
   }
 }
 
-mutation UpdateTaskStatusBothSides(
-  $taskApplicationId: String!
-  $ratingGiven: Float
-) {
-  UpdateTaskStatusBothSides(
-    TaskApplicationId: $taskApplicationId
-    ratingGiven: $ratingGiven
-  )
+mutation UpdateTaskStatusBothSides($taskId: String!, $ratingGiven: Float) {
+  UpdateTaskStatusBothSides(taskId: $taskId, ratingGiven: $ratingGiven)
+}
+
+mutation AcceptOffer($taskApplicationId: String!) {
+  AcceptOffer(TaskApplicationId: $taskApplicationId)
 }

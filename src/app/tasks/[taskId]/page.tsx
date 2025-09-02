@@ -39,11 +39,9 @@ export default function TaskDetailsPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Header */}
       <Header />
 
       <div className="container mx-auto px-4 py-8">
-        {/* Back Navigation */}
         <div className="mb-6">
           <Link
             href="/browse"
@@ -55,24 +53,13 @@ export default function TaskDetailsPage() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Task Header */}
             <TaskHeader task={task} />
-
-            {/* Task Details Tabs */}
             <TaskDetails task={task} />
           </div>
-
-          {/* Sidebar */}
           <div className="space-y-6">
-            {/* Захиалагчийн мэдээлэл */}
             <PosterCard task={task} />
-
-            {/* Түргэн статистик */}
             <QuickStats task={task} />
-
-            {/* Аюулгүй байдлын зөвлөмж */}
             <Instruction />
           </div>
         </div>

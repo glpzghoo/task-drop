@@ -28,8 +28,6 @@ import {
 } from '../utils/helpers';
 import { cn } from '@/lib/utils';
 
-// Small helpers
-
 export default function TaskCardGrid({
   tasks,
   loading,

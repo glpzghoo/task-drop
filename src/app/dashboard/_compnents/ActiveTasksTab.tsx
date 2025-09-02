@@ -2,7 +2,6 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
   Clock,
   MapPin,
@@ -15,6 +14,8 @@ import { Task, TaskStatus, useGetUserTasksQuery } from '@/graphql/generated';
 import { getStatusConfig } from '@/app/browse/utils/helpers';
 import { cn } from '@/lib/utils';
 import { TaskStatusStepper } from '@/app/_components/Status_Stepper';
+import { Button } from '@mui/material';
+import DashboardTaskapplications from './DashboardTaskapplications';
 
 export default function ActiveTasksTab() {
   const { data, loading, error } = useGetUserTasksQuery();
@@ -45,69 +46,69 @@ export default function ActiveTasksTab() {
         <h2 className="text-xl font-semibold text-foreground">
           Идэвхтэй ажлууд
         </h2>
-        <Button asChild>
+        <Button>
           <Link href="/browse">Даалгавар хайх</Link>
         </Button>
       </div>
 
       {tasks.length > 0 ? (
         <div className="grid gap-4">
-          {tasks.length > 0
-            ? tasks.map((task) => {
-                const statusCfg = getStatusConfig(task.status);
-                return (
-                  <Card key={task.id}>
-                    <CardContent className="pt-6 flex flex-col gap-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="font-medium">{task.title}</h3>
-                            <Badge
-                              className={cn(
-                                'text-[11px] px-3 py-1 rounded-full font-semibold',
-                                task.status
-                                  ? statusCfg.color
-                                  : 'bg-muted text-muted-foreground'
-                              )}
-                            >
-                              {statusCfg.label}
-                            </Badge>
-                          </div>
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                            <div className="flex items-center gap-1">
-                              <MapPin className="w-4 h-4" />
-                              {task.address}
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Clock className="w-4 h-4" />
-                              {task.dueDate
-                                ? `${task.dueDate} үлдсэн`
-                                : 'Дуусах хугацаа байхгүй!'}
-                            </div>
-                            <span>Захиалагч: {task.poster.firstName}</span>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-xl font-bold text-green-600 mb-2">
-                            ₮{task.paymentAmount}
-                          </div>
-                          <div className="flex gap-2">
-                            <Button variant="outline" size="sm">
-                              <MessageSquare className="w-4 h-4 mr-1" />
-                              Зурвас
-                            </Button>
-                            {task.status === 'in_progress' && (
-                              <Button size="sm">Дууссан гэж тэмдэглэх</Button>
-                            )}
-                          </div>
-                        </div>
+          {tasks.map((task) => {
+            const statusCfg = getStatusConfig(task.status);
+            return (
+              <Card key={task.id}>
+                <CardContent className="pt-6 flex flex-col gap-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="font-medium">{task.title}</h3>
+
+                        <Badge
+                          className={cn(
+                            'text-[11px] px-3 py-1 rounded-full font-semibold',
+                            task.status
+                              ? statusCfg.color
+                              : 'bg-muted text-muted-foreground'
+                          )}
+                        >
+                          {statusCfg.label}
+                        </Badge>
                       </div>
-                      <TaskStatusStepper status={task.status as TaskStatus} />
-                    </CardContent>
-                  </Card>
-                );
-              })
-            : 'no tasks'}
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          <MapPin className="w-4 h-4" />
+                          {task.address}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {task.dueDate
+                            ? `${task.dueDate} үлдсэн`
+                            : 'Дуусах хугацаа байхгүй!'}
+                        </div>
+                        <span>Захиалагч: {task.poster.firstName}</span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xl font-bold text-green-600 mb-2">
+                        ₮{task.paymentAmount}
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="outlined">
+                          <MessageSquare className="w-4 h-4 mr-1" />
+                          Зурвас
+                        </Button>
+                        {task.status === 'in_progress' && (
+                          <Button>Дууссан гэж тэмдэглэх</Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <TaskStatusStepper status={task.status as TaskStatus} />
+                  <DashboardTaskapplications taskId={task.id} />
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       ) : (
         <Card>
@@ -119,7 +120,7 @@ export default function ActiveTasksTab() {
             <p className="text-muted-foreground mb-4">
               Орлого олохын тулд боломжит ажлуудыг үзэх
             </p>
-            <Button asChild>
+            <Button>
               <Link href="/browse">Даалгавар хайх</Link>
             </Button>
           </CardContent>

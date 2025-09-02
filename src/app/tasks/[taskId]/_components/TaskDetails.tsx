@@ -7,16 +7,12 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { MapPin, Navigation, Star } from 'lucide-react';
+import { MapPin, Navigation } from 'lucide-react';
 import { timeUntilDue } from '../utils/helpers';
-import { Button } from '@/components/ui/button';
 import { Task } from '@/graphql/generated';
-import { format } from 'date-fns';
-import AcceptOffer from './AcceptOffer';
+import Applications from '@/app/_components/Applications';
 
 const TaskDetails = ({ task }: { task: Task }) => {
-  const taskOwner = task.posterId === localStorage.getItem('userId');
   return (
     <Tabs defaultValue="details" className="space-y-6">
       <TabsList className="grid w-full grid-cols-3 rounded-md bg-card border border-border">
@@ -39,8 +35,6 @@ const TaskDetails = ({ task }: { task: Task }) => {
           Байршил
         </TabsTrigger>
       </TabsList>
-
-      {/* Дэлгэрэнгүй таб */}
       <TabsContent value="details" className="space-y-6">
         <Card className=" border-border">
           <CardHeader>
@@ -63,8 +57,6 @@ const TaskDetails = ({ task }: { task: Task }) => {
             )}
           </CardContent>
         </Card>
-
-        {/* Ажлын мэдээлэл / статистик */}
         <Card className=" border-border">
           <CardHeader>
             <CardTitle className="text-foreground">Ажлын мэдээлэл</CardTitle>
@@ -137,8 +129,6 @@ const TaskDetails = ({ task }: { task: Task }) => {
           </CardContent>
         </Card>
       </TabsContent>
-
-      {/* Хүсэлт таб */}
       <TabsContent value="applications" className="space-y-6">
         <Card className=" border-border">
           <CardHeader>
@@ -152,100 +142,12 @@ const TaskDetails = ({ task }: { task: Task }) => {
           <CardContent>
             <div className="space-y-6">
               {task.applications.map((application) => (
-                <div
-                  key={application.id}
-                  className="border border-border rounded-lg p-4"
-                >
-                  <div className="flex items-start gap-4">
-                    <Avatar className="w-12 h-12">
-                      <AvatarImage
-                        src={
-                          application.helper.profileImageUrl ||
-                          '/placeholder.svg'
-                        }
-                      />
-                      <AvatarFallback>
-                        {application.helper.firstName[0]}
-                        {application.helper.lastName[0]}
-                      </AvatarFallback>
-                    </Avatar>
-
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-2">
-                        <div>
-                          <h4 className="font-medium text-foreground">
-                            {application.helper.firstName}{' '}
-                            {application.helper.lastName}
-                          </h4>
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                            <div className="flex items-center gap-1">
-                              <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                              <span>{application.helper.helperRating}</span>
-                              <span>
-                                ({application.helper.helperRatingCount})
-                              </span>
-                            </div>
-                            <span>
-                              {application.helper.tasksCompleted} ажил
-                              гүйцэтгэсэн
-                            </span>
-                            {/* <span>
-                              {application.helper.completionRate}% гүйцэтгэл
-                            </span> */}
-                          </div>
-                        </div>
-
-                        <div className="text-right text-sm text-muted-foreground">
-                          <div>
-                            Хүсэлт илгээсэн:{' '}
-                            {format(
-                              Number(application.appliedAt),
-                              'yyyy-MM-dd HH:mm'
-                            )}
-                          </div>
-                          <div>
-                            Эхлэх боломжтой:{' '}
-                            {format(
-                              Number(application.proposedStartTime),
-                              'yyyy-MM-dd HH:mm'
-                            )}
-                          </div>
-                        </div>
-                      </div>
-
-                      <p className="text-foreground/90 mb-3">
-                        {application.message}
-                      </p>
-
-                      {taskOwner && (
-                        <div className="flex flex-wrap gap-2">
-                          <AcceptOffer taskApplicationId={application.id} />
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="border-border"
-                          >
-                            Профайл харах
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="border-border"
-                          >
-                            Мессеж бичих
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                <Applications key={application.id} application={application} />
               ))}
             </div>
           </CardContent>
         </Card>
       </TabsContent>
-
-      {/* Байршил таб */}
       <TabsContent value="location" className="space-y-6">
         <Card className=" border-border">
           <CardHeader>
@@ -263,8 +165,6 @@ const TaskDetails = ({ task }: { task: Task }) => {
                   Capitol Hill орчим — ойролцоо цэцэрлэгт хүрээлэн олон
                 </span>
               </div>
-
-              {/* Газрын зураг placeholder */}
               <div className="w-full h-64 bg-muted rounded-lg flex items-center justify-center border border-border">
                 <div className="text-center text-muted-foreground">
                   <MapPin className="w-12 h-12 mx-auto mb-2" />

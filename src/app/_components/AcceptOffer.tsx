@@ -1,12 +1,11 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { useUpdateTaskStatusBothSidesMutation } from '@/graphql/generated';
+import { useAcceptOfferMutation } from '@/graphql/generated';
 import CustomSnackBar from '@/lib/CustomSnackbar';
 import { useEffect, useState } from 'react';
 
 const AcceptOffer = ({ taskApplicationId }: { taskApplicationId: string }) => {
-  const [UpdateTaskStatusBothSides, { loading, data, error }] =
-    useUpdateTaskStatusBothSidesMutation();
+  const [AcceptOffer, { loading, data, error }] = useAcceptOfferMutation();
   const [snackbar, setSnackbar] = useState<{
     message: string;
     success: boolean;
@@ -14,7 +13,7 @@ const AcceptOffer = ({ taskApplicationId }: { taskApplicationId: string }) => {
 
   const send = async () => {
     try {
-      await UpdateTaskStatusBothSides({
+      await AcceptOffer({
         variables: { taskApplicationId },
         refetchQueries: ['getTaskById'],
       });
