@@ -25,9 +25,6 @@ query GetUserPublicInfoById($getUserPublicInfoByIdId: ID!) {
     lastName
     profileImageUrl
     bio
-    city
-    state
-    country
     availableNow
     isHelper
     isTaskPoster
@@ -102,10 +99,6 @@ query GetUserPrivateInfoById($getUserPrivateInfoByIdId: ID!) {
     bio
     dateOfBirth
     address
-    city
-    state
-    country
-    zipCode
     latitude
     longitude
     isHelper
@@ -273,10 +266,6 @@ query getTaskById($getTaskByIdId: String!) {
       bio
       dateOfBirth
       address
-      city
-      state
-      country
-      zipCode
       latitude
       longitude
       isHelper
@@ -357,10 +346,6 @@ query getTaskById($getTaskByIdId: String!) {
         bio
         dateOfBirth
         address
-        city
-        state
-        country
-        zipCode
         latitude
         longitude
         isHelper
@@ -468,7 +453,6 @@ query GetApplications($taskId: String!) {
       bio
       dateOfBirth
       address
-      country
       isHelper
       isTaskPoster
       availableNow
@@ -555,33 +539,7 @@ mutation NewTask(
     maxApplications: $maxApplications
     autoAssign: $autoAssign
   ) {
-    title
     id
-    posterId
-    categoryId
-    description
-    requirements
-    isRemote
-    address
-    latitude
-    longitude
-    estimatedDuration
-    paymentAmount
-    isUrgent
-    urgencyFee
-    status
-    assignedTo
-    startedAt
-    completedAt
-    dueDate
-    maxApplications
-    autoAssign
-    helperRating
-    posterRating
-    helperFeedback
-    posterFeedback
-    createdAt
-    updatedAt
   }
 }
 

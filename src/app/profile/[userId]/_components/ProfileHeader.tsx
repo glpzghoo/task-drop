@@ -8,7 +8,6 @@ import {
   Edit,
   Heart,
   Mail,
-  MapPin,
   MessageSquare,
   Phone,
   Shield,
@@ -43,14 +42,6 @@ const ProfileHeader = ({ user }: { user: Users }) => {
               <h1 className="text-2xl font-bold">
                 {user.firstName} {user.lastName}
               </h1>
-              {user.city && user.state && (
-                <div className="flex items-center justify-center md:justify-start gap-2 text-muted-foreground mt-1">
-                  <MapPin className="w-4 h-4" />
-                  <span>
-                    {user.city}, {user.state}
-                  </span>
-                </div>
-              )}
               <div className="flex items-center justify-center md:justify-start gap-2 text-muted-foreground mt-1">
                 <Calendar className="w-4 h-4" />
                 <span>

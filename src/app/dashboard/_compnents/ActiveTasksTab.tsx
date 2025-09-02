@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
   Clock,
@@ -10,7 +10,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import Link from 'next/link';
-import { Task, TaskStatus, useGetUserTasksQuery } from '@/graphql/generated';
+import { Task, useGetUserTasksQuery } from '@/graphql/generated';
 import { getStatusConfig } from '@/app/browse/utils/helpers';
 import { cn } from '@/lib/utils';
 import { TaskStatusStepper } from '@/app/_components/Status_Stepper';
@@ -102,10 +102,24 @@ export default function ActiveTasksTab() {
                       </div>
                     </div>
                   </div>
-                  <TaskStatusStepper status={task.status as TaskStatus} />
+                  <div>
+                    <Card>
+                      <CardTitle>Үйл явц</CardTitle>
+                      <CardContent>
+                        {userRole === 'helper' ? (
+                          <>
+                            <div>Маргаан гарсан:</div>
+                          </>
+                        ) : (
+                          userRole === 'poster' && <> poster</>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </div>
+                  <TaskStatusStepper status={task.status} />
                   {userRole === 'helper' ? (
                     <DashboardChangeStatus
-                      status={task.status as TaskStatus}
+                      status={task.status}
                       taskId={task.id}
                     />
                   ) : (

@@ -1,4 +1,5 @@
 import Applications from '@/app/_components/Applications';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -6,7 +7,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { TaskApplications, useGetApplicationsQuery } from '@/graphql/generated';
-import { Button } from '@mui/material';
 
 const DashboardTaskapplications = ({ taskId }: { taskId: string }) => {
   const { data } = useGetApplicationsQuery({ variables: { taskId } });
@@ -15,7 +15,7 @@ const DashboardTaskapplications = ({ taskId }: { taskId: string }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Хүсэлтүүдийг харах</Button>
+        <Button value="outline">Хүсэлтүүдийг харах</Button>
       </DialogTrigger>
       <DialogContent className=" w-10/12">
         <DialogTitle>Ирсэн хүсэлтүүд</DialogTitle>
