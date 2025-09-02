@@ -48,6 +48,14 @@ const Header = () => {
   useEffect(() => {
     if (data?.currentUser) {
       localStorage.setItem('userId', data.currentUser.id);
+      localStorage.setItem(
+        'userRole',
+        data.currentUser.isHelper
+          ? 'helper'
+          : data.currentUser.isTaskPoster
+            ? 'poster'
+            : 'none'
+      );
     }
   }, [data]);
 

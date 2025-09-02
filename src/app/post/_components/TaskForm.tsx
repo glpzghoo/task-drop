@@ -36,6 +36,13 @@ import {
 } from '@/graphql/generated';
 import { useEffect, useState } from 'react';
 import CustomSnackBar from '@/lib/CustomSnackbar';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { BadgeQuestionMark } from 'lucide-react';
 
 const initialDefaults: NewTaskFormData = {
   title: '',
@@ -48,6 +55,8 @@ const initialDefaults: NewTaskFormData = {
   isUrgent: false,
   requirements: '',
   urgencyFee: 0,
+  autoAssign: false,
+  maxApplications: 500,
 };
 
 export default function TaskForm() {
@@ -55,6 +64,7 @@ export default function TaskForm() {
     message: string;
     success: boolean;
   } | null>(null);
+  const [advanced, setAdvanced] = useState(false);
   const { data } = useGetCategoriesQuery();
   const [NewTask, { data: response, error }] = useNewTaskMutation();
   const form = useForm<NewTaskFormData>({
@@ -257,7 +267,7 @@ export default function TaskForm() {
               )}
             </div>
             <div className="rounded-lg border border-border bg-card p-6 space-y-6">
-              <h3 className="text-lg font-semibold">Хугацаа ба төвөгшил</h3>
+              <h3 className="text-lg font-semibold">Хугацаа</h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormField
@@ -372,27 +382,153 @@ export default function TaskForm() {
                 />
               )}
             </div>
-            <div className="rounded-lg border border-border bg-card p-6 space-y-6">
-              <h3 className="text-lg font-semibold">Нэмэлт шаардлага</h3>
+            <Switch checked={advanced} onCheckedChange={setAdvanced} />
+            {advanced && (
+              <div className="rounded-lg border border-border bg-card p-6 space-y-6">
+                <FormField
+                  control={form.control}
+                  name="requirements"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        <div className=" flex justify-between items-center w-full">
+                          <div>Тусгай шаардлага</div>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <BadgeQuestionMark />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                Жишээ., "Оюутан байх", "Эмэгтэй/Эрэгтэй байх",
+                                "Машинтай байх"
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Тусгай ур чадвар, багаж хэрэгсэл, гэрчилгээ гэх мэт..."
+                          rows={3}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="dueDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        <div className=" flex justify-between items-center w-full">
+                          <div>Дуусах хугацаа</div>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <BadgeQuestionMark />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                Уг даалгаврын хүчинтэй хугацаа. Уг хугацаанд
+                                хүрвэл нийтэд харагдахаа болино.
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          min={new Date().toString()}
+                          type="date"
+                          onChange={(e) =>
+                            field.onChange(
+                              new Date(e.target.value).getTime().toString()
+                            )
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="maxApplications"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        <div className=" flex justify-between items-center w-full">
+                          <div>Хүсэлтийн хязгаар</div>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <BadgeQuestionMark />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                Уг даалгаварт хэдэн хүн хүсэлт илгээх тоо.
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          max={500}
+                          min={3}
+                          type="number"
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="autoAssign"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        <div className=" flex justify-between items-center w-full">
+                          <div>Автоматаар зөвшөөрөх</div>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <BadgeQuestionMark />
+                              </TooltipTrigger>
+                              <TooltipContent className="text-justify w-20%">
+                                Хамгийн эхэнд хүсэлт тавьсан хүн таны зөвшөөрөл
+                                шаардлагагүйгээр, <br /> автомаар даалгаварыг
+                                хүлээх авах болно. <br />
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                      </FormLabel>
+                      <FormControl>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={(e) => field.onChange(e)}
+                        />
+                      </FormControl>
+                      {field.value && (
+                        <span className=" text-red-600">
+                          ТАНЫ ТААЛАГДАХГҮЙ ХҮН АВТОМААР ТОМИЛОГДОХ <br />{' '}
+                          МАГАДЛАЛТАЙ ТУЛ БОЛГООМЖТОЙ ХАНДАНА УУ!
+                        </span>
+                      )}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
 
-              <FormField
-                control={form.control}
-                name="requirements"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Тусгай шаардлага (заавал биш)</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Тусгай ур чадвар, багаж хэрэгсэл, гэрчилгээ гэх мэт..."
-                        rows={3}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <Button
                 disabled={form.formState.isSubmitting}

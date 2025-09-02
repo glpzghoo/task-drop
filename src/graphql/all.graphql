@@ -13,6 +13,8 @@ query CurrentUser {
     id
     firstName
     lastName
+    isTaskPoster
+    isHelper
   }
 }
 
@@ -194,9 +196,6 @@ query GetTasks {
     requirements
     isRemote
     address
-    city
-    state
-    zipCode
     latitude
     longitude
     estimatedDuration
@@ -318,9 +317,6 @@ query getTaskById($getTaskByIdId: String!) {
     requirements
     isRemote
     address
-    city
-    state
-    zipCode
     latitude
     longitude
     estimatedDuration
@@ -418,9 +414,6 @@ query GetUserTasks {
     requirements
     isRemote
     address
-    city
-    state
-    zipCode
     latitude
     longitude
     estimatedDuration
@@ -543,6 +536,9 @@ mutation NewTask(
   $requirements: String
   $estimatedCost: Int!
   $urgencyFee: Int
+  $dueDate: String
+  $maxApplications: Int
+  $autoAssign: Boolean
 ) {
   NewTask(
     title: $title
@@ -555,6 +551,9 @@ mutation NewTask(
     requirements: $requirements
     estimatedCost: $estimatedCost
     urgencyFee: $urgencyFee
+    dueDate: $dueDate
+    maxApplications: $maxApplications
+    autoAssign: $autoAssign
   ) {
     title
     id
@@ -564,9 +563,6 @@ mutation NewTask(
     requirements
     isRemote
     address
-    city
-    state
-    zipCode
     latitude
     longitude
     estimatedDuration

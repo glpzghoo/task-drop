@@ -16,6 +16,9 @@ import { cn } from '@/lib/utils';
 import { TaskStatusStepper } from '@/app/_components/Status_Stepper';
 import { Button } from '@mui/material';
 import DashboardTaskapplications from './DashboardTaskapplications';
+import { timeUntilDue } from '@/app/tasks/[taskId]/utils/helpers';
+import { getUserRole } from '@/lib/get-user-role';
+import DashboardChangeStatus from './ChangeStatus';
 
 export default function ActiveTasksTab() {
   const { data, loading, error } = useGetUserTasksQuery();
@@ -40,6 +43,7 @@ export default function ActiveTasksTab() {
   }
 
   const tasks = data?.getUserTasks as Task[];
+  const userRole = getUserRole();
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -81,9 +85,7 @@ export default function ActiveTasksTab() {
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock className="w-4 h-4" />
-                          {task.dueDate
-                            ? `${task.dueDate} үлдсэн`
-                            : 'Дуусах хугацаа байхгүй!'}
+                          {timeUntilDue(task.dueDate)}
                         </div>
                         <span>Захиалагч: {task.poster.firstName}</span>
                       </div>
@@ -97,14 +99,20 @@ export default function ActiveTasksTab() {
                           <MessageSquare className="w-4 h-4 mr-1" />
                           Зурвас
                         </Button>
-                        {task.status === 'in_progress' && (
-                          <Button>Дууссан гэж тэмдэглэх</Button>
-                        )}
                       </div>
                     </div>
                   </div>
                   <TaskStatusStepper status={task.status as TaskStatus} />
-                  <DashboardTaskapplications taskId={task.id} />
+                  {userRole === 'helper' ? (
+                    <DashboardChangeStatus
+                      status={task.status as TaskStatus}
+                      taskId={task.id}
+                    />
+                  ) : (
+                    userRole === 'poster' && (
+                      <DashboardTaskapplications taskId={task.id} />
+                    )
+                  )}
                 </CardContent>
               </Card>
             );
