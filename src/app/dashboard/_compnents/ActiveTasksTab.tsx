@@ -61,7 +61,6 @@ export default function ActiveTasksTab() {
                 <div>
                   <TaskStatusPanel task={task} userRole={userRole} />
                 </div>
-                <TaskStatusStepper status={task.status} />
                 {userRole === 'helper' ? (
                   <DashboardChangeStatus
                     status={task.status}
@@ -70,7 +69,10 @@ export default function ActiveTasksTab() {
                 ) : (
                   userRole === 'poster' &&
                   task.status === 'open' && (
-                    <DashboardTaskapplications taskId={task.id} />
+                    <>
+                      <TaskStatusStepper status={task.status} />
+                      <DashboardTaskapplications taskId={task.id} />
+                    </>
                   )
                 )}
               </CardContent>

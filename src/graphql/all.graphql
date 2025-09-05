@@ -404,6 +404,8 @@ query GetUserTasks {
     estimatedDuration
     disputeReason1
     disputeReason2
+    helperDisputed
+    posterDisputed
     paymentAmount
     isUrgent
     urgencyFee
@@ -565,4 +567,8 @@ mutation UpdateTaskStatusBothSides($taskId: String!, $ratingGiven: Float) {
 
 mutation AcceptOffer($taskApplicationId: String!) {
   AcceptOffer(TaskApplicationId: $taskApplicationId)
+}
+
+mutation NewDispute($taskId: String!, $reason: String!) {
+  newDispute(taskId: $taskId, reason: $reason)
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Check, AlertTriangle, XCircle, Gavel } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 export enum TaskStatus {
   Assigned = 'assigned',
@@ -153,26 +153,6 @@ export function TaskStatusStepper({
             );
           })}
         </ol>
-      </div>
-      <div className="mt-2 flex items-center gap-2">
-        {isWarning(status) && (
-          <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-medium text-amber-700">
-            <AlertTriangle className="h-3.5 w-3.5" />
-            {LABELS[TaskStatus.Overdue]}
-          </span>
-        )}
-        {status === TaskStatus.Cancelled && (
-          <span className="inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-[11px] font-medium text-destructive">
-            <XCircle className="h-3.5 w-3.5" />
-            {LABELS[TaskStatus.Cancelled]}
-          </span>
-        )}
-        {status === TaskStatus.Disputed && (
-          <span className="inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-[11px] font-medium text-destructive">
-            <Gavel className="h-3.5 w-3.5" />
-            {LABELS[TaskStatus.Disputed]}
-          </span>
-        )}
       </div>
     </div>
   );

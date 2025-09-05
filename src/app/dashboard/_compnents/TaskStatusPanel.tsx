@@ -1,8 +1,8 @@
 'use client';
 
+import { useMemo } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
 import {
   CheckCircle2,
@@ -13,21 +13,16 @@ import {
   MapPin,
   User,
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { TaskStatus, Task } from '@/graphql/generated';
 import { formatDistanceToNowStrict, isBefore } from 'date-fns';
 import { mn } from 'date-fns/locale';
 import { UserRole } from '@/lib/get-user-role';
-import {
-  FLOW,
-  InfoItem,
-  mnt,
-  RatingBlock,
-  resolveFlow,
-  statusMeta,
-  toDate,
-} from '../utils/helpers';
+import { InfoItem, mnt, RatingBlock, toDate } from '../utils/helpers';
 import { TaskStatusBadge } from '@/app/_components/TaskStatusBadge';
+import DisputeButton from './actions/DisputeButton';
+import CancelButton from './actions/CancelButton';
+import OverdueButton from './actions/OverdueButton';
+import { TaskStatusStepper } from '@/app/_components/Status_Stepper';
 
 export function TaskStatusPanel({
   task,
@@ -36,29 +31,34 @@ export function TaskStatusPanel({
   task: Task;
   userRole: UserRole;
 }) {
-  const meta = statusMeta[task.status];
-
-  const flow = resolveFlow(task.status);
-  const idx = FLOW.indexOf(flow);
-  const pct = (idx / (FLOW.length - 1)) * 100;
-
   const due = toDate(task.dueDate);
   const completed = toDate(task.completedAt);
 
-  const dueText = due
-    ? isBefore(due, new Date())
-      ? `Хугацаа хэтэрсэн • ${formatDistanceToNowStrict(due, { addSuffix: true, locale: mn })}`
-      : formatDistanceToNowStrict(due, { addSuffix: true, locale: mn })
+  const dueText = useMemo(() => {
+    if (!due) return '—';
+    const base = formatDistanceToNowStrict(due, {
+      addSuffix: true,
+      locale: mn,
+    });
+    return isBefore(due, new Date()) ? `Хугацаа хэтэрсэн • ${base}` : base;
+  }, [due]);
+
+  const whoDisputed = useMemo(() => {
+    if (task.status !== TaskStatus.Disputed) return null;
+    const poster = Boolean(task.disputeReason1?.trim());
+    const helper = Boolean(task.disputeReason2?.trim());
+    if (poster && helper) return 'Хоёулаа';
+    if (poster) return 'Захиалагч';
+    if (helper) return 'Гүйцэтгэгч';
+    return 'Тодорхойгүй';
+  }, [task.status, task.disputeReason1, task.disputeReason2]);
+
+  const assigneeName = task.assignee
+    ? `${task.assignee.firstName ?? ''} ${task.assignee.lastName ?? ''}`.trim() ||
+      '—'
     : '—';
 
-  const whoDisputed =
-    task.status === TaskStatus.Disputed
-      ? task.disputeReason1
-        ? 'Захиалагч'
-        : task.disputeReason2
-          ? 'Гүйцэтгэгч'
-          : 'Тодорхойгүй'
-      : null;
+  const locationText = task.isRemote ? 'Алсаас' : task.address || '—';
 
   return (
     <Card className="border-muted">
@@ -70,80 +70,86 @@ export function TaskStatusPanel({
       </CardHeader>
 
       <CardContent className="space-y-4">
-        <div>
-          <Progress
-            value={pct}
-            className={cn(meta.tone === 'bad' && 'bg-destructive/20', 'h-2')}
-          />
-          <div className="mt-1 flex justify-between text-[11px] text-muted-foreground">
-            <span>Нээлттэй</span>
-            <span>Хуваарилсан</span>
-            <span>Ажиллаж байна</span>
-            <span>Дууссан</span>
-          </div>
-        </div>
-        {task.status === TaskStatus.Disputed && (
-          <Alert variant="destructive" className="border-destructive/40">
-            <AlertTitle className="flex items-center gap-2">
-              <Gavel className="h-4 w-4" /> Маргаан эхэлсэн — {whoDisputed}
-            </AlertTitle>
-            <AlertDescription className="mt-1 whitespace-pre-wrap">
-              {task.disputeReason1 ||
-                task.disputeReason2 ||
-                'Шалтгаан оруулаагүй.'}
-            </AlertDescription>
-          </Alert>
-        )}
-
-        {task.status === TaskStatus.Overdue && (
-          <Alert className="border-amber-400/40 bg-amber-50 text-amber-900 dark:bg-amber-950/30 dark:text-amber-200">
-            <AlertTitle className="flex items-center gap-2">
-              <AlertTriangle className="h-4 w-4" /> Хугацаа хэтэрсэн
-            </AlertTitle>
-            <AlertDescription className="mt-1">
-              Дуусах хугацаа:{' '}
-              {due
-                ? formatDistanceToNowStrict(due, {
-                    addSuffix: true,
-                    locale: mn,
-                  })
-                : '—'}
-            </AlertDescription>
-          </Alert>
-        )}
-
-        {task.status === TaskStatus.Cancelled && (
-          <Alert variant="destructive">
-            <AlertTitle className="flex items-center gap-2">
-              <XCircle className="h-4 w-4" /> Ажил цуцлагдсан
-            </AlertTitle>
-            <AlertDescription>
-              Энэ ажлын гүйцэтгэл үргэлжлэхгүй.
-            </AlertDescription>
-          </Alert>
-        )}
+        <TaskStatusStepper status={task.status} />
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <InfoItem icon={Clock} label="Дуусах" value={dueText} />
-          <InfoItem
-            icon={User}
-            label="Гүйцэтгэгч"
-            value={
-              task.assignee
-                ? `${task.assignee.firstName} ${task.assignee.lastName}`
-                : '—'
-            }
-          />
-          <InfoItem
-            icon={MapPin}
-            label="Байршил"
-            value={task.isRemote ? 'Алсаас' : task.address || '—'}
-          />
+          <InfoItem icon={User} label="Гүйцэтгэгч" value={assigneeName} />
+          <InfoItem icon={MapPin} label="Байршил" value={locationText} />
           <InfoItem
             icon={CheckCircle2}
             label="Төлбөр"
             value={mnt(task.paymentAmount)}
           />
         </div>
+        <div className="space-y-3">
+          {task.status === TaskStatus.Disputed && (
+            <Alert variant="destructive" className="border-destructive/40">
+              <AlertTitle className="flex items-center gap-2">
+                <Gavel className="h-4 w-4" /> Маргаан эхэлсэн — {whoDisputed}
+              </AlertTitle>
+              <AlertDescription className="mt-1 whitespace-pre-wrap">
+                {task.disputeReason1?.trim() ||
+                  task.disputeReason2?.trim() ||
+                  'Маргааны шалтгаан оруулаагүй.'}
+              </AlertDescription>
+            </Alert>
+          )}
+
+          {task.status === TaskStatus.Overdue && (
+            <Alert className="border-amber-400/40 bg-amber-50 text-amber-900 dark:bg-amber-950/30 dark:text-amber-200">
+              <AlertTitle className="flex items-center gap-2">
+                <AlertTriangle className="h-4 w-4" /> Хугацаа хэтэрсэн
+              </AlertTitle>
+              <AlertDescription className="mt-1">
+                Дуусах хугацаа:{' '}
+                {due
+                  ? formatDistanceToNowStrict(due, {
+                      addSuffix: true,
+                      locale: mn,
+                    })
+                  : '—'}
+              </AlertDescription>
+            </Alert>
+          )}
+
+          {task.status === TaskStatus.Cancelled && (
+            <Alert variant="destructive">
+              <AlertTitle className="flex items-center gap-2">
+                <XCircle className="h-4 w-4" /> Ажил цуцлагдсан
+              </AlertTitle>
+              <AlertDescription>
+                Энэ ажлын гүйцэтгэл үргэлжлэхгүй.
+              </AlertDescription>
+            </Alert>
+          )}
+        </div>
+
+        <div className="flex justify-center gap-4">
+          <div>
+            {task.status !== TaskStatus.Disputed ? (
+              <DisputeButton taskId={task.id} />
+            ) : (
+              <div className="w-full rounded-md border border-transparent opacity-0 pointer-events-none" />
+            )}
+          </div>
+
+          <div>
+            {userRole === 'poster' && task.status !== TaskStatus.Overdue ? (
+              <OverdueButton />
+            ) : (
+              <div className="w-full rounded-md border border-transparent opacity-0 pointer-events-none" />
+            )}
+          </div>
+
+          <div>
+            {userRole === 'poster' && task.status !== TaskStatus.Cancelled ? (
+              <CancelButton />
+            ) : (
+              <div className="w-full rounded-md border border-transparent opacity-0 pointer-events-none" />
+            )}
+          </div>
+        </div>
+
         {task.status === TaskStatus.Completed && (
           <>
             <Separator />
@@ -170,14 +176,6 @@ export function TaskStatusPanel({
             )}
           </>
         )}
-        <div className="text-[11px] text-muted-foreground">
-          {userRole === 'helper' &&
-            task.status === TaskStatus.InProgress &&
-            'Дуусгахын өмнө захиалагчийг үнэлнэ үү.'}
-          {userRole === 'poster' &&
-            task.status === TaskStatus.Disputed &&
-            'Маргааныг шийдсэний дараа төлвийг сэргээж болно.'}
-        </div>
       </CardContent>
     </Card>
   );
