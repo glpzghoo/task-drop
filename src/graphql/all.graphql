@@ -404,6 +404,8 @@ query GetUserTasks {
     estimatedDuration
     disputeReason1
     disputeReason2
+    markCompleted1
+    markCompleted2
     helperDisputed
     posterDisputed
     paymentAmount
@@ -561,14 +563,54 @@ mutation NewTaskApplication(
   }
 }
 
-mutation UpdateTaskStatusBothSides($taskId: String!, $ratingGiven: Float) {
-  UpdateTaskStatusBothSides(taskId: $taskId, ratingGiven: $ratingGiven)
-}
-
 mutation AcceptOffer($taskApplicationId: String!) {
   AcceptOffer(TaskApplicationId: $taskApplicationId)
 }
 
 mutation NewDispute($taskId: String!, $reason: String!) {
   newDispute(taskId: $taskId, reason: $reason)
+}
+
+mutation SolveDispute($taskId: String!) {
+  solveDispute(taskId: $taskId)
+}
+
+mutation CancelTask($taskId: String!) {
+  cancelTask(taskId: $taskId)
+}
+
+mutation ChangeToOverdue($taskId: String!) {
+  changeToOverdue(taskId: $taskId)
+}
+
+mutation HelperStartTask($taskId: String!) {
+  helperStartTask(taskId: $taskId)
+}
+
+mutation HelperMarkDone(
+  $taskId: String!
+  $ratingGiven: Float
+  $feedback: String
+) {
+  helperMarkDone(
+    taskId: $taskId
+    ratingGiven: $ratingGiven
+    feedback: $feedback
+  )
+}
+
+mutation PosterConfirmAndRate(
+  $taskId: String!
+  $feedback: String
+  $ratingGiven: Float
+) {
+  posterConfirmAndRate(
+    taskId: $taskId
+    feedback: $feedback
+    ratingGiven: $ratingGiven
+  )
+}
+
+mutation FinalizeIfSettled($taskId: String!) {
+  finalizeIfSettled(taskId: $taskId)
 }

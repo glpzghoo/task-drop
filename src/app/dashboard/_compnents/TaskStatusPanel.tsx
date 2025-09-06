@@ -23,6 +23,7 @@ import DisputeButton from './actions/DisputeButton';
 import CancelButton from './actions/CancelButton';
 import OverdueButton from './actions/OverdueButton';
 import { TaskStatusStepper } from '@/app/_components/Status_Stepper';
+import SolveDispute from './actions/SolveDispute';
 
 export function TaskStatusPanel({
   task,
@@ -84,8 +85,11 @@ export function TaskStatusPanel({
         <div className="space-y-3">
           {task.status === TaskStatus.Disputed && (
             <Alert variant="destructive" className="border-destructive/40">
-              <AlertTitle className="flex items-center gap-2">
-                <Gavel className="h-4 w-4" /> Маргаан эхэлсэн — {whoDisputed}
+              <AlertTitle className=" flex justify-between">
+                <div className="flex items-center gap-2">
+                  <Gavel className="h-4 w-4" /> Маргаан эхэлсэн — {whoDisputed}
+                </div>
+                <SolveDispute taskId={task.id} />
               </AlertTitle>
               <AlertDescription className="mt-1 whitespace-pre-wrap">
                 {task.disputeReason1?.trim() ||
@@ -135,7 +139,7 @@ export function TaskStatusPanel({
 
           <div>
             {userRole === 'poster' && task.status !== TaskStatus.Overdue ? (
-              <OverdueButton />
+              <OverdueButton taskId={task.id} />
             ) : (
               <div className="w-full rounded-md border border-transparent opacity-0 pointer-events-none" />
             )}
@@ -143,7 +147,7 @@ export function TaskStatusPanel({
 
           <div>
             {userRole === 'poster' && task.status !== TaskStatus.Cancelled ? (
-              <CancelButton />
+              <CancelButton taskId={task.id} />
             ) : (
               <div className="w-full rounded-md border border-transparent opacity-0 pointer-events-none" />
             )}

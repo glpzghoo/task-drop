@@ -61,19 +61,20 @@ export default function ActiveTasksTab() {
                 <div>
                   <TaskStatusPanel task={task} userRole={userRole} />
                 </div>
-                {userRole === 'helper' ? (
+                {(userRole == 'poster' || userRole === 'helper') && (
                   <DashboardChangeStatus
                     status={task.status}
                     taskId={task.id}
+                    userRole={userRole}
+                    markCompleted1={task.markCompleted1}
+                    markCompleted2={task.markCompleted2}
                   />
-                ) : (
-                  userRole === 'poster' &&
-                  task.status === 'open' && (
-                    <>
-                      <TaskStatusStepper status={task.status} />
-                      <DashboardTaskapplications taskId={task.id} />
-                    </>
-                  )
+                )}
+                {userRole === 'poster' && task.status === 'open' && (
+                  <>
+                    <TaskStatusStepper status={task.status} />
+                    <DashboardTaskapplications taskId={task.id} />
+                  </>
                 )}
               </CardContent>
             </Card>

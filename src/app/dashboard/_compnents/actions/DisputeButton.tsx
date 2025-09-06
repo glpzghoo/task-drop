@@ -87,16 +87,7 @@ export default function DisputeButton({ taskId }: Props) {
           <Button variant="ghost">Маргаан үүсгэх</Button>
         </DialogTrigger>
 
-        {/* Compact, not-stretched dialog */}
-        <DialogContent
-          className="
-            sm:max-w-[520px]   /* cap width on desktop */
-            w-[calc(100vw-2rem)]
-            p-0                 /* remove default padding to control sections */
-            gap-0               /* remove default vertical gaps */
-            overflow-hidden     /* nice rounded corners with sections */
-          "
-        >
+        <DialogContent className="sm:max-w-[520px] w-[calc(100vw-2rem)] p-0 gap-0 overflow-hidden">
           <DialogHeader className="px-6 py-4 border-b">
             <DialogTitle className="flex items-center gap-2">
               <Gavel className="h-4 w-4" />
@@ -107,7 +98,6 @@ export default function DisputeButton({ taskId }: Props) {
             </DialogDescription>
           </DialogHeader>
 
-          {/* Body */}
           <div className="px-6 py-4 space-y-2">
             <Textarea
               autoFocus
@@ -122,7 +112,7 @@ export default function DisputeButton({ taskId }: Props) {
                     dispute({ variables: { reason: reason.trim(), taskId } });
                 }
               }}
-              placeholder="Жишээ: Гүйцэтгэлд дараах асуудлууд ажиглагдсан…"
+              placeholder="Жишээ: Гүйцэтгэлд дараах асуудлууд үүссэн..."
               aria-invalid={touched && !!validationError}
               className={`
                 min-h-28 max-h-[45vh] resize-y
@@ -141,7 +131,6 @@ export default function DisputeButton({ taskId }: Props) {
             </div>
           </div>
 
-          {/* Footer: visually anchored bar so content doesn't feel stretched */}
           <DialogFooter className="px-6 py-3 border-t bg-muted/40 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <Button
               variant="outline"
