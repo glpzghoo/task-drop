@@ -7,11 +7,11 @@ import { Task, useGetUserTasksQuery } from '@/graphql/generated';
 import { TaskStatusStepper } from '@/app/_components/Status_Stepper';
 import { Button } from '@mui/material';
 import DashboardTaskapplications from './DashboardTaskapplications';
-import { getUserRole } from '@/lib/get-user-role';
 import DashboardChangeStatus from './ChangeStatus';
 import { TaskStatusPanel } from './TaskStatusPanel';
+import { UserRole } from '@/lib/get-user-role';
 
-export default function ActiveTasksTab() {
+export default function ActiveTasksTab({ userRole }: { userRole: UserRole }) {
   const { data, loading, error } = useGetUserTasksQuery();
 
   if (loading) {
@@ -34,12 +34,12 @@ export default function ActiveTasksTab() {
   }
 
   const tasks = data?.getUserTasks as Task[];
-  const userRole = getUserRole();
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-foreground">
-          Идэвхтэй ажлууд
+          Идэвхтэй даалгаврууд
         </h2>
         <Button>
           <Link href="/browse">Даалгавар хайх</Link>
@@ -88,7 +88,7 @@ export default function ActiveTasksTab() {
               Идэвхтэй даалгавар алга
             </h3>
             <p className="text-muted-foreground mb-4">
-              Орлого олохын тулд боломжит ажлуудыг үзэх
+              Орлого олохын тулд боломжит даалгавруудыг үзэх
             </p>
             <Button>
               <Link href="/browse">Даалгавар хайх</Link>

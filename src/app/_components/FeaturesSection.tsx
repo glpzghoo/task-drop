@@ -12,8 +12,8 @@ const FeaturesSection = () => {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              Ажлуудын ихэнх нь 15-60 минут. Богинохон чөлөөт цагаа үр дүнтэй
-              ашиглаарай.
+              Даалгавруудын ихэнх нь 15-60 минут. Богинохон чөлөөт цагаа үр
+              дүнтэй ашиглаарай.
             </p>
           </CardContent>
         </Card>
@@ -24,7 +24,8 @@ const FeaturesSection = () => {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              "Бэлэн" горимыг асаагаад орчин тойрны ажлуудад даруй холбогдоорой.
+              "Бэлэн" горимыг асаагаад орчин тойрны даалгавруудад даруй
+              холбогдоорой.
             </p>
           </CardContent>
         </Card>

@@ -56,7 +56,7 @@ export default function CancelButton({
     []
   );
 
-  const canCancel = isPoster && (status ? !blocked.has(status) : true); // if status unknown, allow click and let server decide
+  const canCancel = isPoster && (status ? !blocked.has(status) : true);
 
   const disabledReason = useMemo(() => {
     if (!isPoster) return 'Зөвхөн захиалагч цуцлах эрхтэй.';
@@ -73,7 +73,7 @@ export default function CancelButton({
 
   const [cancelTask, { data, error, loading, reset }] = useCancelTaskMutation({
     awaitRefetchQueries: true,
-    optimisticResponse: { cancelTask: true }, // adjust if your mutation field name differs
+    optimisticResponse: { cancelTask: true },
     refetchQueries: ['GetUserTasks'],
   });
 
@@ -103,7 +103,7 @@ export default function CancelButton({
 
   const triggerBtn = (
     <Button
-      variant="destructive"
+      variant="ghost"
       disabled={!canCancel || loading}
       aria-busy={loading}
       className="justify-start"

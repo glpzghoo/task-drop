@@ -479,6 +479,52 @@ query GetApplications($taskId: String!) {
   }
 }
 
+query TaskHistory {
+  taskHistory {
+    id
+    posterId
+    categoryId
+    title
+    description
+    requirements
+    isRemote
+    address
+    latitude
+    longitude
+    estimatedDuration
+    paymentAmount
+    isUrgent
+    urgencyFee
+    status
+    assignedTo
+    startedAt
+    completedAt
+    dueDate
+    maxApplications
+    autoAssign
+    helperRating
+    posterRating
+    helperFeedback
+    posterFeedback
+    disputeReason1
+    disputeReason2
+    markCompleted1
+    markCompleted2
+    posterDisputed
+    helperDisputed
+    createdAt
+    updatedAt
+    assignee {
+      lastName
+      firstName
+    }
+    poster {
+      lastName
+      firstName
+    }
+  }
+}
+
 mutation CreateUser(
   $email: String!
   $firstName: String!

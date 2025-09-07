@@ -48,7 +48,9 @@ const FeaturedTasks = () => {
   return (
     <section className="container mx-auto px-4 py-16">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold mb-4">Яг одоо боломжтой ажлууд</h2>
+        <h2 className="text-3xl font-bold mb-4">
+          Яг одоо боломжтой даалгаврууд
+        </h2>
         <p className="text-muted-foreground">
           Одоогоор оролцож туслах эсвэл орлого олоорой
         </p>
@@ -96,7 +98,7 @@ const FeaturedTasks = () => {
       </div>
       <div className="text-center mt-8">
         <Button variant="outline" size="lg">
-          Бүх ажлуудыг үзэх
+          Бүх даалгавруудыг үзэх
         </Button>
       </div>
     </section>

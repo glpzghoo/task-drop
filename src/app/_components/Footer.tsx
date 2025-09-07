@@ -14,7 +14,7 @@ const Footer = () => {
               <span className="text-xl font-bold">TaskDrop</span>
             </div>
             <p className="text-muted-foreground">
-              Түргэн ажлуудыг гүйцэтгэхэд хүмүүсийг холбодог платформ.
+              Түргэн даалгавруудыг гүйцэтгэхэд хүмүүсийг холбодог платформ.
             </p>
           </div>
           <div>

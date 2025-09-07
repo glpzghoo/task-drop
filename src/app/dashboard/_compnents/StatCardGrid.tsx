@@ -1,9 +1,11 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { DashboardResponse } from '@/graphql/generated';
+import { UserRole } from '@/lib/get-user-role';
 import { CheckCircle, DollarSign, Star, Clock } from 'lucide-react';
 
 type Props = {
   response: DashboardResponse;
+  userRole: UserRole;
 };
 export default function StatCardGrid({ response }: Props) {
   const items = [

@@ -10,7 +10,7 @@ export default function PostedTasksTab({ tasks }: { tasks: any[] }) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-foreground">
-          Таны нийтэлсэн ажлууд
+          Таны нийтэлсэн даалгаврууд
         </h2>
         <Button asChild>
           <Link href="/post">Шинэ даалгавар нийтлэх</Link>

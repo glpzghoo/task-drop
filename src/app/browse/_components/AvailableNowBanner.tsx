@@ -10,7 +10,7 @@ export default function AvailableNowBanner() {
         <div>
           <p className="font-medium text-green-800">Та одоо боломжтой!</p>
           <p className="text-sm text-green-600">
-            Байрлалаа харгалзах ажлууд гарвал мэдэгдэнэ.
+            Байрлалаа харгалзах даалгаврууд гарвал мэдэгдэнэ.
           </p>
         </div>
       </CardContent>

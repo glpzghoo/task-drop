@@ -24,6 +24,7 @@ import CancelButton from './actions/CancelButton';
 import OverdueButton from './actions/OverdueButton';
 import { TaskStatusStepper } from '@/app/_components/Status_Stepper';
 import SolveDispute from './actions/SolveDispute';
+import { getUserRolePronoun } from '@/app/_components/utils/helpers';
 
 export function TaskStatusPanel({
   task,
@@ -159,12 +160,12 @@ export function TaskStatusPanel({
             <Separator />
             <div className="grid gap-4 sm:grid-cols-2">
               <RatingBlock
-                title="Захиалагчийн үнэлгээ (helper → poster)"
+                title={`Захиалагчийн үнэлгээ (${getUserRolePronoun('helper')} → ${getUserRolePronoun('poster')})`}
                 rating={task.posterRating}
                 feedback={task.helperFeedback}
               />
               <RatingBlock
-                title="Гүйцэтгэгчийн үнэлгээ (poster → helper)"
+                title={`Гүйцэтгэгчийн үнэлгээ (${getUserRolePronoun('poster')} → ${getUserRolePronoun('helper')})`}
                 rating={task.helperRating}
                 feedback={task.posterFeedback}
               />

@@ -13,6 +13,7 @@ import { Label } from '@/components/ui/label';
 import { Loader2, BadgeCheck } from 'lucide-react';
 import { usePosterConfirmAndRateMutation } from '@/graphql/generated';
 import CustomSnackBar from '@/lib/CustomSnackbar';
+import { Textarea } from '@/components/ui/textarea';
 
 export default function PosterConfirmAndRateDialog({
   taskId,
@@ -21,6 +22,7 @@ export default function PosterConfirmAndRateDialog({
 }) {
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(5);
+  const [feedback, setFeedback] = useState('');
   const [snack, setSnack] = useState<{
     message: string;
     success: boolean;
@@ -58,7 +60,9 @@ export default function PosterConfirmAndRateDialog({
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Гүйцэтгэгчийг үнэлэх (заавал)</DialogTitle>
-            <DialogDescription>0.5 алхмаар үнэлнэ үү.</DialogDescription>
+            <DialogDescription>
+              Хэр сэтгэл хангалуун байна вэ?
+            </DialogDescription>
           </DialogHeader>
 
           <div className="mt-2 space-y-2">
@@ -76,6 +80,10 @@ export default function PosterConfirmAndRateDialog({
             <div className="text-sm text-muted-foreground">
               {rating.toFixed(1)} / 5.0
             </div>
+            <Textarea
+              onChange={(e) => setFeedback(e.target.value)}
+              disabled={loading}
+            />
           </div>
 
           <DialogFooter className="gap-2">
@@ -88,7 +96,9 @@ export default function PosterConfirmAndRateDialog({
             </Button>
             <Button
               onClick={() =>
-                confirmRate({ variables: { taskId, ratingGiven: rating } })
+                confirmRate({
+                  variables: { taskId, ratingGiven: rating, feedback },
+                })
               }
               disabled={loading || !rating}
             >

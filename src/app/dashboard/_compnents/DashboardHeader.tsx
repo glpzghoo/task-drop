@@ -4,9 +4,11 @@ import { useState } from 'react';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { DashboardResponse } from '@/graphql/generated';
+import { UserRole } from '@/lib/get-user-role';
 
 type Props = {
   response: DashboardResponse;
+  userRole: UserRole;
 };
 export default function DashboardHeader({ response }: Props) {
   const [availableNow, setAvailableNow] = useState(response.isAvailable);
@@ -18,7 +20,7 @@ export default function DashboardHeader({ response }: Props) {
           Тавтай морил, {response.fullname}!
         </h1>
         <p className="text-muted-foreground">
-          Ажлуудтай холбоотой шинэчлэлүүд энд байна
+          Даалгавруудтай холбоотой шинэчлэлүүд энд байна
         </p>
       </div>
 

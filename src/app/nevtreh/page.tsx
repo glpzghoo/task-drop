@@ -67,7 +67,9 @@ export default function LoginPage() {
           <h2 className="text-3xl font-bold text-foreground mb-2">
             Тавтай морил!
           </h2>
-          <p className="text-muted-foreground">Нэвтэрч ажлуудаа шалгаарай</p>
+          <p className="text-muted-foreground">
+            Нэвтэрч даалгавруудаа шалгаарай
+          </p>
         </div>
 
         {/* Right panel — Login Form */}

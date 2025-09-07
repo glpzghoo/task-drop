@@ -1,15 +1,17 @@
 'use client';
 
-import { postedTasks, recentTasks } from './mocks';
+import { postedTasks } from './mocks';
 import Header from '../_components/header';
 import DashboardHeader from './_compnents/DashboardHeader';
 import StatCardGrid from './_compnents/StatCardGrid';
 import DashboardTabs from './_compnents/DashboardTabs';
 import { DashboardResponse, useDashboardQuery } from '@/graphql/generated';
 import { Loader2 } from 'lucide-react';
+import { getUserRole } from '@/lib/get-user-role';
 
 export default function DashboardPage() {
   const { data, error, loading } = useDashboardQuery();
+  const userRole = getUserRole();
 
   if (loading)
     return (
@@ -30,14 +32,13 @@ export default function DashboardPage() {
     );
 
   const response = data.dashboard as DashboardResponse;
-
   return (
     <div className="min-h-screen">
       <Header />
       <div className="container mx-auto px-4 py-8">
-        <DashboardHeader response={response} />
-        <StatCardGrid response={response} />
-        <DashboardTabs recentTasks={recentTasks} postedTasks={postedTasks} />
+        <DashboardHeader response={response} userRole={userRole} />
+        <StatCardGrid response={response} userRole={userRole} />
+        <DashboardTabs postedTasks={postedTasks} userRole={userRole} />
       </div>
     </div>
   );

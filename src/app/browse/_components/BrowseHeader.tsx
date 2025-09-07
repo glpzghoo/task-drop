@@ -33,7 +33,7 @@ export default function BrowseHeader({
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-foreground">
-              Боломжит ажлууд
+              Боломжит даалгаврууд
             </h1>
             <p className="text-muted-foreground">
               {tasksCount} даалгаврын санал
